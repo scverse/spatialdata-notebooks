@@ -1,18 +1,11 @@
 ##
 # data from endometrium sample, described here https://pubmed.ncbi.nlm.nih.gov/34857954/
-import shutil
-import time
+import os
 from pathlib import Path
 
-import spatialdata as sd
-from PIL import Image
-
-from spatialdata_io import read_visium
-from tqdm.notebook import tqdm
-import os
-from napari_spatialdata import Interactive
-import xarray as xr
 import numpy as np
+import spatialdata as sd
+from napari_spatialdata import Interactive
 
 ##
 # luca's workaround for pycharm
@@ -114,18 +107,18 @@ for sample in samples:
     small_image_transformation = sdata.images[sample].transformations[sample]
     big_image_transformation = sd.Sequence(
         [
-            sd.Affine(sd.Affine._get_affine_iniection_from_axes(src_axes=('c', 'y', 'x'), des_axes=('x', 'y'))[:-1, :]),
+            sd.Affine(sd.Affine._get_affine_iniection_from_axes(src_axes=("c", "y", "x"), des_axes=("x", "y"))[:-1, :]),
             sd.Translation(-source_points[0, :]),
             sd.Scale((target_points[1, :] - target_points[0, :]) / (source_points[1, :] - source_points[0, :])),
             sd.Translation(target_points[0, :]),
-            sd.Affine(sd.Affine._get_affine_iniection_from_axes(src_axes=('x', 'y'), des_axes=('c', 'y', 'x'))[:-1, :]),
-            small_image_transformation
+            sd.Affine(sd.Affine._get_affine_iniection_from_axes(src_axes=("x", "y"), des_axes=("c", "y", "x"))[:-1, :]),
+            small_image_transformation,
         ]
     )
     for t in big_image_transformation.transformations:
         print(t.to_affine().affine)
     print(big_image_transformation.to_affine().affine)
-    sdata.images[f'hires_{sample}'].transformations[sample] = big_image_transformation
+    sdata.images[f"hires_{sample}"].transformations[sample] = big_image_transformation
     # del sdata.images[f'hires_{sample}']
 ##
 interactive = Interactive(sdata=sdata)
