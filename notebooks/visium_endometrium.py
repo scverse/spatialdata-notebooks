@@ -32,67 +32,67 @@ samples = ["152806", "152807", "152810", "152811"]
 # samples = ["152806"]
 
 ##
-# sdatas = []
-# for sample in tqdm(samples):
-#     spaceranger_data = os.path.join(root, "visium", sample)
-#     sdata = read_visium(spaceranger_data, coordinate_system_name=sample)
-#     print(sdata)
-#     sdatas.append(sdata)
-#
-# sdata = sd.SpatialData.concatenate(sdatas)
-# print(sdata)
+sdatas = []
+for sample in tqdm(samples):
+    spaceranger_data = os.path.join(root, "visium", sample)
+    sdata = read_visium(spaceranger_data, coordinate_system_name=sample)
+    print(sdata)
+    sdatas.append(sdata)
+
+sdata = sd.SpatialData.concatenate(sdatas)
+print(sdata)
+
+##
+if os.path.isdir(zarr_path):
+    shutil.rmtree(zarr_path)
+sdata.write(zarr_path)
 #
 # ##
-# if os.path.isdir(zarr_path):
-#     shutil.rmtree(zarr_path)
-# sdata.write(zarr_path)
-#
-# ##
-# sdata0 = sdata.filter_by_coordinate_system(samples[0])
-# print(sdata0)
-# print(sdatas[0])
-#
+sdata0 = sdata.filter_by_coordinate_system(samples[0])
+print(sdata0)
+print(sdatas[0])
+
 # ##
 # # interactive = Interactive(sdata=sdata)
 #
-# ##
-# Image.MAX_IMAGE_PIXELS = 5000000000
-#
-#
-# def get_hires_img(sample):
-#     f = os.path.join(root, "hires_images")
-#     if sample == "152810":
-#         res = "20x"
-#     else:
-#         res = "40x"
-#     path = os.path.join(f, f"{sample}_{res}_highest_res_image.jpg")
-#     # print(path)
-#     im = Image.open(path)
-#     start = time.time()
-#     img = xr.DataArray(im, dims=("y", "x", "c"))
-#     print(f'loading image: {time.time() - start}')
-#     # start = time.time()
-#     # assert img.dtype == np.float32
-#     # assert img.min() >= 0. and img.max() <= 1.
-#     # img = (img * 255).astype(np.uint8)
-#     # print(f'converting to uint8: {time.time() - start}')
-#     return img
-#
-#
-# for sample in tqdm(samples, desc="large images"):
-#     img = get_hires_img(sample)
-#     assert img.dtype == np.uint8
-#
-#     from spatialdata._core.elements import Image as ImageElement
-#     from spatialdata import Identity
-#
-#     cs = sdata.coordinate_systems[sample]
-#     image = ImageElement(img.transpose("c", "y", "x"), alignment_info={cs: Identity()})
-#     name = f"hires_{sample}"
-#     sdata.images[name] = image
-#     start = time.time()
-#     sdata._save_element("images", name, path=zarr_path)
-#     print(f'saving image: {time.time() - start}')
+##
+Image.MAX_IMAGE_PIXELS = 5000000000
+
+
+def get_hires_img(sample):
+    f = os.path.join(root, "hires_images")
+    if sample == "152810":
+        res = "20x"
+    else:
+        res = "40x"
+    path = os.path.join(f, f"{sample}_{res}_highest_res_image.jpg")
+    # print(path)
+    im = Image.open(path)
+    start = time.time()
+    img = xr.DataArray(im, dims=("y", "x", "c"))
+    print(f"loading image: {time.time() - start}")
+    # start = time.time()
+    # assert img.dtype == np.float32
+    # assert img.min() >= 0. and img.max() <= 1.
+    # img = (img * 255).astype(np.uint8)
+    # print(f'converting to uint8: {time.time() - start}')
+    return img
+
+
+for sample in tqdm(samples, desc="large images"):
+    img = get_hires_img(sample)
+    assert img.dtype == np.uint8
+
+    from spatialdata._core.elements import Image as ImageElement
+    from spatialdata import Identity
+
+    cs = sdata.coordinate_systems[sample]
+    image = ImageElement(img.transpose("c", "y", "x"), alignment_info={cs: Identity()})
+    name = f"hires_{sample}"
+    sdata.images[name] = image
+    start = time.time()
+    sdata._save_element("images", name, path=zarr_path)
+    print(f"saving image: {time.time() - start}")
 ##
 sdata = sd.SpatialData.read(zarr_path)
 
@@ -114,21 +114,22 @@ for sample in samples:
     small_image_transformation = sdata.images[sample].transformations[sample]
     big_image_transformation = sd.Sequence(
         [
-            sd.Affine(sd.Affine._get_affine_iniection_from_axes(src_axes=('c', 'y', 'x'), des_axes=('x', 'y'))[:-1, :]),
+            sd.Affine(sd.Affine._get_affine_iniection_from_axes(src_axes=("c", "y", "x"), des_axes=("x", "y"))[:-1, :]),
             sd.Translation(-source_points[0, :]),
             sd.Scale((target_points[1, :] - target_points[0, :]) / (source_points[1, :] - source_points[0, :])),
             sd.Translation(target_points[0, :]),
-            sd.Affine(sd.Affine._get_affine_iniection_from_axes(src_axes=('x', 'y'), des_axes=('c', 'y', 'x'))[:-1, :]),
-            small_image_transformation
+            sd.Affine(sd.Affine._get_affine_iniection_from_axes(src_axes=("x", "y"), des_axes=("c", "y", "x"))[:-1, :]),
+            small_image_transformation,
         ]
     )
     for t in big_image_transformation.transformations:
         print(t.to_affine().affine)
     print(big_image_transformation.to_affine().affine)
-    sdata.images[f'hires_{sample}'].transformations[sample] = big_image_transformation
+    sdata.images[f"hires_{sample}"].transformations[sample] = big_image_transformation
     # del sdata.images[f'hires_{sample}']
 ##
 interactive = Interactive(sdata=sdata)
+# print(sdata)
 
 # def add_cell2location_data():
 #     cell2location_data_folder = os.path.join(
