@@ -24,4 +24,4 @@ __pycache__/
 /.vscode/
 
 # data
-local_data
+data/
