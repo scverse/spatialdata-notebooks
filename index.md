@@ -8,4 +8,5 @@
 
 changelog.md
 references.md
+notebooks/example.ipynb
 ```
