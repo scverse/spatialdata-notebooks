@@ -1,18 +1,17 @@
 ##
 # data from endometrium sample, described here https://pubmed.ncbi.nlm.nih.gov/34857954/
+import os
 import shutil
 import time
 from pathlib import Path
 
+import numpy as np
 import spatialdata as sd
+import xarray as xr
+from napari_spatialdata import Interactive
 from PIL import Image
-
 from spatialdata_io import read_visium
 from tqdm.notebook import tqdm
-import os
-from napari_spatialdata import Interactive
-import xarray as xr
-import numpy as np
 
 ##
 # luca's workaround for pycharm
@@ -59,7 +58,7 @@ print(sdatas[0])
 Image.MAX_IMAGE_PIXELS = 5000000000
 
 
-def get_hires_img(sample):
+def get_hires_img(sample):  # noqa: D103
     f = os.path.join(root, "hires_images")
     if sample == "152810":
         res = "20x"
@@ -83,8 +82,8 @@ for sample in tqdm(samples, desc="large images"):
     img = get_hires_img(sample)
     assert img.dtype == np.uint8
 
-    from spatialdata._core.elements import Image as ImageElement
     from spatialdata import Identity
+    from spatialdata._core.elements import Image as ImageElement
 
     cs = sdata.coordinate_systems[sample]
     image = ImageElement(img.transpose("c", "y", "x"), alignment_info={cs: Identity()})
