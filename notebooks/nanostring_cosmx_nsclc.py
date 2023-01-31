@@ -1,17 +1,17 @@
 ##
+
 import os
-
-os.environ['NAPARI_ASYNC'] = '1'
-os.environ['NAPARI_OCTREE'] = '1'
-import dask.array
-import spatialdata as sd
-from spatialdata._core.core_utils import cyx_cs, xy_cs, get_default_coordinate_system
-from napari_spatialdata import Interactive
-import dask_image.ndinterp
-import numpy as np
 import time
-import matplotlib.pyplot as plt
 
+import dask_image.ndinterp
+import matplotlib.pyplot as plt
+import numpy as np
+import spatialdata as sd
+from napari_spatialdata import Interactive
+from spatialdata._core.core_utils import cyx_cs, get_default_coordinate_system, xy_cs
+
+os.environ["NAPARI_ASYNC"] = "1"
+os.environ["NAPARI_OCTREE"] = "1"
 
 zarr_path = "data/spatialdata-sandbox/nanostring_cosmx/data.zarr"
 sdata = sd.read_zarr(zarr_path)
@@ -28,11 +28,9 @@ if not SAVE_DATA:
     model.estimate(points_moving, points_reference)
     transform_matrix = model.params
     print(transform_matrix)
-    xy_cs = get_default_coordinate_system(("x", "y"))
-    cyx_cs = get_default_coordinate_system(("c", "y", "x"))
-    affine = sd.Affine(
-        transform_matrix, input_coordinate_system=xy_cs, output_coordinate_system=xy_cs
-    )
+    xy_cs = get_default_coordinate_system(("x", "y"))  # noqa: F811
+    cyx_cs = get_default_coordinate_system(("c", "y", "x"))  # noqa: F811
+    affine = sd.Affine(transform_matrix, input_coordinate_system=xy_cs, output_coordinate_system=xy_cs)
     old_moving = sd.get_transform(sdata.images["scaled1"]).to_affine()
     old_reference = sd.get_transform(sdata.images["1"]).to_affine()
     ##
@@ -77,10 +75,10 @@ else:
     affine = sequence.to_affine()
     matrix = affine.affine
     # bug, will be fixed soon
-    matrix[0, 0] = 1.
-    print('matrix')
+    matrix[0, 0] = 1.0
+    print("matrix")
     print(matrix)
-    print('inverse matrix')
+    print("inverse matrix")
     inverse_matrix = affine.inverse().to_affine().affine
     print(inverse_matrix)
 
@@ -88,28 +86,26 @@ else:
     x = im.shape[2]
     y = im.shape[1]
     v = np.array([[0, 0, 0, 1], [0, 0, x, 1], [0, y, 0, 1], [0, y, x, 1]])
-    print('v')
+    print("v")
     print(v)
 
     new_v = inverse_matrix @ v.T
-    print('new v')
+    print("new v")
     print(new_v)
 
     new_y = np.max(new_v[1, :])
     new_x = np.max(new_v[2, :])
-    print(f'new_y = {new_y}, new_x = {new_x}')
+    print(f"new_y = {new_y}, new_x = {new_x}")
 
     ##
-    scaled = dask_image.ndinterp.affine_transform(
-        im.data, matrix, output_shape=(im.shape[0], int(new_y), int(new_x))
-    )
+    scaled = dask_image.ndinterp.affine_transform(im.data, matrix, output_shape=(im.shape[0], int(new_y), int(new_x)))
     scaled = scaled[1:2, :, :]
     # scaled *= 255. / scaled.max()
     scaled_parsed = sd.Image2DModel.parse(scaled, multiscale_factors=[2, 4, 8])
 
     PLOT = False
     if PLOT:
-        a = scaled_parsed['scale2']['image']
+        a = scaled_parsed["scale2"]["image"]
         a.plot()
         plt.show()
 
