@@ -13,7 +13,7 @@ PIL.Image.MAX_IMAGE_PIXELS = None
 from dask_image.imread import imread
 from spatialdata._core.models import Image2DModel, ShapesModel, TableModel
 from spatialdata._core.core_utils import _get_transformations, _set_transformations, SpatialElement
-from spatialdata._core.transformations import Identity, Affine, Sequence
+from spatialdata._core.transformations import Identity, Affine, Sequence, Scale
 from spatialdata import SpatialData
 from napari_spatialdata import Interactive
 from spatial_image import SpatialImage
@@ -140,6 +140,11 @@ if SAVE_IMAGES:
     ##
 
 ##
+sdata_small_images = SpatialData.read(SDATA_SMALL_IMAGES)
+sdata_large_images_patient1_visium = SpatialData.read(SDATA_LARGE_IMAGES_PATIENT1_VISIUM)
+sdata_large_images_patient2_visium = SpatialData.read(SDATA_LARGE_IMAGES_PATIENT2_VISIUM)
+sdata_large_images_patient1_1k = SpatialData.read(SDATA_LARGE_IMAGES_PATIENT1_1K)
+
 PARSE_VISIUM_DATA = False
 if PARSE_VISIUM_DATA:
     ##
@@ -188,12 +193,18 @@ if PARSE_VISIUM_DATA:
             # if we don't remove the index name the writing to zarr fails (the index name is the int 0, maybe converting it to str would also work)
             df.rename_axis(None, inplace=True)
 
+            if suffix == '_patient1_visium':
+                transformation = Identity()
+            elif suffix == '_patient2_visium':
+                transformation = Scale([0.5, 0.5], axes=('x', 'y'))
+            else:
+                raise ValueError(f"Unknown suffix: {suffix}")
             circles = ShapesModel.parse(
                 coords,
                 shape_type="Circle",
                 shape_size=scalefactors["spot_diameter_fullres"],
                 index=df.index,
-                transformations={f"{name}{suffix}": Identity()},
+                transformations={f"{name}{suffix}": transformation},
             )
             shapes[f'{name}{suffix}'] = circles
 
@@ -316,10 +327,6 @@ def is_exlcuded(name: str):
         return True
     return False
 ##
-sdata_small_images = SpatialData.read(SDATA_SMALL_IMAGES)
-sdata_large_images_patient1_visium = SpatialData.read(SDATA_LARGE_IMAGES_PATIENT1_VISIUM)
-sdata_large_images_patient2_visium = SpatialData.read(SDATA_LARGE_IMAGES_PATIENT2_VISIUM)
-sdata_large_images_patient1_1k = SpatialData.read(SDATA_LARGE_IMAGES_PATIENT1_1K)
 sdata_expression_patient1_visium = SpatialData.read(SDATA_EXPRESSION_PATIENT1_VISIUM_PATH)
 sdata_expression_patient2_visium = SpatialData.read(SDATA_EXPRESSION_PATIENT2_VISIUM_PATH)
 
@@ -340,7 +347,7 @@ def map_elements(
     transform_matrix = model.params
     a = transform_matrix[:2, :2]
     d = np.linalg.det(a)
-    print(d)
+    # print(d)
     if d < 0:
         m = (moving_coords.obsm["spatial"][:, 0].max() - moving_coords.obsm["spatial"][:, 0].min()) / 2
         flip = Affine(
@@ -447,6 +454,7 @@ def align_using_landmakrs(merged_sdata, big_images_sdata, suffix):
                 moving_coordinate_system=name,
                 new_coordinate_system=suffix[1:],
             )
+            # the data
             map_elements(
                 references_coords=landmarks.shapes[name + "_target"],
                 moving_coords=landmarks.shapes[name + "_source"],
@@ -460,28 +468,55 @@ def align_using_landmakrs(merged_sdata, big_images_sdata, suffix):
             pass
 
 
-VIZ_PATIENT1_VISIUM = True
-if VIZ_PATIENT1_VISIUM:
-    ##
-    sdata_patient1 = SpatialData(
-        images={
-            **sdata_small_images.images,
-            **sdata_large_images_patient1_visium.images,
-        },
-        shapes=sdata_expression_patient1_visium.shapes,
-        table=sdata_expression_patient1_visium.table,
-    )
-    keys = list(sdata_patient1.images.keys())
-    for name in keys:
-        if is_exlcuded(name):
-            if name in sdata_patient1.images:
-                print(f"deleting {name}")
-                del sdata_patient1.images[name]
+##
+# patient1_visium
+sdata_patient1 = SpatialData(
+    images={
+        **sdata_small_images.images,
+        **sdata_large_images_patient1_visium.images,
+    },
+    shapes=sdata_expression_patient1_visium.shapes,
+    table=sdata_expression_patient1_visium.table,
+)
+keys = list(sdata_patient1.images.keys())
+for name in keys:
+    if is_exlcuded(name):
+        if name in sdata_patient1.images:
+            print(f"deleting {name}")
+            del sdata_patient1.images[name]
 
-    align_using_landmakrs(merged_sdata=sdata_patient1, big_images_sdata=sdata_large_images_patient1_visium, suffix="_patient1_visium")
-    # align_using_landmakrs(big_images_sdata=sdata_large_images_patient2_visium, suffix="_patient2_visium")
-    # align_using_landmakrs(big_images_sdata=sdata_large_images_patient1_1k, suffix="_patient1_1k")
+align_using_landmakrs(merged_sdata=sdata_patient1, big_images_sdata=sdata_large_images_patient1_visium, suffix="_patient1_visium")
 
-    Interactive(sdata_patient1)
-    ##
-    pass
+##
+sdata_patient1.table.obs['Final_Annotations'] = sdata_patient1.table.obs['Final_Annotations'].astype('category')
+
+##
+# patient2_visium (copying the code above)
+sdata_patient2 = SpatialData(
+    images={
+        **sdata_small_images.images,
+        **sdata_large_images_patient2_visium.images,
+    },
+    shapes=sdata_expression_patient2_visium.shapes,
+    table=sdata_expression_patient2_visium.table,
+)
+keys = list(sdata_patient2.images.keys())
+for name in keys:
+    if is_exlcuded(name):
+        if name in sdata_patient2.images:
+            print(f"deleting {name}")
+            del sdata_patient2.images[name]
+align_using_landmakrs(merged_sdata=sdata_patient2, big_images_sdata=sdata_large_images_patient2_visium, suffix="_patient2_visium")
+##
+# align_using_landmakrs(big_images_sdata=sdata_large_images_patient1_1k, suffix="_patient1_1k")
+##
+
+# N_POINTS = 2
+# from itertools import islice
+# sdata_patient1._shapes = dict(list(islice(sdata_patient1.shapes.items(), N_POINTS)))
+# TODO: this should have been categorical! Not sure why it's object now. Maybe it is a bug with the IO. This has to be fixed otherwise napari can't
+# display the categorical data with the consistent colors among subsets of the table
+Interactive(sdata_patient1)
+# Interactive(sdata_patient2)
+##
+pass
