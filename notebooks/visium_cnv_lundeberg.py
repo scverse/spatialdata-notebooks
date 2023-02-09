@@ -13,7 +13,7 @@ PIL.Image.MAX_IMAGE_PIXELS = None
 from dask_image.imread import imread
 from spatialdata._core.models import Image2DModel, ShapesModel, TableModel
 from spatialdata._core.core_utils import _get_transformations, _set_transformations, SpatialElement
-from spatialdata._core.transformations import Identity, Affine, Sequence, Scale
+from spatialdata._core.transformations import Identity, Affine, Sequence, Scale, BaseTransformation
 from spatialdata import SpatialData
 from napari_spatialdata import Interactive
 from spatial_image import SpatialImage
@@ -31,6 +31,7 @@ SDATA_LARGE_IMAGES_PATIENT2_VISIUM = os.path.join(OUT_FOLDER, "large_images_pati
 SDATA_LARGE_IMAGES_PATIENT1_1K = os.path.join(OUT_FOLDER, "large_images_patient1_1k.zarr")
 SDATA_EXPRESSION_PATIENT1_VISIUM_PATH = os.path.join(OUT_FOLDER, "expression_patient1_visium.zarr")
 SDATA_EXPRESSION_PATIENT2_VISIUM_PATH = os.path.join(OUT_FOLDER, "expression_patient2_visium.zarr")
+SDATA_EXPRESSION_PATIENT1_1K_PATH = os.path.join(OUT_FOLDER, "expression_patient1_1k.zarr")
 ##
 # unzip the data
 unzipped_path = path.replace(".zip", "")
@@ -140,6 +141,84 @@ if SAVE_IMAGES:
     ##
 
 ##
+def merge_tables(tables: list[AnnData]) -> Optional[AnnData]:
+    if len(tables) == 0:
+        return None
+    if len(tables) == 1:
+        return tables[0]
+
+    # not all tables can be merged, they need to have compatible region, region_key and instance_key values
+    MERGED_TABLES_REGION_KEY = "annotated_element_merged"
+    for table in tables:
+        assert MERGED_TABLES_REGION_KEY not in table.obs
+
+    spatialdata_attrs_found = [TableModel.ATTRS_KEY in table.uns for table in tables]
+    assert all(spatialdata_attrs_found) or not any(spatialdata_attrs_found)
+    if not any(spatialdata_attrs_found):
+        merged_region = None
+        merged_region_key = None
+        merged_instance_key = None
+    else:
+        all_instance_keys = [table.uns[TableModel.ATTRS_KEY][TableModel.INSTANCE_KEY] for table in tables]
+        assert all(all_instance_keys[0] == instance_key for instance_key in all_instance_keys)
+        merged_instance_key = all_instance_keys[0]
+
+        all_region_keys = []
+        for table in tables:
+            region = table.uns[TableModel.ATTRS_KEY][TableModel.REGION_KEY]
+            region_key = table.uns[TableModel.ATTRS_KEY][TableModel.REGION_KEY_KEY]
+            assert (
+                isinstance(region, str)
+                and region_key is None
+                or isinstance(region, list)
+                and isinstance(region_key, str)
+            )
+            if isinstance(region, list):
+                all_region_keys.append(region_key)
+            else:
+                assert (
+                    len(all_region_keys) == 0
+                    or len(set(all_region_keys)) == 1
+                    and all_region_keys[0] == MERGED_TABLES_REGION_KEY
+                )
+                table.obs[MERGED_TABLES_REGION_KEY] = region
+                all_region_keys.append(MERGED_TABLES_REGION_KEY)
+        assert len(set(all_region_keys)) == 1
+        merged_region_key = all_region_keys[0]
+
+        all_regions = []
+        for table in tables:
+            region = table.uns[TableModel.ATTRS_KEY][TableModel.REGION_KEY]
+            if isinstance(region, str):
+                all_regions.append(region)
+            else:
+                all_regions.extend(region)
+        assert len(all_regions) == len(set(all_regions))
+        merged_region = all_regions
+
+    # print(merged_region)
+    # print(merged_region_key)
+    # print(merged_instance_key)
+
+    attr = {"region": merged_region, "region_key": merged_region_key, "instance_key": merged_instance_key}
+    merged_table = AnnData.concatenate(*tables, join="outer", uns_merge="same")
+
+    # remove the MERGED_TABLES_REGION_KEY column if it has been added (the code above either adds that column
+    # to all the tables, either it doesn't add it at all)
+    for table in tables:
+        if MERGED_TABLES_REGION_KEY in table.obs:
+            del table.obs[MERGED_TABLES_REGION_KEY]
+
+    merged_table.uns[TableModel.ATTRS_KEY] = attr
+    # print(merged_table.uns)
+    merged_table.obs[merged_region_key] = merged_table.obs[merged_region_key].astype("category")
+    TableModel().validate(merged_table)
+    return merged_table
+
+
+##
+
+
 sdata_small_images = SpatialData.read(SDATA_SMALL_IMAGES)
 sdata_large_images_patient1_visium = SpatialData.read(SDATA_LARGE_IMAGES_PATIENT1_VISIUM)
 sdata_large_images_patient2_visium = SpatialData.read(SDATA_LARGE_IMAGES_PATIENT2_VISIUM)
@@ -165,10 +244,10 @@ if PARSE_VISIUM_DATA:
             ##
             DATASET_PATH = os.path.join(folder, name)
 
-            COUNTS_MATRIX_PATH = os.path.join(DATASET_PATH, 'filtered_feature_bc_matrix.h5')
-            SCALE_FACTOR_JSON_PATH = os.path.join(DATASET_PATH, 'scalefactors_json.json')
-            TISSUE_POSITIONS_PATH = os.path.join(DATASET_PATH, 'tissue_positions_list.csv')
-            ANNOTATIONS_PATH = os.path.join(DATASET_PATH, f'{name}_Final_Consensus_Annotations.csv')
+            COUNTS_MATRIX_PATH = os.path.join(DATASET_PATH, "filtered_feature_bc_matrix.h5")
+            SCALE_FACTOR_JSON_PATH = os.path.join(DATASET_PATH, "scalefactors_json.json")
+            TISSUE_POSITIONS_PATH = os.path.join(DATASET_PATH, "tissue_positions_list.csv")
+            ANNOTATIONS_PATH = os.path.join(DATASET_PATH, f"{name}_Final_Consensus_Annotations.csv")
 
             assert os.path.isfile(COUNTS_MATRIX_PATH)
             assert os.path.isfile(SCALE_FACTOR_JSON_PATH)
@@ -176,14 +255,16 @@ if PARSE_VISIUM_DATA:
 
             # expression data
             adata = _read_10x_h5(COUNTS_MATRIX_PATH)
-            adata.obs['visium_spot_id'] = adata.obs_names
-            table = TableModel.parse(adata, region=f"/shapes/{name}{suffix}", region_key=None, instance_key="visium_spot_id")
+            adata.obs["visium_spot_id"] = adata.obs_names
+            table = TableModel.parse(
+                adata, region=f"/shapes/{name}{suffix}", region_key=None, instance_key="visium_spot_id"
+            )
             # table.obs.reset_index(inplace=True)
             # table.obs.index = table.obs.index.astype(str)
             table.var_names_make_unique()
 
             # scale factors
-            with open(SCALE_FACTOR_JSON_PATH, 'r') as infile:
+            with open(SCALE_FACTOR_JSON_PATH, "r") as infile:
                 scalefactors = json.load(infile)
 
             # circles coordinates
@@ -193,10 +274,10 @@ if PARSE_VISIUM_DATA:
             # if we don't remove the index name the writing to zarr fails (the index name is the int 0, maybe converting it to str would also work)
             df.rename_axis(None, inplace=True)
 
-            if suffix == '_patient1_visium':
+            if suffix == "_patient1_visium":
                 transformation = Identity()
-            elif suffix == '_patient2_visium':
-                transformation = Scale([0.5, 0.5], axes=('x', 'y'))
+            elif suffix == "_patient2_visium":
+                transformation = Scale([0.5, 0.5], axes=("x", "y"))
             else:
                 raise ValueError(f"Unknown suffix: {suffix}")
             circles = ShapesModel.parse(
@@ -206,95 +287,34 @@ if PARSE_VISIUM_DATA:
                 index=df.index,
                 transformations={f"{name}{suffix}": transformation},
             )
-            shapes[f'{name}{suffix}'] = circles
+            shapes[f"{name}{suffix}"] = circles
 
             # cell-type annotations, if available (only for patient 1)
-            if suffix == '_patient1_visium':
+            if suffix == "_patient1_visium":
                 assert os.path.isfile(ANNOTATIONS_PATH)
                 annotations = pd.read_csv(ANNOTATIONS_PATH, index_col=0)
-                annotations['Final_Annotations'] = annotations['Final_Annotations'].fillna('')
-                annotations['Final_Annotations'] = annotations['Final_Annotations'].astype('str').astype('category')
-                table.obs['Final_Annotations'] = annotations['Final_Annotations']
+                annotations["Final_Annotations"] = annotations["Final_Annotations"].fillna("")
+                annotations["Final_Annotations"] = annotations["Final_Annotations"].astype("str").astype("category")
+                table.obs["Final_Annotations"] = annotations["Final_Annotations"]
 
-            tables[f'{name}{suffix}'] = table
+            tables[f"{name}{suffix}"] = table
         tables = list(tables.values())
-
-        def merge_tables(tables: list[AnnData]) -> Optional[AnnData]:
-            if len(tables) == 0:
-                return None
-            if len(tables) == 1:
-                return tables[0]
-
-            # not all tables can be merged, they need to have compatible region, region_key and instance_key values
-            MERGED_TABLES_REGION_KEY = 'annotated_element_merged'
-            for table in tables:
-                assert MERGED_TABLES_REGION_KEY not in table.obs
-
-            spatialdata_attrs_found = [TableModel.ATTRS_KEY in table.uns for table in tables]
-            assert all(spatialdata_attrs_found) or not any(spatialdata_attrs_found)
-            if not any(spatialdata_attrs_found):
-                merged_region = None
-                merged_region_key = None
-                merged_instance_key = None
-            else:
-                all_instance_keys = [table.uns[TableModel.ATTRS_KEY][TableModel.INSTANCE_KEY] for table in tables]
-                assert all(all_instance_keys[0] == instance_key for instance_key in all_instance_keys)
-                merged_instance_key = all_instance_keys[0]
-
-                all_region_keys = []
-                for table in tables:
-                    region = table.uns[TableModel.ATTRS_KEY][TableModel.REGION_KEY]
-                    region_key = table.uns[TableModel.ATTRS_KEY][TableModel.REGION_KEY_KEY]
-                    assert isinstance(region, str) and region_key is None or isinstance(region, list) and isinstance(region_key, str)
-                    if isinstance(region, list):
-                        all_region_keys.append(region_key)
-                    else:
-                        assert len(all_region_keys) == 0 or len(set(all_region_keys)) == 1 and all_region_keys[0] == MERGED_TABLES_REGION_KEY
-                        table.obs[MERGED_TABLES_REGION_KEY] = region
-                        all_region_keys.append(MERGED_TABLES_REGION_KEY)
-                assert len(set(all_region_keys)) == 1
-                merged_region_key = all_region_keys[0]
-
-                all_regions = []
-                for table in tables:
-                    region = table.uns[TableModel.ATTRS_KEY][TableModel.REGION_KEY]
-                    if isinstance(region, str):
-                        all_regions.append(region)
-                    else:
-                        all_regions.extend(region)
-                assert len(all_regions) == len(set(all_regions))
-                merged_region = all_regions
-
-            # print(merged_region)
-            # print(merged_region_key)
-            # print(merged_instance_key)
-
-            attr = {"region": merged_region, "region_key": merged_region_key, "instance_key": merged_instance_key}
-            merged_table = AnnData.concatenate(*tables, join="outer", uns_merge="same")
-
-            # remove the MERGED_TABLES_REGION_KEY column if it has been added (the code above either adds that column
-            # to all the tables, either it doesn't add it at all)
-            for table in tables:
-                if MERGED_TABLES_REGION_KEY in table.obs:
-                    del table.obs[MERGED_TABLES_REGION_KEY]
-
-            merged_table.uns[TableModel.ATTRS_KEY] = attr
-            # print(merged_table.uns)
-            merged_table.obs[merged_region_key] = merged_table.obs[merged_region_key].astype('category')
-            TableModel().validate(merged_table)
-            return merged_table
 
         table = merge_tables(tables)
         return shapes, table
         ##
-    shapes_patient1_visium, table_patient1_visium = parse_visium_data(suffix='_patient1_visium', folder=VISIUM_FOLDER_PATIENT1)
+
+    shapes_patient1_visium, table_patient1_visium = parse_visium_data(
+        suffix="_patient1_visium", folder=VISIUM_FOLDER_PATIENT1
+    )
     sdata_expression_patient1_visium = SpatialData(shapes=shapes_patient1_visium, table=table_patient1_visium)
     if os.path.isdir(SDATA_EXPRESSION_PATIENT1_VISIUM_PATH):
         shutil.rmtree(SDATA_EXPRESSION_PATIENT1_VISIUM_PATH)
     sdata_expression_patient1_visium.write(SDATA_EXPRESSION_PATIENT1_VISIUM_PATH)
 
-
-    shapes_patient2_visium, table_patient2_visium = parse_visium_data(suffix='_patient2_visium', folder=VISIUM_FOLDER_PATIENT2)
+    shapes_patient2_visium, table_patient2_visium = parse_visium_data(
+        suffix="_patient2_visium", folder=VISIUM_FOLDER_PATIENT2
+    )
     sdata_expression_patient2_visium = SpatialData(shapes=shapes_patient2_visium, table=table_patient2_visium)
     if os.path.isdir(SDATA_EXPRESSION_PATIENT2_VISIUM_PATH):
         shutil.rmtree(SDATA_EXPRESSION_PATIENT2_VISIUM_PATH)
@@ -326,6 +346,8 @@ def is_exlcuded(name: str):
     if name in excluded_names:
         return True
     return False
+
+
 ##
 sdata_expression_patient1_visium = SpatialData.read(SDATA_EXPRESSION_PATIENT1_VISIUM_PATH)
 sdata_expression_patient2_visium = SpatialData.read(SDATA_EXPRESSION_PATIENT2_VISIUM_PATH)
@@ -339,8 +361,8 @@ def map_elements(
     sdata: Optional[SpatialData] = None,
     reference_coordinate_system: str = "global",
     moving_coordinate_system: str = "global",
-    new_coordinate_system: str = "aligned",
-) -> None:
+    new_coordinate_system: Optional[str] = None,
+) -> tuple[BaseTransformation, BaseTransformation]:
     from skimage.transform import estimate_transform
 
     model = estimate_transform("affine", src=moving_coords.obsm["spatial"], dst=references_coords.obsm["spatial"])
@@ -386,10 +408,12 @@ def map_elements(
     new_moving_transformation = Sequence([old_moving_transformation, affine])
     new_reference_transformation = old_reference_transformation
 
-    # this allows to work on singleton objects, not embedded in a SpatialData object
-    set_transform = sdata.set_transformation if sdata is not None else SpatialData.set_transformation_in_memory
-    set_transform(moving_element, new_moving_transformation, new_coordinate_system)
-    set_transform(reference_element, new_reference_transformation, new_coordinate_system)
+    if new_coordinate_system is not None:
+        # this allows to work on singleton objects, not embedded in a SpatialData object
+        set_transform = sdata.set_transformation if sdata is not None else SpatialData.set_transformation_in_memory
+        set_transform(moving_element, new_moving_transformation, new_coordinate_system)
+        set_transform(reference_element, new_reference_transformation, new_coordinate_system)
+    return new_moving_transformation, new_reference_transformation
 
 
 ##
@@ -469,8 +493,10 @@ def align_using_landmakrs(merged_sdata, big_images_sdata, suffix):
 
 
 ##
+
+##
 # patient1_visium
-sdata_patient1 = SpatialData(
+sdata_patient1_visium = SpatialData(
     images={
         **sdata_small_images.images,
         **sdata_large_images_patient1_visium.images,
@@ -478,17 +504,21 @@ sdata_patient1 = SpatialData(
     shapes=sdata_expression_patient1_visium.shapes,
     table=sdata_expression_patient1_visium.table,
 )
-keys = list(sdata_patient1.images.keys())
+keys = list(sdata_patient1_visium.images.keys())
 for name in keys:
     if is_exlcuded(name):
-        if name in sdata_patient1.images:
+        if name in sdata_patient1_visium.images:
             print(f"deleting {name}")
-            del sdata_patient1.images[name]
+            del sdata_patient1_visium.images[name]
 
-align_using_landmakrs(merged_sdata=sdata_patient1, big_images_sdata=sdata_large_images_patient1_visium, suffix="_patient1_visium")
+align_using_landmakrs(
+    merged_sdata=sdata_patient1_visium, big_images_sdata=sdata_large_images_patient1_visium, suffix="_patient1_visium"
+)
 
 ##
-sdata_patient1.table.obs['Final_Annotations'] = sdata_patient1.table.obs['Final_Annotations'].astype('category')
+sdata_patient1_visium.table.obs["Final_Annotations"] = sdata_patient1_visium.table.obs["Final_Annotations"].astype(
+    "category"
+)
 
 ##
 # patient2_visium (copying the code above)
@@ -506,17 +536,163 @@ for name in keys:
         if name in sdata_patient2.images:
             print(f"deleting {name}")
             del sdata_patient2.images[name]
-align_using_landmakrs(merged_sdata=sdata_patient2, big_images_sdata=sdata_large_images_patient2_visium, suffix="_patient2_visium")
+align_using_landmakrs(
+    merged_sdata=sdata_patient2, big_images_sdata=sdata_large_images_patient2_visium, suffix="_patient2_visium"
+)
 ##
 # align_using_landmakrs(big_images_sdata=sdata_large_images_patient1_1k, suffix="_patient1_1k")
 ##
 
-# N_POINTS = 2
 # from itertools import islice
-# sdata_patient1._shapes = dict(list(islice(sdata_patient1.shapes.items(), N_POINTS)))
+# sdata_patient1_visium._shapes = dict(list(islice(sdata_patient1_visium.shapes.items(), 2)))
 # TODO: this should have been categorical! Not sure why it's object now. Maybe it is a bug with the IO. This has to be fixed otherwise napari can't
 # display the categorical data with the consistent colors among subsets of the table
-Interactive(sdata_patient1)
+# Interactive(sdata_patient1_visium)
 # Interactive(sdata_patient2)
 ##
+# Interactive(sdata_small_images)
+##
+ALIGN_SMALL_IMAGES = False
+if ALIGN_SMALL_IMAGES:
+    ANNOTATE_LANDMARKS = False
+    if ANNOTATE_LANDMARKS:
+        sdata_anchor_points_between_schematics_patient1 = SpatialData(shapes=sdata_small_images.shapes)
+        sdata_anchor_points_between_schematics_patient1.write(
+            os.path.join(OUT_FOLDER, "sdata_anchor_points_between_schematics_patient1.zarr")
+        )
+    sdata_anchor_points_between_schematics_patient1 = SpatialData.read(
+        os.path.join(OUT_FOLDER, "sdata_anchor_points_between_schematics_patient1.zarr")
+    )
+    moving = sdata_anchor_points_between_schematics_patient1.shapes["moving"]
+    reference = sdata_anchor_points_between_schematics_patient1.shapes["reference"]
+    map_elements(
+        references_coords=reference,
+        moving_coords=moving,
+        reference_element=sdata_small_images.images["schematic_overview_patient1_visium"],
+        moving_element=sdata_small_images.images["schematic_overview_patient1_1k"],
+        sdata=sdata_small_images,
+        reference_coordinate_system="patient1_visium",
+        moving_coordinate_system="patient1_1k",
+        new_coordinate_system="patient1_1k_aligned",
+    )
+    Interactive(sdata_small_images)
+##
+# add 1k expression data
+PARSE_1K_DATA = False
+if PARSE_1K_DATA:
+    ##
+    ONE_K_FOLDER_PATIENT1 = os.path.join(unzipped_path, "Count_matrices/Patient 1/1k_arrays/")
+    suffix = "_patient1_1k"
+
+    shapes = {}
+    tables = {}
+    # i = 0
+    # name = os.listdir(ONE_K_FOLDER_PATIENT1)[0]
+    for name in os.listdir(ONE_K_FOLDER_PATIENT1):
+        # i += 1
+        # if i > 2:
+        #     break
+        DATASET_PATH = os.path.join(ONE_K_FOLDER_PATIENT1, name)
+        files = os.listdir(DATASET_PATH)
+        assert len(files) == 2
+        expression_data_file = [f for f in files if f.endswith("_stdata.tsv")][0]
+        positions_file = [f for f in files if not f.endswith("_stdata.tsv")][0]
+        print(
+            "patient1_1k, name = ",
+            name,
+            ", expression_data_file = ",
+            expression_data_file,
+            ", positions_file = ",
+            positions_file,
+            sep="",
+        )
+
+        expression = pd.read_csv(os.path.join(DATASET_PATH, expression_data_file), sep="\t", index_col=0)
+        positions = pd.read_csv(os.path.join(DATASET_PATH, positions_file), sep="\t", index_col=None)
+        positions["combined_name"] = positions[["x", "y"]].apply(lambda x: f"{x['x']}x{x['y']}", axis=1)
+        merged = pd.merge(positions, expression, left_on="combined_name", right_index=True, how="inner")
+        positions_filtered = merged[positions.columns].copy()
+        expression_filtered = merged[expression.columns].copy()
+
+        adata = AnnData(expression_filtered)
+        adata.obs["combined_name"] = positions_filtered["combined_name"].to_numpy()
+        # print(adata.obs['combined_name'])
+        assert adata.obs["combined_name"].is_unique
+        table = TableModel.parse(adata, region=f"/shapes/{name}{suffix}", region_key=None, instance_key="combined_name")
+        table.var_names_make_unique()
+        tables[f"{name}{suffix}"] = table
+
+        coords = positions_filtered[["pixel_x", "pixel_y"]].values
+        circles = ShapesModel.parse(
+            coords,
+            shape_type="Circle",
+            shape_size=100,
+            index=adata.obs["combined_name"],
+            transformations={f"{name}{suffix}": Identity()},
+        )
+        shapes[f"{name}{suffix}"] = circles
+    table = merge_tables(list(tables.values()))
+    ##
+    sdata_expression_patient1_1k = SpatialData(shapes=shapes, table=table)
+    if os.path.isdir(SDATA_EXPRESSION_PATIENT1_1K_PATH):
+        shutil.rmtree(SDATA_EXPRESSION_PATIENT1_1K_PATH)
+    sdata_expression_patient1_1k.write(SDATA_EXPRESSION_PATIENT1_1K_PATH)
+    # Interactive(sdata_expression_patient1_1k)
+##
+sdata_expression_patient1_1k = SpatialData.read(SDATA_EXPRESSION_PATIENT1_1K_PATH)
+sdata_patient1_1k = SpatialData(
+    images={
+        **sdata_small_images.images,
+        **sdata_large_images_patient1_1k.images,
+    },
+    shapes=sdata_expression_patient1_1k.shapes,
+    table=sdata_expression_patient1_1k.table,
+)
+ALIGN_MAPPING_BETWEEN_1K_IMAGE_AND_EXPRESSION = True
+if ALIGN_MAPPING_BETWEEN_1K_IMAGE_AND_EXPRESSION:
+    WRITE = False
+    if WRITE:
+        Interactive(sdata_patient1_1k)
+        moving = sdata_patient1_1k.shapes["moving"]
+        reference = sdata_patient1_1k.shapes["reference"]
+        sdata_mapping_between_1k_image_and_expression = SpatialData(shapes={"moving": moving, "reference": reference})
+        sdata_mapping_between_1k_image_and_expression.write(
+            os.path.join(OUT_FOLDER, "sdata_mapping_between_1k_image_and_expression_patient1.zarr")
+        )
+    ##
+    sdata_mapping_between_1k_image_and_expression = SpatialData.read(
+        os.path.join(OUT_FOLDER, "sdata_mapping_between_1k_image_and_expression_patient1.zarr")
+    )
+    for name, shapes in sdata_patient1_1k.shapes.items():
+        if name.endswith("_patient1_1k"):
+            image = sdata_patient1_1k.images[name]
+            moving_transformation, _ = map_elements(
+                references_coords=sdata_mapping_between_1k_image_and_expression.shapes["reference"],
+                moving_coords=sdata_mapping_between_1k_image_and_expression.shapes["moving"],
+                reference_element=image,
+                moving_element=shapes,
+                sdata=None,
+                reference_coordinate_system=name,
+                moving_coordinate_system=name,
+                new_coordinate_system=None,
+            )
+            sdata_patient1_1k.set_transformation(
+                sdata_patient1_1k.shapes[name],
+                moving_transformation,
+                target_coordinate_system=name,
+            )
+    print(sdata_patient1_1k)
+    # Interactive(sdata_patient1_1k)
+    ##
+
 pass
+pass
+# TODO: refine the alignemnt of the visium data (patient 1 and 2) to the schematics. Needs points to be implemented back (because we need those, we can't use shapes anymore)
+# TODO: refine the alignemnt of the 1k expression to the images
+# TODO: make the aligment of the 1k data to the schematics
+# TODO: refine the alignment of the 1k data to the schematics
+
+# note: I could not deduce how the following images are aligned to the schematic from the paper (patient 1, 1k): H1_2, H2_1, H2_2, H2_5, V1_1, V1_3, V2_6
+ANNOTATE_LANDMARKS = True
+if ANNOTATE_LANDMARKS:
+    manually_annotate_landmarks(big_images_sdata=sdata_large_images_patient1_1k, suffix="_patient1_1k")
