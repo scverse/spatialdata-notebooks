@@ -13,6 +13,8 @@ PIL.Image.MAX_IMAGE_PIXELS = None
 from dask_image.imread import imread
 from spatialdata._core.models import Image2DModel, ShapesModel, TableModel
 from spatialdata._core.core_utils import _get_transformations, _set_transformations, SpatialElement
+from spatialdata._core._spatialdata_ops import get_transformation, set_transformation
+# from spatialdata._core._transform_elements import align_elements_using_landmarks
 from spatialdata._core.transformations import Identity, Affine, Sequence, Scale, BaseTransformation
 from spatialdata import SpatialData
 from napari_spatialdata import Interactive
@@ -353,68 +355,6 @@ sdata_expression_patient1_visium = SpatialData.read(SDATA_EXPRESSION_PATIENT1_VI
 sdata_expression_patient2_visium = SpatialData.read(SDATA_EXPRESSION_PATIENT2_VISIUM_PATH)
 
 ##
-def map_elements(
-    references_coords: AnnData,
-    moving_coords: AnnData,
-    reference_element: SpatialElement,
-    moving_element: SpatialElement,
-    sdata: Optional[SpatialData] = None,
-    reference_coordinate_system: str = "global",
-    moving_coordinate_system: str = "global",
-    new_coordinate_system: Optional[str] = None,
-) -> tuple[BaseTransformation, BaseTransformation]:
-    from skimage.transform import estimate_transform
-
-    model = estimate_transform("affine", src=moving_coords.obsm["spatial"], dst=references_coords.obsm["spatial"])
-    transform_matrix = model.params
-    a = transform_matrix[:2, :2]
-    d = np.linalg.det(a)
-    # print(d)
-    if d < 0:
-        m = (moving_coords.obsm["spatial"][:, 0].max() - moving_coords.obsm["spatial"][:, 0].min()) / 2
-        flip = Affine(
-            np.array(
-                [
-                    [-1, 0, 2 * m],
-                    [0, 1, 0],
-                    [0, 0, 1],
-                ]
-            ),
-            input_axes=("x", "y"),
-            output_axes=("x", "y"),
-        )
-        flipped_moving_coords = flip.transform(moving_coords)
-        model = estimate_transform(
-            "similarity", src=flipped_moving_coords.obsm["spatial"], dst=references_coords.obsm["spatial"]
-        )
-        final = Sequence([flip, Affine(model.params, input_axes=("x", "y"), output_axes=("x", "y"))])
-    else:
-        model = estimate_transform(
-            "similarity", src=moving_coords.obsm["spatial"], dst=references_coords.obsm["spatial"]
-        )
-        final = Affine(model.params, input_axes=("x", "y"), output_axes=("x", "y"))
-
-    affine = Affine(
-        final.to_affine_matrix(input_axes=("x", "y"), output_axes=("x", "y")),
-        input_axes=("x", "y"),
-        output_axes=("x", "y"),
-    )
-
-    # get the old transformations of the visium and xenium data
-    old_moving_transformation = SpatialData.get_transformation(moving_element, moving_coordinate_system)
-    old_reference_transformation = SpatialData.get_transformation(reference_element, reference_coordinate_system)
-
-    # compute the new transformations
-    new_moving_transformation = Sequence([old_moving_transformation, affine])
-    new_reference_transformation = old_reference_transformation
-
-    if new_coordinate_system is not None:
-        # this allows to work on singleton objects, not embedded in a SpatialData object
-        set_transform = sdata.set_transformation if sdata is not None else SpatialData.set_transformation_in_memory
-        set_transform(moving_element, new_moving_transformation, new_coordinate_system)
-        set_transform(reference_element, new_reference_transformation, new_coordinate_system)
-    return new_moving_transformation, new_reference_transformation
-
 
 ##
 def manually_annotate_landmarks(big_images_sdata, suffix):
@@ -468,7 +408,7 @@ def align_using_landmakrs(merged_sdata, big_images_sdata, suffix):
             # if i > 2:
             #     break
             landmarks = SpatialData.read(os.path.join(OUT_FOLDER, f"landmarks_{name}.zarr"))
-            map_elements(
+            align_elements_using_landmarks(
                 references_coords=landmarks.shapes[name + "_target"],
                 moving_coords=landmarks.shapes[name + "_source"],
                 reference_element=small_image_overview,
@@ -479,7 +419,7 @@ def align_using_landmakrs(merged_sdata, big_images_sdata, suffix):
                 new_coordinate_system=suffix[1:],
             )
             # the data
-            map_elements(
+            align_elements_using_landmarks(
                 references_coords=landmarks.shapes[name + "_target"],
                 moving_coords=landmarks.shapes[name + "_source"],
                 reference_element=small_image_overview,
@@ -565,7 +505,7 @@ if ALIGN_SMALL_IMAGES:
     )
     moving = sdata_anchor_points_between_schematics_patient1.shapes["moving"]
     reference = sdata_anchor_points_between_schematics_patient1.shapes["reference"]
-    map_elements(
+    align_elements_using_landmarks(
         references_coords=reference,
         moving_coords=moving,
         reference_element=sdata_small_images.images["schematic_overview_patient1_visium"],
@@ -683,7 +623,15 @@ if ALIGN_MAPPING_BETWEEN_1K_IMAGE_AND_EXPRESSION:
             )
     print(sdata_patient1_1k)
     # Interactive(sdata_patient1_1k)
+    # Interactive(sdata_patient1_visium)
     ##
+    ##
+interactive = Interactive(sdata_patient1_visium, with_widgets=False, headless=True)
+# interactive._viewer._add_layer_from_data(sdata_patient2)
+interactive.show_widget()
+import napari
+
+napari.run()
 
 pass
 pass
@@ -693,6 +641,35 @@ pass
 # TODO: refine the alignment of the 1k data to the schematics
 
 # note: I could not deduce how the following images are aligned to the schematic from the paper (patient 1, 1k): H1_2, H2_1, H2_2, H2_5, V1_1, V1_3, V2_6
-ANNOTATE_LANDMARKS = True
-if ANNOTATE_LANDMARKS:
-    manually_annotate_landmarks(big_images_sdata=sdata_large_images_patient1_1k, suffix="_patient1_1k")
+# ANNOTATE_LANDMARKS = True
+# if ANNOTATE_LANDMARKS:
+#     manually_annotate_landmarks(big_images_sdata=sdata_large_images_patient1_1k, suffix="_patient1_1k")
+##
+# suffix = '_patient1_1k'
+# small_image_overview = sdata_small_images.images[f"schematic_overview{suffix}"]
+# # i = 0
+# empty_shapes = np.array([[10, 0]])
+# # can't make an empty adata (TODO: support), it breaks the parser or napari
+# empty_adata = ShapesModel.parse(coords=empty_shapes, shape_type="Circle", shape_size=10)
+# for name in sdata_patient1_1k.images.keys():
+#     if name.endswith(suffix):
+#         if is_exlcuded(name):
+#             continue
+#         # i += 1
+#         # if i > 2:
+#         #     break
+#         merged = SpatialData(images={"overview": small_image_overview, name: sdata_patient1_1k.images[name]})
+#         merged.add_shapes(name=name + "_source", shapes=empty_adata.copy())
+#         merged.add_shapes(name=name + "_target", shapes=empty_adata.copy())
+#         Interactive(merged)
+#         landmarks = SpatialData(shapes=merged.shapes)
+#         ##
+#         # to remove the first coordinate pair coming from "empty_shapes"
+#         keys = list(landmarks.shapes.keys())
+#         for k in keys:
+#             v = landmarks.shapes[k]
+#             if len(v) == 4:
+#                 new_v = v[1:, :].copy()
+#                 landmarks.add_shapes(name=k, shapes=new_v, overwrite=True)
+#         ##
+#         landmarks.write(os.path.join(OUT_FOLDER, f"landmarks_{name}.zarr"), overwrite=True)
