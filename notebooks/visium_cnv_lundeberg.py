@@ -1,25 +1,35 @@
 ##
-import shutil
-from typing import Optional
 import hashlib
-import os
-import zipfile
-import PIL
 import json
+import os
+import shutil
+import zipfile
+from typing import Optional
+
 import numpy as np
 import pandas as pd
+import PIL
 
 PIL.Image.MAX_IMAGE_PIXELS = None
+from anndata import AnnData
 from dask_image.imread import imread
-from spatialdata._core.models import Image2DModel, ShapesModel, TableModel
-from spatialdata._core.core_utils import _get_transformations, _set_transformations, SpatialElement
-from spatialdata._core.transformations import Identity, Affine, Sequence, Scale, BaseTransformation
-from spatialdata import SpatialData
 from napari_spatialdata import Interactive
 from spatial_image import SpatialImage
-from anndata import AnnData
+from spatialdata import SpatialData
+from spatialdata._core.core_utils import (
+    SpatialElement,
+    _get_transformations,
+    _set_transformations,
+)
+from spatialdata._core.models import Image2DModel, ShapesModel, TableModel
+from spatialdata._core.transformations import (
+    Affine,
+    BaseTransformation,
+    Identity,
+    Scale,
+    Sequence,
+)
 from spatialdata_io.readers._utils._read_10x_h5 import _read_10x_h5
-
 
 ##
 path = os.path.join("data/lundeberg/", "svw96g68dv-1.zip")
@@ -140,6 +150,7 @@ if SAVE_IMAGES:
     sdata_large_images_patient1_1k.write(SDATA_LARGE_IMAGES_PATIENT1_1K)
     ##
 
+
 ##
 def merge_tables(tables: list[AnnData]) -> Optional[AnnData]:
     if len(tables) == 0:
@@ -231,10 +242,10 @@ if PARSE_VISIUM_DATA:
     VISIUM_FOLDER_PATIENT2 = os.path.join(unzipped_path, "Count_matrices/Patient_2/")
     # these values are the same that I have hardcoded in the function is_excluded() below
     excluded_patient1 = set(os.listdir(VISIUM_FOLDER_PATIENT1)).symmetric_difference(
-        set(name.replace("_patient1_visium", "") for name in sdata_large_images_patient1_visium.images.keys())
+        {name.replace("_patient1_visium", "") for name in sdata_large_images_patient1_visium.images.keys()}
     )
     excluded_patient2 = set(os.listdir(VISIUM_FOLDER_PATIENT2)).symmetric_difference(
-        set(name.replace("_patient2_visium", "") for name in sdata_large_images_patient2_visium.images.keys())
+        {name.replace("_patient2_visium", "") for name in sdata_large_images_patient2_visium.images.keys()}
     )
 
     def parse_visium_data(suffix, folder) -> tuple[dict[str, AnnData], AnnData]:
@@ -264,7 +275,7 @@ if PARSE_VISIUM_DATA:
             table.var_names_make_unique()
 
             # scale factors
-            with open(SCALE_FACTOR_JSON_PATH, "r") as infile:
+            with open(SCALE_FACTOR_JSON_PATH) as infile:
                 scalefactors = json.load(infile)
 
             # circles coordinates
@@ -319,6 +330,8 @@ if PARSE_VISIUM_DATA:
     if os.path.isdir(SDATA_EXPRESSION_PATIENT2_VISIUM_PATH):
         shutil.rmtree(SDATA_EXPRESSION_PATIENT2_VISIUM_PATH)
     sdata_expression_patient2_visium.write(SDATA_EXPRESSION_PATIENT2_VISIUM_PATH)
+
+
 # some images are not aligned to the reference (they are not present in the alignment drawings)
 def is_exlcuded(name: str):
     excluded_names = (
@@ -351,6 +364,7 @@ def is_exlcuded(name: str):
 ##
 sdata_expression_patient1_visium = SpatialData.read(SDATA_EXPRESSION_PATIENT1_VISIUM_PATH)
 sdata_expression_patient2_visium = SpatialData.read(SDATA_EXPRESSION_PATIENT2_VISIUM_PATH)
+
 
 ##
 def map_elements(
@@ -459,7 +473,6 @@ if ANNOTATE_LANDMARKS:
 
 def align_using_landmakrs(merged_sdata, big_images_sdata, suffix):
     small_image_overview = sdata_small_images.images[f"schematic_overview{suffix}"]
-    i = 0
     for name in big_images_sdata.images.keys():
         if name.endswith(suffix):
             if is_exlcuded(name):
@@ -489,7 +502,6 @@ def align_using_landmakrs(merged_sdata, big_images_sdata, suffix):
                 moving_coordinate_system=name,
                 new_coordinate_system=suffix[1:],
             )
-            pass
 
 
 ##
@@ -685,8 +697,6 @@ if ALIGN_MAPPING_BETWEEN_1K_IMAGE_AND_EXPRESSION:
     # Interactive(sdata_patient1_1k)
     ##
 
-pass
-pass
 # TODO: refine the alignemnt of the visium data (patient 1 and 2) to the schematics. Needs points to be implemented back (because we need those, we can't use shapes anymore)
 # TODO: refine the alignemnt of the 1k expression to the images
 # TODO: make the aligment of the 1k data to the schematics

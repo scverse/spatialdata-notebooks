@@ -1,26 +1,35 @@
 ##
-import pytest
-from spatialdata import SpatialData
-from spatialdata._core.models import Image2DModel, Labels2DModel, ShapesModel
-from spatialdata._core.transformations import Identity, Scale, Translation, MapAxis, Sequence, Affine
-import scipy.misc
-from skimage.segmentation import slic
+import math
+import os
+import tempfile
+from pprint import pprint
+
 import matplotlib.pyplot as plt
 import numpy as np
-from napari_spatialdata import Interactive
-from pprint import pprint
-import math
 import pytest
-import tempfile
-import os
+import scipy.misc
+from napari_spatialdata import Interactive
+from skimage.segmentation import slic
+from spatialdata import SpatialData
 from spatialdata._core._spatialdata_ops import (
     get_transformation,
-    set_transformation,
-    remove_transformation,
     get_transformation_between_coordinate_systems,
+    remove_transformation,
+    set_transformation,
+)
+from spatialdata._core.models import Image2DModel, Labels2DModel, ShapesModel
+from spatialdata._core.transformations import (
+    Affine,
+    Identity,
+    MapAxis,
+    Scale,
+    Sequence,
+    Translation,
 )
 
 SKIP_PLOTS = True
+
+
 ##
 def hacky_plot(sdata) -> None:
     if SKIP_PLOTS:
@@ -181,7 +190,7 @@ print(sdata1)
 im0 = sdata1.images["im0"]
 im1 = sdata1.images["im1"]
 im2 = sdata1.images["im2"]
-assert len(set([id(im0), id(im1), id(im2)])) == 3
+assert len({id(im0), id(im1), id(im2)}) == 3
 
 ##
 scale = Scale([2.0], axes=("x",))
