@@ -59,11 +59,10 @@ addopts = [
 include_trailing_comma = true
 multi_line_output = 3
 profile = "black"
-skip_glob = ["docs/*"]
 
 [tool.black]
 line-length = 120
-target-version = ['py38']
+target-version = ['py39']
 include = '\.pyi?$'
 exclude = '''
 (
