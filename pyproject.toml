@@ -23,8 +23,6 @@ dependencies = ["anndata"]
 
 [project.optional-dependencies]
 dev = [
-    # CLI for bumping the version number
-    "bump2version",
     "pre-commit"
 ]
 doc = [
@@ -36,23 +34,7 @@ doc = [
     # For notebooks
     "nbsphinx",
     "ipykernel"
-]
-test = [
-    "pytest",
-    "pytest-cov",
-]
-
-[tool.coverage.run]
-source = ["spatialdata_notebooks"]
-omit = [
-    "**/test_*.py",
-]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-xfail_strict = true
-addopts = [
-    "--import-mode=importlib",  # allow using test files with same name
+    "myst-nb",
 ]
 
 [tool.isort]
