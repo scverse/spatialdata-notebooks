@@ -26,15 +26,14 @@ dev = [
     "pre-commit"
 ]
 doc = [
-    "sphinx>=4",
-    "furo",
-    "myst-parser",
-    "sphinxcontrib-bibtex>=1.0.0",
-    "scanpydoc[typehints]>=0.7.4",
-    # For notebooks
-    "nbsphinx",
-    "ipykernel",
+    "sphinx>=4.5",
+    "sphinx-book-theme>=0.3.3",
     "myst-nb",
+    "sphinxcontrib-bibtex>=1.0.0",
+    "sphinx-autodoc-typehints",
+    # For notebooks
+    "ipython>=8.6.0",
+    "sphinx-copybutton",
 ]
 
 [tool.isort]
