@@ -14,7 +14,7 @@ authors = [
     {name = "scverse"},
 ]
 maintainers = [
-    {name = "scverse", email = "scverse"},
+    {name = "scverse", email = "core@scverse.org"},
 ]
 urls.Documentation = "https://spatialdata-notebooks.readthedocs.io/"
 urls.Source = "https://github.com/scverse/spatialdata-notebooks"
