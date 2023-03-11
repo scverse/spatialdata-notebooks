@@ -33,7 +33,7 @@ doc = [
     "scanpydoc[typehints]>=0.7.4",
     # For notebooks
     "nbsphinx",
-    "ipykernel"
+    "ipykernel",
     "myst-nb",
 ]
 
