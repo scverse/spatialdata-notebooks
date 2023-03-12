@@ -5,7 +5,7 @@ build:
     tools:
         python: "3.10"
 sphinx:
-    configuration: docs/conf.py
+    configuration: conf.py
     fail_on_warning: true
 python:
     install:
