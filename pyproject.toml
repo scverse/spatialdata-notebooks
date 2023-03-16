@@ -14,7 +14,7 @@ authors = [
     {name = "scverse"},
 ]
 maintainers = [
-    {name = "scverse", email = "scverse"},
+    {name = "scverse", email = "core@scverse.org"},
 ]
 urls.Documentation = "https://spatialdata-notebooks.readthedocs.io/"
 urls.Source = "https://github.com/scverse/spatialdata-notebooks"
@@ -23,47 +23,27 @@ dependencies = ["anndata"]
 
 [project.optional-dependencies]
 dev = [
-    # CLI for bumping the version number
-    "bump2version",
     "pre-commit"
 ]
 doc = [
-    "sphinx>=4",
-    "furo",
-    "myst-parser",
+    "sphinx>=4.5",
+    "sphinx-book-theme>=0.3.3",
+    "myst-nb",
     "sphinxcontrib-bibtex>=1.0.0",
-    "scanpydoc[typehints]>=0.7.4",
+    "sphinx-autodoc-typehints",
     # For notebooks
-    "nbsphinx",
-    "ipykernel"
-]
-test = [
-    "pytest",
-    "pytest-cov",
-]
-
-[tool.coverage.run]
-source = ["spatialdata_notebooks"]
-omit = [
-    "**/test_*.py",
-]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-xfail_strict = true
-addopts = [
-    "--import-mode=importlib",  # allow using test files with same name
+    "ipython>=8.6.0",
+    "sphinx-copybutton",
 ]
 
 [tool.isort]
 include_trailing_comma = true
 multi_line_output = 3
 profile = "black"
-skip_glob = ["docs/*"]
 
 [tool.black]
 line-length = 120
-target-version = ['py38']
+target-version = ['py39']
 include = '\.pyi?$'
 exclude = '''
 (

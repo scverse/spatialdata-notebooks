@@ -2,7 +2,7 @@
 :hidden: true
 :maxdepth: 1
 
-notebooks/example.ipynb
+notebooks/transformations.ipynb
 references.md
 README.md
 ```
