@@ -4,9 +4,9 @@ The example notebooks operate on a set of spatial omics datasets that can be dow
 
 Here you can find the dataset hosted in S3 object storage.
 
-|        Dataset        |       Download      |
+|        Dataset        |       S3      |
 |:-----------------------:|:---------------------:|
-|       cosmx_io        | TODO |
+|       cosmx_io        | https://s3.embl.de/spatialdata/spatialdata-sandbox/cosmx_io.zarr/ |
 |      mcmicro_io       | TODO |
 |       merfish         | TODO |
 |       mibitof         | TODO |
@@ -18,5 +18,4 @@ Here you can find the dataset hosted in S3 object storage.
 |     xenium_rep1_io    | TODO |
 |     xenium_rep2_io    | TODO |
 
-
-
+Note: opening the above URLs in a web browser would not work, you need to treat the URLs as Zarr stores. For example if you append `.zgroup` to any of the URLs above you will be able to see that file.
