@@ -1,4 +1,4 @@
-# Obtaining the datasets
+## Obtaining the datasets
 
 The example notebooks operate on a set of spatial omics datasets that can be downloaded and converted to Zarr (OME-NGFF) with the scripts available in https://github.com/giovp/spatialdata-sandbox.
 
