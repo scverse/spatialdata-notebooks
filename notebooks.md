@@ -1,6 +1,8 @@
 <!-- images can have any resolution, but need to have ratio W x H = 3 x 2 -->
 
-# Tutorials
+# Code examples
+
+## Tutorials
 
 Notebooks tailored to showcase specific functionalities of the SpatialData ecosystem.
 
@@ -93,7 +95,7 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
 ```
 
-# Datasets explorations and analyses
+## Datasets explorations and analyses
 
 More general exploration of various datasets.
 
@@ -125,7 +127,7 @@ More general exploration of various datasets.
                 notebooks/analyses/lundeberg.ipynb
 ```
 
-# Datasets
+# Obtaining the datasets
 
 Various datasets in the NGFF format ready to download (.zarr.zip) or to be accessed in the cloud (S3)
 
