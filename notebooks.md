@@ -1,5 +1,7 @@
 <!-- images can have any resolution, but need to have ratio W x H = 3 x 2 -->
+
 # Tutorials
+
 Notebooks tailored to showcase specific functionalities of the SpatialData ecosystem.
 
 ```{eval-rst}
@@ -14,7 +16,7 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
         .. toctree::
             :maxdepth: 1
-                
+
             notebooks/examples/transformations.ipynb
 
     .. grid-item::
@@ -26,7 +28,7 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
             .. toctree::
                 :maxdepth: 1
-                    
+
                 notebooks/examples/densenet.ipynb
 
     .. grid-item::
@@ -38,7 +40,7 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
             .. toctree::
                 :maxdepth: 1
-                    
+
                 notebooks/examples/spatial_query.ipynb
 
     .. grid-item::
@@ -50,7 +52,7 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
             .. toctree::
                 :maxdepth: 1
-                    
+
                 notebooks/examples/static_plot.ipynb
 
     .. grid-item::
@@ -62,11 +64,11 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
             .. toctree::
                 :maxdepth: 1
-                    
+
                 notebooks/examples/napari_rois.ipynb
 
     .. grid-item::
- 
+
         .. container:: custom-card
 
             .. image:: _static/img/alignment_using_landmarks.png
@@ -74,7 +76,7 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
             .. toctree::
                 :maxdepth: 1
-                    
+
                 notebooks/examples/alignment_using_landmarks.ipynb
 
     .. grid-item::
@@ -86,12 +88,13 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
             .. toctree::
                 :maxdepth: 1
-                    
+
                 notebooks/examples/aggregation.ipynb
-       
+
 ```
 
 # Datasets explorations and analyses
+
 More general exploration of various datasets.
 
 ```{eval-rst}
@@ -106,7 +109,7 @@ More general exploration of various datasets.
 
             .. toctree::
                 :maxdepth: 1
-                    
+
                 notebooks/analyses/xenium_and_visium.ipynb
 
     .. grid-item::
@@ -118,11 +121,12 @@ More general exploration of various datasets.
 
             .. toctree::
                 :maxdepth: 1
-                    
+
                 notebooks/analyses/lundeberg.ipynb
 ```
 
 # Datasets
+
 Various datasets in the NGFF format ready to download (.zarr.zip) or to be accessed in the cloud (S3)
 
 ```{eval-rst}
@@ -131,6 +135,3 @@ Various datasets in the NGFF format ready to download (.zarr.zip) or to be acces
 
   datasets/Readme.md
 ```
-
-
-
