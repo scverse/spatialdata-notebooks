@@ -16,7 +16,6 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
             :maxdepth: 1
                 
             notebooks/examples/transformations.ipynb
-            ehi
 
     .. grid-item::
 
