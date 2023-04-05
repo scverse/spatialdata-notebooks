@@ -134,6 +134,7 @@ Various datasets in the NGFF format ready to download (.zarr.zip) or to be acces
 ```{eval-rst}
 .. toctree::
   :maxdepth: 1
+  :titlesonly:
 
   datasets/Readme.md
 ```
