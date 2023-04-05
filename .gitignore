@@ -25,3 +25,7 @@ _build/
 
 # data
 data/
+temp/
+
+# others
+.ipynb_checkpoints
