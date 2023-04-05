@@ -14,10 +14,10 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
             .. image:: _static/img/transformations.jpg
                 :target: notebooks/examples/transformations.html
 
-        .. toctree::
-            :maxdepth: 1
+            .. toctree::
+                :maxdepth: 1
 
-            notebooks/examples/transformations.ipynb
+                notebooks/examples/transformations.ipynb
 
     .. grid-item::
 
