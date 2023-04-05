@@ -2,11 +2,6 @@
 
 Tutorials for SpatialData, [see them in the spatialdata documentation](https://spatialdata.scverse.org/en/latest/tutorials/index.html).
 
-## Installation
-
-You need to have Python 3.8 or newer installed on your system. If you don't have
-Python installed, we recommend installing [Miniconda](https://docs.conda.io/en/latest/miniconda.html).
-
 ## Contact
 
 For questions and help requests, you can reach out in the [scverse discourse][scverse-discourse].
