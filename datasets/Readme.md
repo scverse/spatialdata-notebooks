@@ -4,19 +4,20 @@ The example notebooks operate on a set of spatial omics datasets that can be dow
 
 Here you can find the dataset hosted in S3 object storage.
 
-|           Dataset           | .zarr.zip |                                           S3                                           |
-| :-------------------------: | :-------: | :------------------------------------------------------------------------------------: |
-|          cosmx_io           |   TODO    |          <https://s3.embl.de/spatialdata/spatialdata-sandbox/cosmx_io.zarr/>           |
-|         mcmicro_io          |   TODO    |         <https://s3.embl.de/spatialdata/spatialdata-sandbox/mcmicro_io.zarr/>          |
-|           merfish           |   TODO    |           <https://s3.embl.de/spatialdata/spatialdata-sandbox/merfish.zarr/>           |
-|           mibitof           |   TODO    |           <https://s3.embl.de/spatialdata/spatialdata-sandbox/mibitof.zarr/>           |
-|        steinbock_io         |   TODO    |        <https://s3.embl.de/spatialdata/spatialdata-sandbox/steinbock_io.zarr/>         |
-|             toy             |   TODO    |             <https://s3.embl.de/spatialdata/spatialdata-sandbox/toy.zarr/>             |
-|           visium            |   TODO    |           <https://s3.embl.de/spatialdata/spatialdata-sandbox/visium.zarr/>            |
-|          visium_io          |   TODO    |          <https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_io.zarr/>          |
-| visium_associated_xenium_io |   TODO    | <https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_associated_xenium_io.zarr/> |
-|       xenium_rep1_io        |   TODO    |       <https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep1_io.zarr/>        |
-|       xenium_rep2_io        |   TODO    |       <https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep2_io.zarr/>        |
+|           Dataset           | .zarr.zip                                              |                                           S3                                           |
+| :-------------------------: | :-----------------------------------------------------: | :------------------------------------------------------------------------------------: |
+|          cosmx_io           | <https://s3.embl.de/spatialdata/spatialdata-sandbox/cosmx_io.zip>             |          <https://s3.embl.de/spatialdata/spatialdata-sandbox/cosmx_io.zarr/>           |
+|         mcmicro_io          | <https://s3.embl.de/spatialdata/spatialdata-sandbox/mcmicro_io.zip>            |         <https://s3.embl.de/spatialdata/spatialdata-sandbox/mcmicro_io.zarr/>          |
+|           merfish           | <https://s3.embl.de/spatialdata/spatialdata-sandbox/merfish.zip>             |           <https://s3.embl.de/spatialdata/spatialdata-sandbox/merfish.zarr/>           |
+|           mibitof           | <https://s3.embl.de/spatialdata/spatialdata-sandbox/mibitof.zip>             |           <https://s3.embl.de/spatialdata/spatialdata-sandbox/mibitof.zarr/>           |
+|        steinbock_io         | <https://s3.embl.de/spatialdata/spatialdata-sandbox/steinbock_io.zip>           |        <https://s3.embl.de/spatialdata/spatialdata-sandbox/steinbock_io.zarr/>         |
+|             toy             | <https://s3.embl.de/spatialdata/spatialdata-sandbox/toy.zip>                |             <https://s3.embl.de/spatialdata/spatialdata-sandbox/toy.zarr/>             |
+|           visium            | <https://s3.embl.de/spatialdata/spatialdata-sandbox/visium.zip>              |           <https://s3.embl.de/spatialdata/spatialdata-sandbox/visium.zarr/>            |
+|          visium_io          | <https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_io.zip>            |          <https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_io.zarr/>          |
+| visium_associated_xenium_io | <https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_associated_xenium_io.zip> | <https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_associated_xenium_io.zarr/> |
+|       xenium_rep1_io        | <https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep1_io.zip>        |       <https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep1_io.zarr/>        |
+|       xenium_rep2_io        | <https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep2_io.zip>        |       <https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep2_io.zarr/>        |
+
 
 ## Note
 
