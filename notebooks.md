@@ -59,8 +59,8 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
         .. container:: custom-card
 
-            .. image:: _static/img/napari_roi.jpg
-                :target: notebooks/examples/napari_roi.html
+            .. image:: _static/img/napari_rois.jpg
+                :target: notebooks/examples/napari_rois.html
 
             .. toctree::
                 :maxdepth: 1
