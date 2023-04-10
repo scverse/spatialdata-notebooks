@@ -26,6 +26,7 @@ _build/
 # data
 data/
 temp/
+*.zarr
 
 # others
 .ipynb_checkpoints
