@@ -24,9 +24,10 @@ _build/
 /.vscode/
 
 # data
-data/
+*/data/
 temp/
 *.zarr
+notebooks/analyses/data
 
 # others
 .ipynb_checkpoints
