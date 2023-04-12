@@ -1,4 +1,5 @@
 # Tutorials
+
 Notebooks tailored to showcase specific functionalities of the SpatialData ecosystem.
 
 ```{eval-rst}
@@ -10,6 +11,7 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 ```
 
 # Datasets explorations and analyses
+
 More general exploration of various datasets.
 
 ```{eval-rst}
