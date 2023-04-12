@@ -25,3 +25,6 @@ _build/
 
 # data
 data/
+
+# notebooks
+*.ipynb_checkpoints
