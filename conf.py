@@ -101,6 +101,7 @@ exclude_patterns = [
     "_build",
     "Thumbs.db",
     "**.ipynb_checkpoints",
+    "data",
 ]
 # Ignore warnings.
 nitpicky = False  # TODO: solve upstream.
