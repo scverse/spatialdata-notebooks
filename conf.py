@@ -104,6 +104,8 @@ exclude_patterns = [
     "**.ipynb_checkpoints",
     "data",
     "temp",
+    "notebooks/paper_reproducibility",
+    "notebooks/examples/*.zarr"
 ]
 # Ignore warnings.
 nitpicky = False  # TODO: solve upstream.

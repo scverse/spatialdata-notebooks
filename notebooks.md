@@ -93,38 +93,6 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
 ```
 
-## More examples: datasets explorations and analyses
-
-More general exploration of various datasets.
-
-```{eval-rst}
-.. grid:: 2 3 3 3
-
-    .. grid-item::
-
-        .. container:: custom-card
-
-            .. image:: _static/img/xenium_and_visium.jpg
-                :target: notebooks/analyses/xenium_and_visium.html
-
-            .. toctree::
-                :maxdepth: 1
-
-                notebooks/analyses/xenium_and_visium.ipynb
-
-    .. grid-item::
-
-        .. container:: custom-card
-
-            .. image:: _static/img/lundeberg.jpg
-                :target: notebooks/analyses/lundeberg.html
-
-            .. toctree::
-                :maxdepth: 1
-
-                notebooks/analyses/lundeberg.ipynb
-```
-
 ## Obtaining the datasets
 
 Various datasets in the NGFF format ready to download (.zarr.zip) or to be accessed in the cloud (S3)
