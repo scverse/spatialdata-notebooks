@@ -27,7 +27,10 @@ _build/
 */data/
 temp/
 *.zarr
+
+# symlinks
 notebooks/analyses/data
+notebooks/analyses/spatialdata-sandbox
 
 # others
 .ipynb_checkpoints
