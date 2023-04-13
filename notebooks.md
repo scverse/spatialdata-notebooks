@@ -91,6 +91,17 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
                 notebooks/examples/aggregation.ipynb
 
+    .. grid-item::
+
+        .. container:: custom-card
+
+            .. image:: _static/img/squidpy_integration.jpg
+                :target: notebooks/examples/squidpy_integration.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/squidpy_integration.ipynb
 ```
 
 ## Obtaining the datasets
@@ -102,5 +113,5 @@ Various datasets in the NGFF format ready to download (.zarr.zip) or to be acces
   :maxdepth: 1
   :titlesonly:
 
-  datasets/Readme.md
+  datasets/README.md
 ```

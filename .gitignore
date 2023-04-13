@@ -32,5 +32,9 @@ temp/
 notebooks/paper_reproducibility/data
 notebooks/paper_reproducibility/spatialdata-sandbox
 
-# others
-.ipynb_checkpoints
+data/
+*.zarr
+*.zip
+
+# notebooks
+*.ipynb_checkpoints

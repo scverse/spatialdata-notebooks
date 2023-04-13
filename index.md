@@ -4,6 +4,6 @@
 
 notebooks.md
 references.md
-datasets/Readme.md
+datasets/README.md
 README.md
 ```
