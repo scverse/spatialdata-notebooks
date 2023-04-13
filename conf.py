@@ -102,7 +102,7 @@ exclude_patterns = [
     "Thumbs.db",
     "**.ipynb_checkpoints",
     "data",
-    "README.md",
+    "*/README.md",
 ]
 # Ignore warnings.
 nitpicky = False  # TODO: solve upstream.
