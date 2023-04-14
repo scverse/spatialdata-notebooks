@@ -16,9 +16,7 @@ CELL_TYPES = [
 
 
 def my_transform(sdata: SpatialData) -> tuple[torch.tensor, torch.tensor]:
-    """
-    Utilily function to transfom an ImageTilesDataset into the data types needed by the Dense Net example model.
-    """
+    """Utilily function to transfom an ImageTilesDataset into the data types needed by the Dense Net example model."""
     tile = sdata["CytAssist_FFPE_Human_Breast_Cancer_full_image"].data.compute()
     tile = torch.tensor(tile).float()
 
