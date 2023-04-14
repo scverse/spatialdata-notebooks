@@ -105,8 +105,7 @@ exclude_patterns = [
     "data",
     "temp",
     "notebooks/paper_reproducibility",
-    "notebooks/examples/*.zarr"
-    "references.md",
+    "notebooks/examples/*.zarr" "references.md",
     "Readme.md",  # hack cause git his acting up
 ]
 # Ignore warnings.
