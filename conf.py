@@ -106,9 +106,8 @@ exclude_patterns = [
     "temp",
     "notebooks/paper_reproducibility",
     "notebooks/examples/*.zarr"
-    # luca to giovanni: I excluded these from ignore, I made it work without needing them
-    # "*/README.md",
-    # "Readme.md",  # hack cause git his acting up
+    "references.md",
+    "Readme.md",  # hack cause git his acting up
 ]
 # Ignore warnings.
 nitpicky = False  # TODO: solve upstream.
