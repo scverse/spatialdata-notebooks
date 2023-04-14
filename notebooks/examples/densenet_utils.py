@@ -5,6 +5,9 @@ import torch.nn.functional as F
 CELL_TYPES = ['B-cells', 'CAFs', 'Cancer Epithelial', 'Endothelial', 'Myeloid', 'Normal Epithelial', 'PVL', 'Plasmablasts', 'T-cells']
 
 def my_transform(sdata: SpatialData) -> tuple[torch.tensor, torch.tensor]:
+    """
+    Utilily function to transfom an ImageTilesDataset into the data types needed by the Dense Net example model.
+    """
     tile = sdata['CytAssist_FFPE_Human_Breast_Cancer_full_image'].data.compute()
     tile = torch.tensor(tile).float()
     

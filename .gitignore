@@ -38,3 +38,7 @@ data/
 
 # notebooks
 *.ipynb_checkpoints
+
+# torch checkpoints
+notebooks/examples/lightning_logs/
+notebooks/examples/logs/
