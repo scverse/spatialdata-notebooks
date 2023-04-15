@@ -1,6 +1,6 @@
 # spatialdata-notebooks
 
-Tutorials and examples for SpatialData: <https://spatialdata-notebooks.readthedocs.io>.
+Tutorials and examples for SpatialData. See them as part of the [spatialdata documentation](https://spatialdata.scverse.org/en/latest/tutorials/notebooks/notebooks.html).
 
 ## Contact
 
