@@ -1,6 +1,6 @@
 # spatialdata-notebooks
 
-Tutorials and examples for SpatialData: <https://spatialdata-notebooks.readthedocs.io>.
+Tutorials and examples for SpatialData. See them as part of the [spatialdata documentation](file:///Users/macbook/embl/projects/basel/spatialdata/docs/_build/html/tutorials/notebooks/notebooks.html).
 
 ## Contact
 
