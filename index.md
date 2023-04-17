@@ -1,11 +1,9 @@
-```{toctree}
-:hidden: true
-:maxdepth: 1
+```{eval-rst}
+.. toctree::
+  :maxdepth: 1
 
-notebooks/transformations.ipynb
-notebooks/aggregation.ipynb
-notebooks/spatial-query.ipynb
-notebooks/squidpy-integration.ipynb
-references.md
-README.md
+  README.md
+  notebooks.md
+  datasets/README.md
+  references.md
 ```

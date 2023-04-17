@@ -24,9 +24,21 @@ _build/
 /.vscode/
 
 # data
+*/data/
+temp/
+*.zarr
+
+# symlinks
+notebooks/paper_reproducibility/data
+notebooks/paper_reproducibility/spatialdata-sandbox
+
 data/
 *.zarr
 *.zip
 
 # notebooks
 *.ipynb_checkpoints
+
+# torch checkpoints
+notebooks/examples/lightning_logs/
+notebooks/examples/logs/

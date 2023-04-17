@@ -53,6 +53,7 @@ extensions = [
     "sphinx_autodoc_typehints",
     "sphinx.ext.mathjax",
     "IPython.sphinxext.ipython_console_highlighting",
+    "sphinx_design",
     *[p.stem for p in (HERE / "extensions").glob("*.py")],
 ]
 
@@ -102,7 +103,9 @@ exclude_patterns = [
     "Thumbs.db",
     "**.ipynb_checkpoints",
     "data",
-    "*/README.md",
+    "temp",
+    "notebooks/paper_reproducibility",
+    "notebooks/examples/*.zarr" "references.md",
     "Readme.md",  # hack cause git his acting up
 ]
 # Ignore warnings.
@@ -120,6 +123,7 @@ nitpicky = False  # TODO: solve upstream.
 #
 html_theme = "sphinx_book_theme"
 html_static_path = ["_static"]
+html_css_files = ["css/custom.css"]
 html_title = project_name
 
 html_theme_options = {
