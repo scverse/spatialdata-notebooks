@@ -101,6 +101,9 @@ exclude_patterns = [
     "_build",
     "Thumbs.db",
     "**.ipynb_checkpoints",
+    "data",
+    "*/README.md",
+    "Readme.md",  # hack cause git his acting up
 ]
 # Ignore warnings.
 nitpicky = False  # TODO: solve upstream.

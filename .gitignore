@@ -25,3 +25,8 @@ _build/
 
 # data
 data/
+*.zarr
+*.zip
+
+# notebooks
+*.ipynb_checkpoints
