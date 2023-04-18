@@ -104,7 +104,7 @@ Various different technologies can be visualised out-of-the-box.
 
         .. container:: custom-card
 
-            .. image:: _static/img/visium.jpg
+            .. image:: _static/img/visium.png
                 :target: notebooks/examples/technology_visium.html
 
             .. toctree::
