@@ -4,7 +4,7 @@ The example notebooks operate on a set of spatial omics datasets that can be dow
 
 Here you can find the dataset hosted in S3 object storage.
 
-|           Dataset           |                                      .zarr.zip                                       |                                           S3                                           |
+|           Dataset           |                                      .zarr.zip                                       |                                           S3 (see note below!)                                           |
 | :-------------------------: | :----------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------: |
 |          cosmx_io           |          <https://s3.embl.de/spatialdata/spatialdata-sandbox/cosmx_io.zip>           |          <https://s3.embl.de/spatialdata/spatialdata-sandbox/cosmx_io.zarr/>           |
 |         mcmicro_io          |         <https://s3.embl.de/spatialdata/spatialdata-sandbox/mcmicro_io.zip>          |         <https://s3.embl.de/spatialdata/spatialdata-sandbox/mcmicro_io.zarr/>          |
