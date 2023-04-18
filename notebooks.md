@@ -47,18 +47,6 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
         .. container:: custom-card
 
-            .. image:: _static/img/static_plot.jpg
-                :target: notebooks/examples/static_plot.html
-
-            .. toctree::
-                :maxdepth: 1
-
-                notebooks/examples/static_plot.ipynb
-
-    .. grid-item::
-
-        .. container:: custom-card
-
             .. image:: _static/img/napari_rois.jpg
                 :target: notebooks/examples/napari_rois.html
 
@@ -102,5 +90,39 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
                 :maxdepth: 1
 
                 notebooks/examples/squidpy_integration.ipynb
+
+```
+
+## Visualizations
+
+Various different technologies can be visualised out-of-the-box.
+
+```{eval-rst}
+.. grid:: 2 3 3 3
+
+    .. grid-item::
+
+        .. container:: custom-card
+
+            .. image:: _static/img/visium.jpg
+                :target: notebooks/examples/technology_visium.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/technology_visium.ipynb
+
+    .. grid-item::
+
+        .. container:: custom-card
+
+            .. image:: _static/img/mibitof.png
+                :target: notebooks/examples/technology_mibitof.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/technology_mibitof.ipynb
+
 
 ```
