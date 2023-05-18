@@ -95,7 +95,7 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
 ## Visualizations
 
-Various different technologies can be visualised out-of-the-box.
+Many different technologies can be visualised out-of-the-box. See below for a couple of examples. See the [example datasets](datasets/README.md) for additional technologies represented in SpatialData.
 
 ```{eval-rst}
 .. grid:: 2 3 3 3
