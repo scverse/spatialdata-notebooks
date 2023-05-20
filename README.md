@@ -1,3 +1,5 @@
+![SpatialData banner](https://github.com/scverse/spatialdata/blob/main/docs/_static/img/spatialdata_horizontal.png?raw=true)
+
 # spatialdata-notebooks
 
 Tutorials and examples for SpatialData. See them as part of the [spatialdata documentation](https://spatialdata.scverse.org/en/latest/tutorials/notebooks/notebooks.html).
