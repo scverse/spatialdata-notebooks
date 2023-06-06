@@ -148,5 +148,17 @@ Many different technologies can be visualised out-of-the-box. See below for a co
 
                 notebooks/examples/technology_cosmx.ipynb
 
+    .. grid-item::
+
+        .. container:: custom-card
+
+            .. image:: _static/img/curio.png
+                :target: notebooks/examples/technology_curio.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/technology_curio.ipynb
+
 
 ```
