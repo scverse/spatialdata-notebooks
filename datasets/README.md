@@ -1,8 +1,9 @@
 # Obtaining the datasets
 
-The example notebooks operate on a set of spatial omics datasets that can be downloaded and converted to Zarr (OME-NGFF) with the scripts available in https://github.com/giovp/spatialdata-sandbox.
+Here you can find all datasets necessary to run the example notebooks already converted to the ZARR file format.
 
-Here you can find the dataset hosted in S3 object storage.
+If you want to convert additional datasets check out the scripts available in the [spatialdata sandbox](https://github.com/giovp/spatialdata-sandbox).
+
 
 | Technology           |Sample                    |           Filename          |File Size|                                                  download data                                 |   work with data remotely  [^1]                                                            |
 |:---------------------|:-------------------------|:----------------------------|--------:|:-----------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------ |
