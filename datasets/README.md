@@ -18,4 +18,4 @@ Here you can find the dataset hosted in S3 object storage.
 |Xenium                |Breast Cancer             |       xenium_rep2_io        |3.7 GB   |[.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep2_io.zip)              | [S3](https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep2_io.zarr/)              |
 |                      |                          |             toy             |11 kB    |[.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/toy.zip)                         | [S3](https://s3.embl.de/spatialdata/spatialdata-sandbox/toy.zarr/)                         |
 
-[^1] Opening the S3 URLs in a web browser will not work, you need to treat the URLs as Zarr stores. For example if you append `.zgroup` to any of the URLs above you will be able to see that file.
+[^1]: Opening the S3 URLs in a web browser will not work, you need to treat the URLs as Zarr stores. For example if you append `.zgroup` to any of the URLs above you will be able to see that file.
