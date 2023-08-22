@@ -9,11 +9,7 @@ def execute_notebook(notebook_path):
     notebook = read(notebook_path, as_version=4)
     execute_preprocessor = ExecutePreprocessor(timeout=600)  # Set the timeout as needed
 
-    try:
-        execute_preprocessor.preprocess(notebook, {"metadata": {"path": "."}})
-    except Exception as e:
-        print(f"Error executing notebook: {e}")
-        return False
+    execute_preprocessor.preprocess(notebook, {"metadata": {"path": "."}})
 
     with open(notebook_path, "w") as f:
         write(notebook, f)
