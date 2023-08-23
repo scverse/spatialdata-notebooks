@@ -19,6 +19,7 @@ Here you can find the dataset hosted in S3 object storage.
 |                                         xenium_rep2_io                                         |       <https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep2_io.zip>        |       <https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep2_io.zarr>        |
 | [additional resources for methods developers](https://github.com/scverse/spatialdata-notebooks/blob/main/notebooks/notebooks/developers_resources/storage_format/) |                                          -                                           |                                           -                                            |
 
+
 ## Note
 
 Opening the above URLs in a web browser would not work, you need to treat the URLs as Zarr stores. For example if you append `/.zgroup` to any of the `.zarr` URLs above you will be able to see that file.

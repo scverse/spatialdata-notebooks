@@ -1,10 +1,12 @@
-from spatialdata._io._utils import _are_directories_identical
-import spatialdata as sd
 import os
+import shutil
+import tempfile
+
+import spatialdata as sd
 import zarr
 from ome_zarr.io import parse_url
-import tempfile
-import shutil
+from spatialdata._io._utils import _are_directories_identical
+
 
 
 def delete_old_data(name: str) -> None:
