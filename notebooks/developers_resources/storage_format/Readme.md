@@ -1,20 +1,20 @@
 # Examples covering the whole storage specification
 
-This repository offers comprehensive resources for developers that want to interface their methods with the SpatialData format in a robust way.
+This directory offers comprehensive resources for developers that want to interface their methods with the SpatialData format in a robust way.
 
 ## Why this repository
-The file storage format adopted by SpatialData is built on top of the latest version of the well-documented [OME-NGFF specification](https://ngff.openmicroscopy.org/latest/index.html), but it also uses some less-documented features of the OME-NGFF specification that are still under review, or experimental storage strategies that will be eventually discussed with the NGFF community.
+The file storage format adopted by SpatialData is built on top of the latest version of the well-documented [OME-NGFF specification](https://ngff.openmicroscopy.org/latest/index.html), but it also uses *some* less-documented features of the OME-NGFF specification that are still [under review](https://github.com/ome/ngff/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc), or experimental storage strategies that will be eventually discussed with the NGFF community.
 This repository addresses the need for communicating the storage specification to other developers in a complete and robust way.
 
 ## What this repository contains
-In particular:
-- this directory contains notebooks that operate on small datasets; each notebook covers a particular aspect of the storage specification and all the edge cases of the specification are covered in at least one of the notebooks;
-- all the notebooks are run every 24h. Each notebook creates a dataset, writes it to disk, reloads it in memory, rewrites it to disk to check for consistency, reloads it again in memory and plots it;
-- also, the disk storage is committed to GitHub so that the output of each daily run is associated to a commit;
-- the notebooks are tested daily against both the latest `release` and the latest `main` versions of the `spatialdata` library; the corresponding produced data is available in the `data` directory of this repository and at this S3 location # TODO add link
+This directory contains notebooks that operate on lightweight datasets.
+- Each notebook covers a particular aspect of the storage specification and all the edge cases of the specification are covered in at least one of the notebooks.
+- All the notebooks are run every 24h. Each notebook creates a dataset, writes it to disk, reloads it in memory, rewrites it to disk to check for consistency, reloads it again in memory and plots it.
+- The disk storage is committed to GitHub so that the output of each daily run is associated to a commit.
+- The notebooks are run daily against both the latest `release` and the latest `main` versions of the `spatialdata` library; the corresponding produced data is available in the `data` directory of this repository and at this S3 location. # TODO add link
 
 ## How to use this repository
-Practically, a third party tool (e.g. R reader, format converter, JavaScript data visualizer, etc.) that runs correctly on the lightweight datasets from this repository, is then guaranteed to run correctly on any SpatialData dataset.
+Practically, a third party tool (e.g. R reader, format converter, JavaScript data visualizer, etc.) that runs correctly on the lightweight datasets from this repository, is guaranteed to run correctly on any SpatialData dataset.
 
 We recommend to:
 - implement your readers on the latest `release` version of the data;
