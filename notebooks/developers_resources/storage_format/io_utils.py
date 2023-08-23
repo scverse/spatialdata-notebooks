@@ -52,7 +52,6 @@ def write_sdata_and_check_consistency(sdata: sd.SpatialData, name: str) -> None:
     >>> sdata = sd.SpatialData() # assume SpatialData instance is created
     >>> write_sdata_and_check_consistency(sdata, 'testfile') # will create testfile.zarr
     """
-
     f1 = f"{name}.zarr"
     assert not os.path.exists(f1)
     sdata.write(f1)
