@@ -14,15 +14,15 @@ This directory contains notebooks that operate on lightweight datasets.
   - `autorun: storage format; spatialdata from al29fak`
   - `autorun: storage format; spatialdata from fa096da (v0.0.12)`
 - The `.zarr` data produced by every run is available in the current directory, in the commit corresponding to the run.
-- The data is also [uploaded to S3](https://s3.embl.de/spatialdata/developers_resources/storage_format/index.html), both as Zarr directories and as zipped files.
+- The data is also [uploaded to S3](index.html), both as Zarr directories and as zipped files.
 
 ## How to use this repository
 Practically, a third party tool (e.g. R reader, format converter, JavaScript data visualizer, etc.) that runs correctly on the lightweight datasets from this repository, should be guaranteed to run correctly on any SpatialData dataset.
 
 We recommend the following.
 - Implement your readers on the data from the latest run available (look for the latest commit with message `autorun: storage format; ...`).
-- Set up an automated test (e.g. daily) that performs a `git pull` to get the latest converted data and to run your code on it.
-- If your reader fails, you can inspect the corresponding commit in this repository to see what has changed in the storage specification and update your reader accordingly; in particular, you may find useful to compare different commits using the GitHub compare function, accessible with the following syntax: https://github.com/scverse/spatialdata-notebooks/compare/267adb1..5847084
+- Set up an automated test (e.g. daily) that gets the latest converted data (you can use a `git pull` or download the data from S3) and runs your code on it.
+- If your reader fails, you can inspect the corresponding commit in this repository to see what has changed in the storage specification; in particular, you may find useful to compare different commits using the GitHub compare function, accessible with the following syntax: https://github.com/scverse/spatialdata-notebooks/compare/267adb1..5847084
 
 ## Important technical notes
 - The most crucial part of the metadata is stored, for each spatial element, in the `.zattr` file. [Example](transformation_identity.zarr/images/blobs_image/.zattrs).
