@@ -4,8 +4,8 @@ The example notebooks operate on a set of spatial omics datasets that can be dow
 
 Here you can find the dataset hosted in S3 object storage.
 
-|                                             Dataset                                              |                                      .zarr.zip                                       |                                  S3 (see note below!)                                  |
-|:------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------:|
+|                                             Dataset                                              |                                      .zarr.zip                                       |                                 S3 (see note below!)                                  |
+| :----------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------: |
 |                                             cosmx_io                                             |          <https://s3.embl.de/spatialdata/spatialdata-sandbox/cosmx_io.zip>           |          <https://s3.embl.de/spatialdata/spatialdata-sandbox/cosmx_io.zarr>           |
 |                                            mcmicro_io                                            |         <https://s3.embl.de/spatialdata/spatialdata-sandbox/mcmicro_io.zip>          |         <https://s3.embl.de/spatialdata/spatialdata-sandbox/mcmicro_io.zarr>          |
 |                                             merfish                                              |           <https://s3.embl.de/spatialdata/spatialdata-sandbox/merfish.zip>           |           <https://s3.embl.de/spatialdata/spatialdata-sandbox/merfish.zarr>           |
@@ -17,7 +17,7 @@ Here you can find the dataset hosted in S3 object storage.
 |                                   visium_associated_xenium_io                                    | <https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_associated_xenium_io.zip> | <https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_associated_xenium_io.zarr> |
 |                                          xenium_rep1_io                                          |       <https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep1_io.zip>        |       <https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep1_io.zarr>        |
 |                                          xenium_rep2_io                                          |       <https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep2_io.zip>        |       <https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep2_io.zarr>        |
-| [additional resources for methods developers](../notebooks/developers_resources/storage_format/) |                                          -                                           |                                           -                                            |
+| [additional resources for methods developers](../notebooks/developers_resources/storage_format/) |                                          -                                           |                                           -                                           |
 
 ## Note
 
