@@ -9,30 +9,23 @@ This repository addresses the need for communicating the storage specification t
 ## What this repository contains
 This directory contains notebooks that operate on lightweight datasets.
 - Each notebook covers a particular aspect of the storage specification and all the edge cases of the specification are covered in at least one of the notebooks.
-- All the notebooks are run every 24h. Each notebook creates a dataset, writes it to disk, reloads it in memory, rewrites it to disk to check for consistency, reloads it again in memory and plots it.
-- The disk storage is committed to GitHub so that the output of each daily run is associated to a commit.
-- The notebooks are run daily against both the latest `release` and the latest `main` versions of the `spatialdata` library.
-- The corresponding produced data is available in the current directory, in different commits. Specifically, `release` data is tagged and both `release` and `main` data have the commit message `autorun: storage format`).
-- The data is also uploaded at these two S3 location (latest) [release](https://s3.embl.de/spatialdata/developers_resources/storage_format/release) and (latest) [main](https://s3.embl.de/spatialdata/developers_resources/storage_format/main).
+- All the notebooks are run every 24h against the `main` branch of the `spatialdata` repository. Each notebook creates a dataset, writes it to disk, reloads it in memory, rewrites it to disk to check for consistency, reloads it again in memory and plots it.
+- The disk storage is committed to GitHub so that the output of each daily run is associated to a commit, the commit message is "autorun: storage format; spatialdata from <commit hash> <optional (commit tag)>". Examples of commit messages are:
+  - `autorun: storage format; spatialdata from al29fak`
+  - `autorun: storage format; spatialdata from fa096da (v0.0.12)`
+- The `.zarr` data produced by every run is available in the current directory, in the commit corresponding to the run.
+- The data is also [uploaded to S3](https://s3.embl.de/spatialdata/developers_resources/storage_format).
 
 ## How to use this repository
-Practically, a third party tool (e.g. R reader, format converter, JavaScript data visualizer, etc.) that runs correctly on the lightweight datasets from this repository, is guaranteed to run correctly on any SpatialData dataset.
+Practically, a third party tool (e.g. R reader, format converter, JavaScript data visualizer, etc.) that runs correctly on the lightweight datasets from this repository, should be guaranteed to run correctly on any SpatialData dataset.
 
 We recommend the following.
-- Implement your readers on the latest `release` version of the data; you can checkout it with the following command (run from the current folder):
-```bash
-git checkout $(git describe --tags --abbrev=0)
-# TODO: test the command
-```
-- Set up an automated test (e.g. daily) that downloads the latest `release` (with the above command) and runs your reader on it. Optionally you can also run your tool against the latest `main` version of the data (`git checkout`)
-- If your reader fails, you can check the corresponding commit in this repository to see what has changed in the storage specification and update your reader accordingly; in particular, to compare the current release with the latest release you can use the following command (run from the current folder):
-```bash
-git diff \
-    $(git rev-list -n 1 $(git describe --tags --abbrev=0)) \
-    $(git rev-list -n 1 main) -- data
-# TODO: test the command
-```
+- Implement your readers on the data from the latest run available (look for the latest commit with message `autorun: storage format; ...`).
+- Set up an automated test (e.g. daily) that performs a `git pull` to get the latest converted data and to run your code on it.
+- If your reader fails, you can inspect the corresponding commit in this repository to see what has changed in the storage specification and update your reader accordingly; in particular, you may find useful to compare different commits using the GitHub compare function, accessible with the following syntax: https://github.com/scverse/spatialdata-notebooks/compare/267adb1..5847084
 
 ## Important technical notes
 - The most crucial part of the metadata is stored, for each spatial element, in the `.zattr` file. [Example](transformation_identity.zarr/images/blobs_image/.zattrs).
 - The `zmetadata` in the root folder stores redundant information and is used for storage systems that do not support `ls` operations (e.g. S3). [Example](transformation_identity.zarr/zmetadata).
+- Please keep in mind that the data that we generate daily are produced against the latest `main` and not the latest release. This means that in the event of a format change (which should anyway happen less and less frequently as the frameworks become more mature), this does not immediately translate into a bug for the user. In fact, the user will still be using the latest release version for a while, giving time to developers to update the tools before the users are affected.
+- When the format will become more mature we will provide converters between previous version of the format. Luckily, heavy data like images and labels are stable from NGFF v0.4, therefore the converters will mostly perform lightweight conversions of the metadata.
