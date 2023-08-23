@@ -14,7 +14,7 @@ This directory contains notebooks that operate on lightweight datasets.
   - `autorun: storage format; spatialdata from al29fak`
   - `autorun: storage format; spatialdata from fa096da (v0.0.12)`
 - The `.zarr` data produced by every run is available in the current directory, in the commit corresponding to the run.
-- The data is also [uploaded to S3](https://s3.embl.de/spatialdata/developers_resources/storage_format).
+- The data is also [uploaded to S3](https://s3.embl.de/spatialdata/developers_resources/storage_format/index.html), both as Zarr directories and as zipped files.
 
 ## How to use this repository
 Practically, a third party tool (e.g. R reader, format converter, JavaScript data visualizer, etc.) that runs correctly on the lightweight datasets from this repository, should be guaranteed to run correctly on any SpatialData dataset.
