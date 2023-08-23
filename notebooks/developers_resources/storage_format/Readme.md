@@ -34,5 +34,5 @@ git diff \
 ```
 
 ## Important technical notes
-- The most crucial part of the metadata is stored, for each spatial element, in the `.zattr` file. Example: <transformation_identity.zarr/images/blobs_image/.zattrs>
-- The `zmetadata` in the root folder stores redundant information and is used for storage systems that do not support `ls` operations (e.g. S3). Example: <transformation_identity.zarr/zmetadata>
+- The most crucial part of the metadata is stored, for each spatial element, in the `.zattr` file. [Example](transformation_identity.zarr/images/blobs_image/.zattrs).
+- The `zmetadata` in the root folder stores redundant information and is used for storage systems that do not support `ls` operations (e.g. S3). [Example](transformation_identity.zarr/zmetadata).
