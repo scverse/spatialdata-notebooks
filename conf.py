@@ -108,7 +108,7 @@ exclude_patterns = [
     "notebooks/examples/*.zarr" "references.md",
     "Readme.md",  # hack cause git his acting up
     "notebooks/developers_resources/storage_format/*.ipynb",
-    "notebooks/developers_resources/storage_format/Readme.md"
+    "notebooks/developers_resources/storage_format/Readme.md",
 ]
 # Ignore warnings.
 nitpicky = False  # TODO: solve upstream.

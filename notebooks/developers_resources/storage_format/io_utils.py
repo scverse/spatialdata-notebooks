@@ -8,7 +8,6 @@ from ome_zarr.io import parse_url
 from spatialdata._io._utils import _are_directories_identical
 
 
-
 def delete_old_data(name: str) -> None:
     """
     Safely delete an old Zarr store, it if exists.
