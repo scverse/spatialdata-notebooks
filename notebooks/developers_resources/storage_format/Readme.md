@@ -8,7 +8,7 @@ This repository addresses the need for communicating the storage specification t
 
 ## What this repository contains
 This directory contains notebooks that operate on lightweight datasets.
-- Each notebook covers a particular aspect of the storage specification and all the edge cases of the specification are covered in at least one of the notebooks.
+- Each notebook covers a particular aspect of the storage specification and ~~all the~~ *the main (work in progress)* edge cases of the specification are covered in at least one of the notebooks.
 - All the notebooks are run every 24h against the `main` branch of the `spatialdata` repository. Each notebook creates a dataset, writes it to disk, reloads it in memory, rewrites it to disk to check for consistency, reloads it again in memory and plots it.
 - The disk storage is committed to GitHub so that the output of each daily run is associated to a commit, the commit message is "autorun: storage format; spatialdata from <commit hash> <optional (commit tag)>". Examples of commit messages are:
   - `autorun: storage format; spatialdata from al29fak`
