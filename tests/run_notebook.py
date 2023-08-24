@@ -2,22 +2,19 @@ import pathlib
 
 import nbformat
 from nbconvert.preprocessors import ExecutePreprocessor
-from nbformat import read, write
+from nbformat import read
 
 
-def execute_notebook(notebook_path):
+def execute_notebook(notebook_path) -> None:
     notebook = read(notebook_path, as_version=4)
     execute_preprocessor = ExecutePreprocessor(timeout=600)  # Set the timeout as needed
 
     execute_preprocessor.preprocess(notebook, {"metadata": {"path": "."}})
 
-    with open(notebook_path, "w") as f:
-        write(notebook, f)
 
-    return True
+def update_notebook_interactive_params(notebook_path, take_screenshot: bool = False) -> None:
+    print("Taking screenshot: ", str(take_screenshot))
 
-
-def update_notebook_interactive_params(notebook_path):
     # Load the Jupyter notebook
     with open(notebook_path, encoding="utf-8") as notebook_file:
         notebook_content = nbformat.read(notebook_file, as_version=4)
@@ -28,11 +25,16 @@ def update_notebook_interactive_params(notebook_path):
             # Check if the code cell contains "Interactive("
             if "Interactive(" in cell.source:
                 # Check if the parameters are not already present in that line
-                if not all(param in cell.source for param in ["tested_notebook=", "test_target=", "take_screenshot="]):
+                if not all(
+                    param in cell.source
+                    for param in ["coordinate_system_name=", "tested_notebook=", "test_target=", "take_screenshot="]
+                ):
                     # Add the parameters to the code cell source
                     cell.source = cell.source.replace(
                         "Interactive(",
-                        f'Interactive(tested_notebook="{pathlib.Path(notebook_path).name}", test_target="cell5", take_screenshot=True, ',
+                        f'Interactive(coordinate_system_name="global", tested_notebook="{pathlib.Path(notebook_path).name}", test_target="cell5", take_screenshot='
+                        + str(take_screenshot)
+                        + ", ",
                     )
 
     # Save the modified notebook
@@ -42,8 +44,5 @@ def update_notebook_interactive_params(notebook_path):
 
 if __name__ == "__main__":
     notebook_path = "notebooks/examples/test_notebook.ipynb"
-
-    update_notebook_interactive_params(notebook_path)
-
-    if execute_notebook(notebook_path):
-        print("Notebook executed successfully")
+    update_notebook_interactive_params(notebook_path, take_screenshot=True)
+    execute_notebook(notebook_path)
