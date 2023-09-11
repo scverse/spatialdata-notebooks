@@ -7,17 +7,17 @@ from nbformat import read
 
 def execute_notebook(notebook_path) -> None:
     notebook = read(notebook_path, as_version=4)
-    execute_preprocessor = ExecutePreprocessor(timeout=600)
+    execute_preprocessor = ExecutePreprocessor(timeout=1800)
 
     execute_preprocessor.preprocess(notebook, {"metadata": {"path": "."}})
 
 
-def add_parameters_to_cell(cell, take_screenshot):
+def add_parameters_to_cell(cell, test_target, take_screenshot):
     # TODO: Change hardcoded values to variables
     parameters = {
         "coordinate_system_name": '"global"',
         "_tested_notebook": '"test_notebook.ipynb"',
-        "_test_target": '"cell5"',
+        "_test_target": test_target,
         "_take_screenshot": take_screenshot,
     }
 
@@ -59,15 +59,21 @@ def add_parameters_to_cell(cell, take_screenshot):
 
 def update_notebook_interactive_parameters(notebook_path, take_screenshot: bool = False) -> None:
     print("Taking screenshot: ", str(take_screenshot))
+
     # Load the Jupyter notebook
     with open(notebook_path, encoding="utf-8") as notebook_file:
         notebook_content = nbformat.read(notebook_file, as_version=4)
 
+    cell_count = 1
+
     # Iterate through the cells in the notebook
     for cell in notebook_content.cells:
         if cell.cell_type == "code":
+            test_target = '"cell_' + str(cell_count) + '"'
+
             # TODO: Add check for Interacitve here? so function isn't called after every cell
-            cell.source = add_parameters_to_cell(cell.source, take_screenshot)
+            cell.source = add_parameters_to_cell(cell.source, test_target, take_screenshot)
+            cell_count += 1
 
     # Save the modified notebook
     with open(notebook_path, "w", encoding="utf-8") as modified_notebook_file:
@@ -76,5 +82,6 @@ def update_notebook_interactive_parameters(notebook_path, take_screenshot: bool 
 
 if __name__ == "__main__":
     notebook_path = "notebooks/examples/test_notebook.ipynb"
+
     update_notebook_interactive_parameters(notebook_path, take_screenshot=True)
     execute_notebook(notebook_path)
