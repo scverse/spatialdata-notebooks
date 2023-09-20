@@ -1,6 +1,8 @@
+import os
 import re
 
 import nbformat
+from matplotlib.testing.compare import compare_images
 from nbconvert.preprocessors import ExecutePreprocessor
 from nbformat import read
 
@@ -12,11 +14,16 @@ def execute_notebook(notebook_path) -> None:
     execute_preprocessor.preprocess(notebook, {"metadata": {"path": "."}})
 
 
-def add_parameters_to_cell(cell, test_target, take_screenshot):
-    # TODO: Change hardcoded values to variables
+def extract_notebook_name(file_path) -> str:
+    path_parts = file_path.split("/")
+    notebook_name = path_parts[-1]
+
+    return notebook_name
+
+
+def add_parameters_to_cell(cell, notebook_name, test_target, take_screenshot):
     parameters = {
-        "coordinate_system_name": '"global"',
-        "_tested_notebook": '"test_notebook.ipynb"',
+        "_tested_notebook": '"' + notebook_name + '"',
         "_test_target": test_target,
         "_take_screenshot": take_screenshot,
     }
@@ -58,30 +65,77 @@ def add_parameters_to_cell(cell, test_target, take_screenshot):
 
 
 def update_notebook_interactive_parameters(notebook_path, take_screenshot: bool = False) -> None:
-    print("Taking screenshot: ", str(take_screenshot))
+    print("Take screenshot: ", str(take_screenshot))
 
     # Load the Jupyter notebook
     with open(notebook_path, encoding="utf-8") as notebook_file:
         notebook_content = nbformat.read(notebook_file, as_version=4)
 
-    cell_count = 1
+    interactive_count = 1
+    notebook_name = extract_notebook_name(notebook_path)
 
     # Iterate through the cells in the notebook
     for cell in notebook_content.cells:
         if cell.cell_type == "code":
-            test_target = '"cell_' + str(cell_count) + '"'
-
-            # TODO: Add check for Interacitve here? so function isn't called after every cell
-            cell.source = add_parameters_to_cell(cell.source, test_target, take_screenshot)
-            cell_count += 1
+            if re.search(r"Interactive\((.*?)\)", cell.source):
+                test_target = '"interactive_' + str(interactive_count) + '"'
+                cell.source = add_parameters_to_cell(cell.source, notebook_name, test_target, take_screenshot)
+                interactive_count += 1
 
     # Save the modified notebook
     with open(notebook_path, "w", encoding="utf-8") as modified_notebook_file:
         nbformat.write(notebook_content, modified_notebook_file)
 
 
+def compare_image_folders(groundtruth_folder, generated_folder):
+    print("Comparing images in folders: ", groundtruth_folder, generated_folder)
+
+    # Get images in groundtruth_folder
+    groundtruth_images = os.listdir(groundtruth_folder)
+
+    # Get images in generated_folder
+    generated_images = os.listdir(generated_folder)
+
+    # Compare images
+    for groundtruth_image in groundtruth_images:
+        if groundtruth_image in generated_images:
+            print("Comparing image: ", groundtruth_image)
+            compare_images(
+                groundtruth_folder + "/" + groundtruth_image, generated_folder + "/" + groundtruth_image, tol=0.01
+            )
+        else:
+            print("Image not found: ", groundtruth_image)
+
+
+def compare_screenshots(notebook_path):
+    # Check for notebook_path name in generated_screenshots folder
+
+    notebook_name = extract_notebook_name(notebook_path)
+
+    if os.path.exists("tests/groundtruth_screenshots/" + notebook_name):
+        groundtruth_screenshots_path = "tests/groundtruth_screenshots/" + notebook_name
+        groundtruth_screenshots = os.listdir(groundtruth_screenshots_path)
+
+        test_targets = list(groundtruth_screenshots)
+
+        for test_target in test_targets:
+            # Search if test_target exists in generated_screenshots folder
+            if os.path.exists("tests/generated_screenshots/" + notebook_name + "/" + test_target):
+                compare_image_folders(
+                    "tests/generated_screenshots/" + notebook_name + "/" + test_target,
+                    "tests/groundtruth_screenshots/" + notebook_name + "/" + test_target,
+                )
+
+    else:
+        print("No groundtruth screenshots folder found for notebook: ", notebook_name)
+
+
 if __name__ == "__main__":
-    notebook_path = "notebooks/examples/test_notebook.ipynb"
+    # notebook_path = "notebooks/examples/test_notebook.ipynb"
+    # notebook_path = "notebooks/examples/transformations.ipynb"
+    # notebook_path = "notebooks/examples/napari_rois.ipynb"
+    notebook_path = "notebooks/examples/aggregation.ipynb"
 
     update_notebook_interactive_parameters(notebook_path, take_screenshot=True)
     execute_notebook(notebook_path)
+    compare_screenshots(notebook_path)

@@ -44,4 +44,4 @@ notebooks/examples/lightning_logs/
 notebooks/examples/logs/
 
 # test screenshots of notebooks
-tests/screenshots/
+tests/generated_screenshots/
