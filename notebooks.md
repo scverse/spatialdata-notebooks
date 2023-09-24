@@ -148,4 +148,5 @@ Many different technologies can be visualised out-of-the-box. See below for a co
 
                 notebooks/examples/technology_cosmx.ipynb
 
+
 ```
