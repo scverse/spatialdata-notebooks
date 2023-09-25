@@ -17,7 +17,7 @@ Here you can find the dataset hosted in S3 object storage.
 |                                                                    visium_associated_xenium_io                                                                     | <https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_associated_xenium_io.zip> | <https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_associated_xenium_io.zarr> |
 |                                                                           xenium_rep1_io                                                                           |       <https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep1_io.zip>        |       <https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep1_io.zarr>        |
 |                                                                           xenium_rep2_io                                                                           |       <https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep2_io.zip>        |       <https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep2_io.zarr>        |
-| [additional resources for methods developers](https://github.com/scverse/spatialdata-notebooks/blob/main/notebooks/notebooks/developers_resources/storage_format/) |                                          -                                           |                                           -                                           |
+| [additional resources for methods developers](https://github.com/scverse/spatialdata-notebooks/blob/main/notebooks/developers_resources/storage_format/) |                                          -                                           |                                           -                                           |
 
 ## Note
 
