@@ -7,7 +7,7 @@ from nbconvert.preprocessors import ExecutePreprocessor
 from nbformat import read
 
 
-def execute_notebook(notebook_path) -> None:
+def run_notebook(notebook_path) -> None:
     notebook = read(notebook_path, as_version=4)
     execute_preprocessor = ExecutePreprocessor(timeout=1800)
 
@@ -21,11 +21,11 @@ def extract_notebook_name(file_path) -> str:
     return notebook_name
 
 
-def add_parameters_to_cell(cell, notebook_name, test_target, take_screenshot):
+def add_test_parameters_to_cell(cell, _test_notebook_name, notebook_cell_id, generate_screenshots):
     parameters = {
-        "_tested_notebook": '"' + notebook_name + '"',
-        "_test_target": test_target,
-        "_take_screenshot": take_screenshot,
+        "_test_notebook_name": '"' + _test_notebook_name + '"',
+        "_notebook_cell_id": notebook_cell_id,
+        "_generate_screenshots": generate_screenshots,
     }
 
     match = re.search(r"Interactive\((.*?)\)", cell)
@@ -64,8 +64,8 @@ def add_parameters_to_cell(cell, notebook_name, test_target, take_screenshot):
     return updated_string
 
 
-def update_notebook_interactive_parameters(notebook_path, take_screenshot: bool = False) -> None:
-    print("Take screenshot: ", str(take_screenshot))
+def add_test_parameters_to_notebook(notebook_path, generate_screenshots: bool = False) -> None:
+    print("Take screenshot: ", str(generate_screenshots))
 
     # Load the Jupyter notebook
     with open(notebook_path, encoding="utf-8") as notebook_file:
@@ -78,8 +78,10 @@ def update_notebook_interactive_parameters(notebook_path, take_screenshot: bool 
     for cell in notebook_content.cells:
         if cell.cell_type == "code":
             if re.search(r"Interactive\((.*?)\)", cell.source):
-                test_target = '"interactive_' + str(interactive_count) + '"'
-                cell.source = add_parameters_to_cell(cell.source, notebook_name, test_target, take_screenshot)
+                notebook_cell_id = '"interactive_' + str(interactive_count) + '"'
+                cell.source = add_test_parameters_to_cell(
+                    cell.source, notebook_name, notebook_cell_id, generate_screenshots
+                )
                 interactive_count += 1
 
     # Save the modified notebook
@@ -87,7 +89,7 @@ def update_notebook_interactive_parameters(notebook_path, take_screenshot: bool 
         nbformat.write(notebook_content, modified_notebook_file)
 
 
-def compare_image_folders(groundtruth_folder, generated_folder):
+def compare_images_in_folders(groundtruth_folder, generated_folder):
     print("Comparing images in folders: ", groundtruth_folder, generated_folder)
 
     # Get images in groundtruth_folder
@@ -116,14 +118,11 @@ def compare_screenshots(notebook_path):
         groundtruth_screenshots_path = "tests/groundtruth_screenshots/" + notebook_name
         groundtruth_screenshots = os.listdir(groundtruth_screenshots_path)
 
-        test_targets = list(groundtruth_screenshots)
-
-        for test_target in test_targets:
-            # Search if test_target exists in generated_screenshots folder
-            if os.path.exists("tests/generated_screenshots/" + notebook_name + "/" + test_target):
-                compare_image_folders(
-                    "tests/generated_screenshots/" + notebook_name + "/" + test_target,
-                    "tests/groundtruth_screenshots/" + notebook_name + "/" + test_target,
+        for notebook_cell_id in list(groundtruth_screenshots):
+            if os.path.exists("tests/generated_screenshots/" + notebook_name + "/" + notebook_cell_id):
+                compare_images_in_folders(
+                    "tests/generated_screenshots/" + notebook_name + "/" + notebook_cell_id,
+                    "tests/groundtruth_screenshots/" + notebook_name + "/" + notebook_cell_id,
                 )
 
     else:
@@ -135,7 +134,8 @@ if __name__ == "__main__":
     # notebook_path = "notebooks/examples/transformations.ipynb"
     # notebook_path = "notebooks/examples/napari_rois.ipynb"
     notebook_path = "notebooks/examples/aggregation.ipynb"
+    generate_screenshots = True
 
-    update_notebook_interactive_parameters(notebook_path, take_screenshot=True)
-    execute_notebook(notebook_path)
+    add_test_parameters_to_notebook(notebook_path, generate_screenshots=generate_screenshots)
+    run_notebook(notebook_path)
     compare_screenshots(notebook_path)
