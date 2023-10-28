@@ -155,3 +155,6 @@ def setup(app):
         },
         True,
     )
+
+
+navigation_with_keys = True
