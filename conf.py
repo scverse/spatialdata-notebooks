@@ -107,6 +107,8 @@ exclude_patterns = [
     "notebooks/paper_reproducibility",
     "notebooks/examples/*.zarr" "references.md",
     "Readme.md",  # hack cause git his acting up
+    "notebooks/developers_resources/storage_format/*.ipynb",
+    "notebooks/developers_resources/storage_format/Readme.md",
 ]
 # Ignore warnings.
 nitpicky = False  # TODO: solve upstream.
@@ -129,6 +131,7 @@ html_title = project_name
 html_theme_options = {
     "repository_url": repository_url,
     "use_repository_button": True,
+    "navigation_with_keys": True,
 }
 
 pygments_style = "default"
