@@ -42,3 +42,6 @@ data/
 # torch checkpoints
 notebooks/examples/lightning_logs/
 notebooks/examples/logs/
+
+# test screenshots of notebooks
+tests/generated_screenshots/
