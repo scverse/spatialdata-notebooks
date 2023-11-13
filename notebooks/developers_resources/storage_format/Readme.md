@@ -28,7 +28,7 @@ We recommend the following.
 -   Implement your readers on the data from the latest commit available
 -   Set up an automated test (e.g. daily) that gets the latest converted data (you can use a `git pull` or download the data from S3) and runs your code on it.
 -   If your reader fails, you can inspect the corresponding commit in this repository to see what has changed in the storage specification; in particular:
-    -   you may find useful to compare different commits using the GitHub compare function, accessible with the following syntax: https://github.com/scverse/spatialdata-notebooks/compare/267adb1..5847084;
+    -   you may find useful to compare different commits using the GitHub compare function, accessible with the following syntax: https://github.com/scverse/spatialdata-notebooks/compare/f55f89a..d8e4d55;
     -   you may want to compare the latest commit with one of the commits using the spaitaldata version (or a closely related dev version), of the one that you used when implementing the readers; the versions are specified in the commit messages as described before.
 
 Furthermore, you can look at the on-disk versioning. Each element specifies the encoding that has been used for writing; you can find this in the .zattrs file ([example, see the end](https://github.com/scverse/spatialdata-notebooks/blob/main/notebooks/developers_resources/storage_format/transformation_affine.zarr/points/blobs_points/.zattrs)).
