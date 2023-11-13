@@ -17,7 +17,7 @@ This directory contains notebooks that operate on lightweight datasets.
     -   `autorun: storage format; spatialdata from al29fak (v0.0.12.q020ke.dev)`
     -   `autorun: storage format; spatialdata from fa096da (v0.0.12)`
 -   The `.zarr` data produced by every run is available in the current directory, in the commit corresponding to the run.
--   The data is also [uploaded to S3](https://refined-github-html-preview.kidonng.workers.dev/scverse/spatialdata-notebooks/raw/main/notebooks/developers_resources/storage_format/index.html), both as Zarr directories and as zipped files (upload temporarily disable).
+-   The data is also [uploaded to S3](https://refined-github-html-preview.kidonng.workers.dev/scverse/spatialdata-notebooks/raw/main/notebooks/developers_resources/storage_format/index.html), both as Zarr directories and as zipped files (upload to S3 temporarily disable, please download the data from the GitHub repository).
 
 ## How to use this repository
 
