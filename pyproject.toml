@@ -65,3 +65,6 @@ exclude = '''
 
 [tool.jupytext]
 formats = "ipynb,md"
+
+[tool.hatch.build.targets.wheel]
+packages = ["notebooks"]
