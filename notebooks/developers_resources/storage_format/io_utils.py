@@ -1,3 +1,4 @@
+import logging
 import os
 import shutil
 import tempfile
@@ -6,6 +7,34 @@ import spatialdata as sd
 import zarr
 from ome_zarr.io import parse_url
 from spatialdata._io._utils import _are_directories_identical
+
+
+class DisableLogger:
+    """
+    Context manager that temporarily disables specific logging messages.
+
+    Parameters
+    ----------
+    level
+        The logging level to disable. It can be a numeric level or a string representation
+        of the level as defined in the logging module.
+
+    Examples
+    --------
+    from logging import INFO
+
+    with DisableLogger(INFO):
+        logging.info('This will not be logged')
+    """
+
+    def __init__(self, level):
+        self.level = level
+
+    def __enter__(self):
+        logging.disable(self.level)
+
+    def __exit__(self, exit_type, exit_value, exit_traceback):
+        logging.disable(logging.NOTSET)
 
 
 def delete_old_data(name: str) -> None:
@@ -58,7 +87,12 @@ def write_sdata_and_check_consistency(sdata: sd.SpatialData, name: str) -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         sdata2 = sd.read_zarr(f1)
         f2 = os.path.join(tmpdir, f"{name}2.zarr")
-        sdata2.write(f2)
+        with DisableLogger(logging.INFO):
+            # remove the message
+            #    INFO     The Zarr file used for backing will now change from multiple_elements.zarr to
+            #             /tmp/tmp15sd47gc/multiple_elements2.zarr
+            # which otherwise appears in the git diff
+            sdata2.write(f2)
         assert _are_directories_identical(f1, f2)
 
     shutil.make_archive(f1, "zip", f1)

@@ -17,10 +17,12 @@ repos:
       rev: 23.10.1
       hooks:
           - id: black
+            exclude: .*.zarr/
     - repo: https://github.com/pre-commit/mirrors-prettier
       rev: v3.0.3
       hooks:
           - id: prettier
+            exclude: .*.zarr/
     - repo: https://github.com/asottile/blacken-docs
       rev: 1.16.0
       hooks:
@@ -45,11 +47,16 @@ repos:
       hooks:
           - id: detect-private-key
           - id: check-ast
+            exclude: .*.zarr/
           - id: end-of-file-fixer
+            exclude: .*.zarr/
           - id: mixed-line-ending
             args: [--fix=lf]
+            exclude: .*.zarr/
           - id: trailing-whitespace
+            exclude: .*.zarr/
           - id: check-case-conflict
+            exclude: .*.zarr/
     - repo: https://github.com/PyCQA/autoflake
       rev: v2.2.1
       hooks:

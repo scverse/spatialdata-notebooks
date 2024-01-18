@@ -813,7 +813,7 @@
         },
         "shapes/blobs_multipolygons/Index/.zarray": {
             "chunks": [
-                5
+                2
             ],
             "compressor": {
                 "blocksize": 0,
@@ -828,13 +828,13 @@
             "filters": null,
             "order": "C",
             "shape": [
-                5
+                2
             ],
             "zarr_format": 2
         },
         "shapes/blobs_multipolygons/coords/.zarray": {
             "chunks": [
-                40,
+                16,
                 2
             ],
             "compressor": {
@@ -850,14 +850,14 @@
             "filters": null,
             "order": "C",
             "shape": [
-                40,
+                16,
                 2
             ],
             "zarr_format": 2
         },
         "shapes/blobs_multipolygons/offset0/.zarray": {
             "chunks": [
-                11
+                5
             ],
             "compressor": {
                 "blocksize": 0,
@@ -872,13 +872,13 @@
             "filters": null,
             "order": "C",
             "shape": [
-                11
+                5
             ],
             "zarr_format": 2
         },
         "shapes/blobs_multipolygons/offset1/.zarray": {
             "chunks": [
-                11
+                5
             ],
             "compressor": {
                 "blocksize": 0,
@@ -893,13 +893,13 @@
             "filters": null,
             "order": "C",
             "shape": [
-                11
+                5
             ],
             "zarr_format": 2
         },
         "shapes/blobs_multipolygons/offset2/.zarray": {
             "chunks": [
-                6
+                3
             ],
             "compressor": {
                 "blocksize": 0,
@@ -914,7 +914,7 @@
             "filters": null,
             "order": "C",
             "shape": [
-                6
+                3
             ],
             "zarr_format": 2
         },
