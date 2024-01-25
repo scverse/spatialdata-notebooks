@@ -25,6 +25,8 @@ If you want to convert additional datasets check out the scripts available in th
 -   CC BY 4.0 DEED: Creative Common Attribution 4.0 International
 -   CC BY-NC 4.0 DEED: Creative Common Attribution-NonCommercial 4.0 International
 
+The data retains the license of the original published data.
+
 <!-- to add: raccoon, blobs, "additional resources for methods developers" -->
 <!-- Artificial datasets
 | Description | File Size| Filename                     | download data                                                                                   | work with data remotely [^1]                                                               |
