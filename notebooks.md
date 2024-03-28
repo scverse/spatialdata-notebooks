@@ -59,7 +59,7 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
         .. container:: custom-card
 
-            .. image:: _static/img/table.jpg
+            .. image:: _static/img/table.png
                 :target: notebooks/examples/tables.html
 
             .. toctree::
