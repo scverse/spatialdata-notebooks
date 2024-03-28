@@ -31,11 +31,12 @@ def _generate_toc(notebook_path, indent_char="&emsp;&emsp;"):
 
             toc_number_str = ".".join(str(num) for num in toc_numbers[:level])
             indent = indent_char * level
-            url = urllib.parse.quote_plus(title.replace(" ", "-"))
+            urllib.parse.quote_plus(title.replace(" ", "-"))
             toc_number_str = " &#x2022; "
             if level > 1:
                 indent = indent[len(indent_char) * 2 :]
-                out_line = f"{indent}{toc_number_str} [{title}](#{url})<br>\n"
+                # out_line = f"{indent}{toc_number_str} [{title}](#{url})<br>\n"
+                out_line = f"{indent}{toc_number_str} {title}<br>\n"
                 print(out_line, end="")
 
 
