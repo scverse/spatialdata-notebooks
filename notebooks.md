@@ -23,18 +23,6 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
         .. container:: custom-card
 
-            .. image:: _static/img/densenet.png
-                :target: notebooks/examples/densenet.html
-
-            .. toctree::
-                :maxdepth: 1
-
-                notebooks/examples/densenet.ipynb
-
-    .. grid-item::
-
-        .. container:: custom-card
-
             .. image:: _static/img/spatial_query.jpg
                 :target: notebooks/examples/spatial_query.html
 
@@ -71,6 +59,18 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
         .. container:: custom-card
 
+            .. image:: _static/img/table.jpg
+                :target: notebooks/examples/tables.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/tables.ipynb
+
+    .. grid-item::
+
+        .. container:: custom-card
+
             .. image:: _static/img/aggregation.jpg
                 :target: notebooks/examples/aggregation.html
 
@@ -91,6 +91,17 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
                 notebooks/examples/squidpy_integration.ipynb
 
+    .. grid-item::
+
+        .. container:: custom-card
+
+            .. image:: _static/img/densenet.png
+                :target: notebooks/examples/densenet.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/densenet.ipynb
 ```
 
 ## Visualizations
