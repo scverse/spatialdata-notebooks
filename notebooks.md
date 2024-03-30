@@ -11,31 +11,6 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
         .. container:: custom-card
 
-            .. image:: _static/img/models1.png
-                :target: notebooks/examples/models1.html
-
-            .. toctree::
-                :maxdepth: 1
-
-                notebooks/examples/models1.ipynb
-
-    .. grid-item::
-
-        .. container:: custom-card
-
-            .. image:: _static/img/models2.png
-                :target: notebooks/examples/models2.html
-
-            .. toctree::
-                :maxdepth: 1
-
-                notebooks/examples/models2.ipynb
-
-
-    .. grid-item::
-
-        .. container:: custom-card
-
             .. image:: _static/img/transformations.jpg
                 :target: notebooks/examples/transformations.html
 
@@ -103,6 +78,30 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
                 :maxdepth: 1
 
                 notebooks/examples/aggregation.ipynb
+
+    .. grid-item::
+
+        .. container:: custom-card
+
+            .. image:: _static/img/models1.png
+                :target: notebooks/examples/models1.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/models1.ipynb
+
+    .. grid-item::
+
+        .. container:: custom-card
+
+            .. image:: _static/img/models2.png
+                :target: notebooks/examples/models2.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/models2.ipynb
 
     .. grid-item::
 
