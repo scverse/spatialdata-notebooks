@@ -195,18 +195,6 @@ Many different technologies can be visualised out-of-the-box. See below for a co
 
                 notebooks/examples/technology_visium_hd.ipynb
 
-    .. grid-item::
-
-        .. container:: custom-card
-
-            .. image:: _static/img/speed.png
-                :target: notebooks/examples/speed_up_illustration.html
-
-            .. toctree::
-                :maxdepth: 1
-
-                notebooks/examples/speed_up_illustration.ipynb
-
 
 ```
 
