@@ -187,6 +187,28 @@ Many different technologies can be visualised out-of-the-box. See below for a co
 
         .. container:: custom-card
 
+            .. image:: _static/img/visium_hd.png
+                :target: notebooks/examples/technology_visium_hd.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/technology_visium_hd.ipynb
+
+
+```
+
+## Advanced
+
+Advanced tutorials that showcase more complex functionalities of the SpatialData ecosystem.
+
+```{eval-rst}
+.. grid:: 2 3 3 3
+
+    .. grid-item::
+
+        .. container:: custom-card
+
             .. image:: _static/img/speed.png
                 :target: notebooks/examples/speed_up_illustration.html
 
