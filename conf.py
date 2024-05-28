@@ -98,6 +98,7 @@ intersphinx_mapping = {
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
+# note: these patterns should also be added in spatialdata/docs/conf.py
 exclude_patterns = [
     "_build",
     "Thumbs.db",
@@ -106,7 +107,6 @@ exclude_patterns = [
     "temp",
     "notebooks/paper_reproducibility",
     "notebooks/examples/*.zarr",
-    "references.md",
     "Readme.md",  # hack cause git his acting up
     "notebooks/developers_resources/storage_format/*.ipynb",
     "notebooks/developers_resources/storage_format/Readme.md",
