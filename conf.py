@@ -111,7 +111,7 @@ exclude_patterns = [
     "notebooks/developers_resources/storage_format/Readme.md",
     "notebooks/examples/technology_stereoseq.ipynb",  # no public data available
     "notebooks/examples/technology_curio.ipynb",  # no public data available
-    "notebooks/examples/stereoseq_data/",
+    "notebooks/examples/stereoseq_data/*",
 ]
 # Ignore warnings.
 nitpicky = False  # TODO: solve upstream.
