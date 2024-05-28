@@ -109,6 +109,9 @@ exclude_patterns = [
     "Readme.md",  # hack cause git his acting up
     "notebooks/developers_resources/storage_format/*.ipynb",
     "notebooks/developers_resources/storage_format/Readme.md",
+    "notebooks/examples/technology_stereoseq.ipynb",  # no public data available
+    "notebooks/examples/technology_curio.ipynb",  # no public data available
+    "notebooks/examples/stereoseq_data/",
 ]
 # Ignore warnings.
 nitpicky = False  # TODO: solve upstream.
