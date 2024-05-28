@@ -107,6 +107,18 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
         .. container:: custom-card
 
+            .. image:: _static/img/interchangeability_labels_polygons.png
+                :target: notebooks/examples/labels_shapes_interchangeability.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/labels_shapes_interchangeability.ipynb
+
+    .. grid-item::
+
+        .. container:: custom-card
+
             .. image:: _static/img/squidpy_integration.jpg
                 :target: notebooks/examples/squidpy_integration.html
 
