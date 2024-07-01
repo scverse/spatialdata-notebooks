@@ -24,7 +24,7 @@ repos:
           - id: prettier
             exclude: .*.zarr/
     - repo: https://github.com/asottile/blacken-docs
-      rev: 1.16.0
+      rev: 1.18.0
       hooks:
           - id: blacken-docs
     - repo: https://github.com/PyCQA/isort
@@ -67,7 +67,7 @@ repos:
                 - --remove-unused-variable
                 - --ignore-init-module-imports
     - repo: https://github.com/PyCQA/flake8
-      rev: 7.0.0
+      rev: 7.1.0
       hooks:
           - id: flake8
             additional_dependencies:
@@ -78,7 +78,7 @@ repos:
                 - flake8-bugbear
                 - flake8-blind-except
     - repo: https://github.com/asottile/pyupgrade
-      rev: v3.15.2
+      rev: v3.16.0
       hooks:
           - id: pyupgrade
             args: [--py3-plus, --py38-plus, --keep-runtime-typing]
