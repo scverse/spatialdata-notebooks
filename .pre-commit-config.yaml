@@ -7,14 +7,14 @@ default_stages:
 minimum_pre_commit_version: 2.16.0
 repos:
     - repo: https://github.com/nbQA-dev/nbQA
-      rev: 1.8.5
+      rev: 1.8.7
       hooks:
           - id: nbqa-pyupgrade
             args: [--py38-plus]
           - id: nbqa-black
           - id: nbqa-isort
     - repo: https://github.com/psf/black
-      rev: 24.4.2
+      rev: 24.8.0
       hooks:
           - id: black
             exclude: .*.zarr/
@@ -67,7 +67,7 @@ repos:
                 - --remove-unused-variable
                 - --ignore-init-module-imports
     - repo: https://github.com/PyCQA/flake8
-      rev: 7.1.0
+      rev: 7.1.1
       hooks:
           - id: flake8
             additional_dependencies:
