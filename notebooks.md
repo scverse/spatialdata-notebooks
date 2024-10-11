@@ -219,6 +219,17 @@ Many different technologies can be visualised out-of-the-box. See below for a co
 
                 notebooks/examples/technology_xenium.ipynb
 
+    .. grid-item::
+
+        .. container:: custom-card
+
+            .. image:: _static/img/spacem.png
+                :target: notebooks/examples/technology_spacem.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/technology_spacem.ipynb
 
 ```
 
