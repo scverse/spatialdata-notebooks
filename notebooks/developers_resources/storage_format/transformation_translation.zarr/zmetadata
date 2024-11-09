@@ -7,19 +7,6 @@
             "zarr_format": 2
         },
         "images/blobs_image/.zattrs": {
-            "channels_metadata": {
-                "channels": [
-                    {
-                        "label": 0
-                    },
-                    {
-                        "label": 1
-                    },
-                    {
-                        "label": 2
-                    }
-                ]
-            },
             "multiscales": [
                 {
                     "axes": [
@@ -99,10 +86,41 @@
                             "path": "0"
                         }
                     ],
+                    "metadata": {
+                        "omero": {
+                            "channels": [
+                                {
+                                    "label": 0
+                                },
+                                {
+                                    "label": 1
+                                },
+                                {
+                                    "label": 2
+                                }
+                            ]
+                        }
+                    },
                     "name": "/images/blobs_image",
                     "version": "0.4"
                 }
-            ]
+            ],
+            "omero": {
+                "channels": [
+                    {
+                        "label": 0
+                    },
+                    {
+                        "label": 1
+                    },
+                    {
+                        "label": 2
+                    }
+                ]
+            },
+            "spatialdata_attrs": {
+                "version": "0.1"
+            }
         },
         "images/blobs_image/.zgroup": {
             "zarr_format": 2
@@ -136,7 +154,10 @@
             "zarr_format": 2
         },
         "points/blobs_points/.zattrs": {
-            "axes": null,
+            "axes": [
+                "x",
+                "y"
+            ],
             "coordinateTransformations": [
                 {
                     "input": {

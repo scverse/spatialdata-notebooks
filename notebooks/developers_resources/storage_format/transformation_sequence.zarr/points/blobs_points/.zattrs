@@ -1,5 +1,8 @@
 {
-    "axes": null,
+    "axes": [
+        "x",
+        "y"
+    ],
     "coordinateTransformations": [
         {
             "input": {
