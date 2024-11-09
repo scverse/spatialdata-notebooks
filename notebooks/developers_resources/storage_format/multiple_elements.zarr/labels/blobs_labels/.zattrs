@@ -66,5 +66,8 @@
             "name": "blobs_labels",
             "version": "0.4"
         }
-    ]
+    ],
+    "spatialdata_attrs": {
+        "version": "0.1"
+    }
 }

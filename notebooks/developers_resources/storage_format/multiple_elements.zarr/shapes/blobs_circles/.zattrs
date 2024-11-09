@@ -1,5 +1,8 @@
 {
-    "axes": null,
+    "axes": [
+        "x",
+        "y"
+    ],
     "coordinateTransformations": [
         {
             "input": {
@@ -37,10 +40,6 @@
     ],
     "encoding-type": "ngff:shapes",
     "spatialdata_attrs": {
-        "geos": {
-            "name": "POINT",
-            "type": 0
-        },
-        "version": "0.1"
+        "version": "0.2"
     }
 }
