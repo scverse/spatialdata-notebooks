@@ -12,12 +12,11 @@ This repository addresses the need for communicating the storage specification t
 This directory contains notebooks that operate on lightweight datasets.
 
 -   Each notebook covers a particular aspect of the storage specification and ~~all the~~ _the main (work in progress)_ edge cases of the specification are covered in at least one of the notebooks.
--   All the notebooks are run every 24h (work in progress, automatic run temporarily disabled) against the `main` branch of the `spatialdata` repository. Each notebook creates a dataset, writes it to disk, reloads it in memory, rewrites it to disk to check for consistency, reloads it again in memory and plots it.
+-   All the notebooks are run every 24h against the `main` branch of the `spatialdata` repository. Each notebook creates a dataset, writes it to disk, reloads it in memory, rewrites it to disk to check for consistency, reloads it again in memory and plots it.
 -   The disk storage is committed to GitHub so that the output of each daily run is associated to a commit, the commit message is "autorun: storage format; spatialdata from <commit hash> <optional (commit tag)>". Examples of commit messages are:
     -   `autorun: storage format; spatialdata from al29fak (v0.0.12.q020ke.dev)`
     -   `autorun: storage format; spatialdata from fa096da (v0.0.12)`
 -   The `.zarr` data produced by every run is available in the current directory, in the commit corresponding to the run.
--   The data is also [uploaded to S3](https://refined-github-html-preview.kidonng.workers.dev/scverse/spatialdata-notebooks/raw/main/notebooks/developers_resources/storage_format/index.html), both as Zarr directories and as zipped files (upload to S3 temporarily disable, please download the data from the GitHub repository).
 
 ## How to use this repository
 
@@ -41,8 +40,17 @@ A global version for the `SpatialData` object that gets bumped every time someth
 -   Please keep in mind that the data that we generate daily are produced against the latest `main` and not the latest release. This means that in the event of a format change (which should anyway happen less and less frequently as the frameworks become more mature), this does not immediately translate into a bug for the user. In fact, the user will still be using the latest release version for a while, giving time to developers to update the tools before the users are affected.
 -   When the format will become more mature we will provide converters between previous versions of the format. Luckily, heavy data like images and labels are stable from NGFF v0.4, therefore the converters will mostly perform lightweight conversions of the metadata and relatively small conversions of the geometries.
 
-# TODOs:
-
--   [ ] re-enable daily runs, and remove "work in progress" notice from the readme.
--   [ ] merge the transformations notebooks into one
--   [ ] re-enable upload to S3, and remove "work in progress" notice from the readme.
+## Internal notes (for the `spatialdata` maintainers)
+-   The metadata (but not the output) of the notebook is automatically stripped using `nbstripout`. This was setup with
+    ```
+    pip install nbstripout
+    nbstripout --install
+    ```
+    and then the `.git/config` file has been manually edited so it contains
+    ```
+    [filter "nbstripout"]
+        clean = \"/mnt/miniconda3/envs/airflow/bin/python\" -m nbstripout --keep-output
+        smudge = cat
+    ```
+-   If you modify the notebooks in this folder, please remember to run the `pre-commit` locally.
+-   Pushing the notebooks from different machines may lead to small differences; this is ok because the automatic daily runs will psuh the stable version of the notebook. Still, if you have access to the "data ci", please run the notebooks from there instead than from your local machine.
