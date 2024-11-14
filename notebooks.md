@@ -4,6 +4,27 @@
 
 Notebooks tailored to showcase specific functionalities of the SpatialData ecosystem.
 
+## Basic
+
+
+```{eval-rst}
+.. grid:: 2 3 3 3
+
+    .. grid-item::
+
+        .. container:: custom-card
+
+            .. image:: _static/img/transformations.jpg
+                :target: notebooks/examples/transformations.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/transformations.ipynb
+```
+
+## Intermediate
+
 ```{eval-rst}
 .. grid:: 2 3 3 3
 
@@ -36,7 +57,7 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
         .. container:: custom-card
 
             .. image:: _static/img/transformations.jpg
-                :target: notebooks/examples/transformations.html
+                :target: notebooks/examples/transformations_advanced.html
 
             .. toctree::
                 :maxdepth: 1
@@ -140,7 +161,7 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
                 notebooks/examples/densenet.ipynb
 ```
 
-## Visualizations
+## Technology-specific
 
 Many different technologies can be visualised out-of-the-box. See below for a couple of examples. See the [example datasets](datasets/README.md) for additional technologies represented in SpatialData.
 
