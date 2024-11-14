@@ -6,7 +6,6 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
 ## Basic
 
-
 ```{eval-rst}
 .. grid:: 2 3 3 3
 

@@ -41,6 +41,7 @@ A global version for the `SpatialData` object that gets bumped every time someth
 -   When the format will become more mature we will provide converters between previous versions of the format. Luckily, heavy data like images and labels are stable from NGFF v0.4, therefore the converters will mostly perform lightweight conversions of the metadata and relatively small conversions of the geometries.
 
 ## Internal notes (for the `spatialdata` maintainers)
+
 -   The metadata (but not the output) of the notebook is automatically stripped using `nbstripout`. This was setup with
     ```
     pip install nbstripout
