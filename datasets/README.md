@@ -14,7 +14,7 @@ If you want to convert additional datasets check out the scripts available in th
 | MERFISH                                   | Mouse brain [^5]                                          |     50 MB | merfish                        | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/merfish.zip)                     | [S3](https://s3.embl.de/spatialdata/spatialdata-sandbox/merfish.zarr/)                     | CC0 1.0 DEED      |
 | MIBI-TOF                                  | Colorectal carcinoma [^6]                                 |     25 MB | mibitof                        | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/mibitof.zip)                     | [S3](https://s3.embl.de/spatialdata/spatialdata-sandbox/mibitof.zarr/)                     | CC BY 4.0 DEED    |
 | Imaging Mass Cytometry (Steinbock output) | 4 different cancers (SCCHN, BCC, NSCLC, CRC) [^7][^8][^9] |    820 MB | steinbock_io                   | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/steinbock_io.zip)                | [S3](https://s3.embl.de/spatialdata/spatialdata-sandbox/steinbock_io.zarr/)                | CC BY 4.0 DEED    |
-| Molecular Cartography (SPArrOW output)    | Mouse Liver [^10][^11]                                    |     70 MB | MouseLiver                     | [.zarr.zip]()                                                                                   | [S3](https://s3.embl.de/spatialdata/raw_data/sdata.zarr.zip)                               | CC BY 4.0 DEED    |
+| Molecular Cartography (SPArrOW output)    | Mouse Liver [^10][^11]                                    |     70 MB | MouseLiver                     | [.zarr.zip](https://s3.embl.de/spatialdata/raw_data/mouseLiver.zarr.zipp)                       | [S3](https://s3.embl.de/spatialdata/raw_data/mouseLiver.zarr)                              | CC BY 4.0 DEED    |
 
 For the first 3 datasets, we also provide a version of them in which they are all aligned in a common coordinate system, and where we added the cell-type information, as described in our paper, to annotate the Xenium cells.
 | Technology | Sample | File Size | Filename (spatialdata-sandbox) | download data | work with data remotely (**see note below**) | license |
@@ -27,10 +27,10 @@ For the first 3 datasets, we also provide a version of them in which they are al
 
 ## Licenses abbreviations
 
--   CCA: Creative Common Attribution
--   CC0 1.0 DEED: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
--   CC BY 4.0 DEED: Creative Common Attribution 4.0 International
--   CC BY-NC 4.0 DEED: Creative Common Attribution-NonCommercial 4.0 International
+- CCA: Creative Common Attribution
+- CC0 1.0 DEED: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+- CC BY 4.0 DEED: Creative Common Attribution 4.0 International
+- CC BY-NC 4.0 DEED: Creative Common Attribution-NonCommercial 4.0 International
 
 The data retains the license of the original published data.
 
