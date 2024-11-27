@@ -2,19 +2,19 @@ fail_fast: false
 default_language_version:
     python: python3
 default_stages:
-    - commit
-    - push
+    - pre-commit
+    - pre-push
 minimum_pre_commit_version: 2.16.0
 repos:
     - repo: https://github.com/nbQA-dev/nbQA
-      rev: 1.8.7
+      rev: 1.9.1
       hooks:
           - id: nbqa-pyupgrade
             args: [--py38-plus]
           - id: nbqa-black
           - id: nbqa-isort
     - repo: https://github.com/psf/black
-      rev: 24.8.0
+      rev: 24.10.0
       hooks:
           - id: black
             exclude: .*.zarr/
@@ -24,7 +24,7 @@ repos:
           - id: prettier
             exclude: .*.zarr/
     - repo: https://github.com/asottile/blacken-docs
-      rev: 1.18.0
+      rev: 1.19.1
       hooks:
           - id: blacken-docs
     - repo: https://github.com/PyCQA/isort
@@ -43,7 +43,7 @@ repos:
                 - flake8-bugbear
                 - flake8-blind-except
     - repo: https://github.com/pre-commit/pre-commit-hooks
-      rev: v4.6.0
+      rev: v5.0.0
       hooks:
           - id: detect-private-key
           - id: check-ast
@@ -78,7 +78,7 @@ repos:
                 - flake8-bugbear
                 - flake8-blind-except
     - repo: https://github.com/asottile/pyupgrade
-      rev: v3.17.0
+      rev: v3.19.0
       hooks:
           - id: pyupgrade
             args: [--py3-plus, --py38-plus, --keep-runtime-typing]
