@@ -27,10 +27,10 @@ For the first 3 datasets, we also provide a version of them in which they are al
 
 ## Licenses abbreviations
 
-- CCA: Creative Common Attribution
-- CC0 1.0 DEED: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
-- CC BY 4.0 DEED: Creative Common Attribution 4.0 International
-- CC BY-NC 4.0 DEED: Creative Common Attribution-NonCommercial 4.0 International
+-   CCA: Creative Common Attribution
+-   CC0 1.0 DEED: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+-   CC BY 4.0 DEED: Creative Common Attribution 4.0 International
+-   CC BY-NC 4.0 DEED: Creative Common Attribution-NonCommercial 4.0 International
 
 The data retains the license of the original published data.
 
