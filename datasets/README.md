@@ -14,7 +14,7 @@ If you want to convert additional datasets check out the scripts available in th
 | MERFISH                                   | Mouse brain [^5]                                          |     50 MB | merfish                        | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/merfish.zip)                     | [S3](https://s3.embl.de/spatialdata/spatialdata-sandbox/merfish.zarr/)                     | CC0 1.0 DEED      |
 | MIBI-TOF                                  | Colorectal carcinoma [^6]                                 |     25 MB | mibitof                        | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/mibitof.zip)                     | [S3](https://s3.embl.de/spatialdata/spatialdata-sandbox/mibitof.zarr/)                     | CC BY 4.0 DEED    |
 | Imaging Mass Cytometry (Steinbock output) | 4 different cancers (SCCHN, BCC, NSCLC, CRC) [^7][^8][^9] |    820 MB | steinbock_io                   | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/steinbock_io.zip)                | [S3](https://s3.embl.de/spatialdata/spatialdata-sandbox/steinbock_io.zarr/)                | CC BY 4.0 DEED    |
-| Molecular Cartography (SPArrOW output)    | Mouse Liver [^10][^11]                                    |     70 MB | MouseLiver                     | [.zarr.zip](https://s3.embl.de/spatialdata/raw_data/mouseLiver.zarr.zip)                        | [S3](https://s3.embl.de/spatialdata/raw_data/mouseLiver.zarr)                              | CC BY 4.0 DEED    |
+| Molecular Cartography (SPArrOW output)    | Mouse Liver [^10][^11]                                    |     70 MB | MouseLiver                     | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/mouse_liver.zip)                 | [S3](https://s3.embl.de/spatialdata/spatialdata-sandbox/mouse_liver.zarr)                  | CC BY 4.0 DEED    |
 
 For the first 3 datasets, we also provide a version of them in which they are all aligned in a common coordinate system, and where we added the cell-type information, as described in our paper, to annotate the Xenium cells.
 | Technology | Sample | File Size | Filename (spatialdata-sandbox) | download data | work with data remotely (**see note below**) | license |
@@ -48,21 +48,12 @@ Also, here you can find [additional datasets and resources for methods developer
 If you use the datasets please cite the original sources and double-check their license.
 
 [^2]: From https://www.10xgenomics.com/datasets/visium-hd-cytassist-gene-expression-libraries-of-mouse-intestine
-
 [^3]: Janesick, A. et al. High resolution mapping of the breast cancer tumor microenvironment using integrated single cell, spatial and in situ analysis of FFPE tissue. bioRxiv 2022.10.06.510405 (2022) doi:10.1101/2022.10.06.510405.
-
 [^4]: Schapiro, D. et al. MCMICRO: A scalable, modular image-processing pipeline for multiplexed tissue imaging. Cold Spring Harbor Laboratory 2021.03.15.435473 (2021) doi:10.1101/2021.03.15.435473.
-
 [^5]: Moffitt, J. R. et al. Molecular, spatial, and functional single-cell profiling of the hypothalamic preoptic region. Science 362, (2018).
-
 [^6]: Hartmann, F. J. et al. Single-cell metabolic profiling of human cytotoxic T cells. Nat. Biotechnol. (2020) doi:10.1038/s41587-020-0651-8.
-
 [^7]: Windhager, J., Bodenmiller, B. & Eling, N. An end-to-end workflow for multiplexed image processing and analysis. bioRxiv 2021.11.12.468357 (2021) doi:10.1101/2021.11.12.468357.
-
 [^8]: Eling, N. & Windhager, J. Example imaging mass cytometry raw data. (2022). doi:10.5281/zenodo.5949116.
-
 [^9]: Eling, N. & Windhager, J. steinbock results of IMC example data. (2022). doi:10.5281/zenodo.7412972.
-
 [^10]: Guilliams, Martin, et al. "Spatial proteogenomics reveals distinct and evolutionarily conserved hepatic macrophage niches." Cell 185.2 (2022) doi:10.1016/j.cell2021.12.018
-
 [^11]: Pollaris, Lotte, et al. "SPArrOW: a flexible, interactive and scalable pipeline for spatial transcriptomics analysis." bioRxiv (2024) doi:10.1101/2024.07.04.601829
