@@ -4,32 +4,10 @@
 
 Notebooks tailored to showcase specific functionalities of the SpatialData ecosystem.
 
+## Basic
+
 ```{eval-rst}
 .. grid:: 2 3 3 3
-
-    .. grid-item::
-
-        .. container:: custom-card
-
-            .. image:: _static/img/models1.png
-                :target: notebooks/examples/models1.html
-
-            .. toctree::
-                :maxdepth: 1
-
-                notebooks/examples/models1.ipynb
-
-    .. grid-item::
-
-        .. container:: custom-card
-
-            .. image:: _static/img/models2.png
-                :target: notebooks/examples/models2.html
-
-            .. toctree::
-                :maxdepth: 1
-
-                notebooks/examples/models2.ipynb
 
     .. grid-item::
 
@@ -78,6 +56,36 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
                 :maxdepth: 1
 
                 notebooks/examples/alignment_using_landmarks.ipynb
+```
+
+## Intermediate
+
+```{eval-rst}
+.. grid:: 2 3 3 3
+
+    .. grid-item::
+
+        .. container:: custom-card
+
+            .. image:: _static/img/models1.png
+                :target: notebooks/examples/models1.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/models1.ipynb
+
+    .. grid-item::
+
+        .. container:: custom-card
+
+            .. image:: _static/img/models2.png
+                :target: notebooks/examples/models2.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/models2.ipynb
 
     .. grid-item::
 
@@ -140,7 +148,7 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
                 notebooks/examples/densenet.ipynb
 ```
 
-## Visualizations
+## Technology-specific
 
 Many different technologies can be visualised out-of-the-box. See below for a couple of examples. See the [example datasets](datasets/README.md) for additional technologies represented in SpatialData.
 
@@ -241,5 +249,16 @@ Advanced tutorials that showcase more complex functionalities of the SpatialData
 
                 notebooks/examples/speed_up_illustration.ipynb
 
+    .. grid-item::
+
+        .. container:: custom-card
+
+            .. image:: _static/img/transformations.jpg
+                :target: notebooks/examples/transformations_advanced.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/transformations_advanced.ipynb
 
 ```
