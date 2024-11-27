@@ -55,18 +55,6 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
         .. container:: custom-card
 
-            .. image:: _static/img/transformations.jpg
-                :target: notebooks/examples/transformations_advanced.html
-
-            .. toctree::
-                :maxdepth: 1
-
-                notebooks/examples/transformations.ipynb
-
-    .. grid-item::
-
-        .. container:: custom-card
-
             .. image:: _static/img/spatial_query.jpg
                 :target: notebooks/examples/spatial_query.html
 
@@ -261,5 +249,16 @@ Advanced tutorials that showcase more complex functionalities of the SpatialData
 
                 notebooks/examples/speed_up_illustration.ipynb
 
+    .. grid-item::
+
+        .. container:: custom-card
+
+            .. image:: _static/img/transformations.jpg
+                :target: notebooks/examples/transformations_advanced.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/transformations_advanced.ipynb
 
 ```
