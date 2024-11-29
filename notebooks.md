@@ -20,7 +20,7 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
                 :maxdepth: 1
 
                 notebooks/examples/intro.ipynb
-                
+
     .. grid-item::
 
         .. container:: custom-card
