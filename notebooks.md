@@ -11,6 +11,18 @@ Notebooks tailored to showcase specific functionalities of the SpatialData ecosy
 
         .. container:: custom-card
 
+            .. image:: notebooks/examples/attachments/elements.png
+                :target: notebooks/examples/intro.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/intro.ipynb
+
+    .. grid-item::
+
+        .. container:: custom-card
+
             .. image:: _static/img/models1.png
                 :target: notebooks/examples/models1.html
 
