@@ -282,11 +282,11 @@ Links to the tutorials for (some) external analysis methods that use `SpatialDat
 
 Methods:
 
--   [Squidpy: Spatial Single Cell Analysis in Python](https://squidpy.readthedocs.io/en/stable/)
--   [SPArrOW: A library for Spatial Transcriptomics Data Analysis](https://sparrow-pipeline.readthedocs.io/en/latest/)
--   [SOPA: Spatial-omics pipeline and analysis](https://gustaveroussy.github.io/sopa/)
--   [Bento: a toolkit for subcellular analysis of spatial transcriptomics data](https://bento-tools.readthedocs.io/en/latest/tutorial_gallery/Main_Guide.html)
+- [Squidpy: Spatial Single Cell Analysis in Python](https://squidpy.readthedocs.io/en/stable/)
+- [SPArrOW: A library for Spatial Transcriptomics Data Analysis](https://sparrow-pipeline.readthedocs.io/en/latest/)
+- [SOPA: Spatial-omics pipeline and analysis](https://gustaveroussy.github.io/sopa/)
+- [Bento: a toolkit for subcellular analysis of spatial transcriptomics data](https://bento-tools.readthedocs.io/en/latest/tutorial_gallery/Main_Guide.html)
 
 Workshop tutorials:
 
--   [A hands-on introduction into the analysis of targeted spatial transcriptomics data using the SPArrOW pipeline developed by the Yvan Saeys group (VIB)](https://github.com/vibspatial/targeted_transcriptomics_training)
+- [A hands-on introduction into the analysis of targeted spatial transcriptomics data using the SPArrOW pipeline developed by the Yvan Saeys group (VIB)](https://github.com/vibspatial/targeted_transcriptomics_training)
