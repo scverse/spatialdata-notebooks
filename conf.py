@@ -116,11 +116,12 @@ exclude_patterns = [
 ]
 # Ignore warnings.
 nitpicky = False  # TODO: solve upstream.
-# nitpick_ignore = [
-#     ("py:class", "spatial_image.SpatialImage"),
-#     ("py:class", "multiscale_spatial_image.multiscale_spatial_image.MultiscaleSpatialImage"),
-# ]
-
+nitpick_ignore = [
+    # these two files are not available when building the docs from
+    # spatialdata-notebook (but they are when building the docs from spatialdata)
+    ("myst", "../../../../api.md"),
+    ("myst", "../../../../glossary.md"),
+]
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -139,12 +140,6 @@ html_theme_options = {
 }
 
 pygments_style = "default"
-
-nitpick_ignore = [
-    # If building the documentation fails because of a missing link that is outside your control,
-    # you can add an exception to this list.
-    #     ("py:class", "igraph.Graph"),
-]
 
 
 def setup(app):
