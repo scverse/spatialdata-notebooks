@@ -3,11 +3,24 @@
 # Tutorials
 
 Notebooks tailored to showcase specific functionalities of the SpatialData ecosystem.
+See the bottom of this page for links to analysis tutorials for external methods that use `SpatialData` as a data model.
 
 ## Basic
 
 ```{eval-rst}
 .. grid:: 2 3 3 3
+
+    .. grid-item::
+
+        .. container:: custom-card
+
+            .. image:: _static/img/intro.png
+                :target: notebooks/examples/intro.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/intro.ipynb
 
     .. grid-item::
 
@@ -262,3 +275,18 @@ Advanced tutorials that showcase more complex functionalities of the SpatialData
                 notebooks/examples/transformations_advanced.ipynb
 
 ```
+
+## External tutorials
+
+Links to the tutorials for (some) external analysis methods that use `SpatialData` as a data model.
+
+Methods:
+
+- [Squidpy: Spatial Single Cell Analysis in Python](https://squidpy.readthedocs.io/en/stable/)
+- [SPArrOW: A library for Spatial Transcriptomics Data Analysis](https://sparrow-pipeline.readthedocs.io/en/latest/)
+- [SOPA: Spatial-omics pipeline and analysis](https://gustaveroussy.github.io/sopa/)
+- [Bento: a toolkit for subcellular analysis of spatial transcriptomics data](https://bento-tools.readthedocs.io/en/latest/tutorial_gallery/Main_Guide.html)
+
+Workshop tutorials:
+
+- [A hands-on introduction into the analysis of targeted spatial transcriptomics data using the SPArrOW pipeline developed by the Yvan Saeys group (VIB)](https://github.com/vibspatial/targeted_transcriptomics_training)
