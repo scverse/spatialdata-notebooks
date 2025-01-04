@@ -1,5 +1,11 @@
 {
     "metadata": {
+        ".zattrs": {
+            "spatialdata_attrs": {
+                "spatialdata_software_version": "0.2.7.dev16+g7bce868",
+                "version": "0.1"
+            }
+        },
         ".zgroup": {
             "zarr_format": 2
         },
