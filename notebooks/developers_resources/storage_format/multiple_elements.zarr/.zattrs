@@ -1,6 +1,6 @@
 {
     "spatialdata_attrs": {
-        "spatialdata_software_version": "0.2.7.dev16+g7bce868",
+        "spatialdata_software_version": "0.2.7rc1.dev10+g30f8103.d20250106",
         "version": "0.1"
     }
 }
