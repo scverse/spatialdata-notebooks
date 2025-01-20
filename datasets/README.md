@@ -29,10 +29,10 @@ For the first 3 datasets, we also provide a version of them in which they are al
 
 ## Licenses abbreviations
 
--   CCA: Creative Common Attribution
--   CC0 1.0 DEED: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
--   CC BY 4.0 DEED: Creative Common Attribution 4.0 International
--   CC BY-NC 4.0 DEED: Creative Common Attribution-NonCommercial 4.0 International
+- CCA: Creative Common Attribution
+- CC0 1.0 DEED: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+- CC BY 4.0 DEED: Creative Common Attribution 4.0 International
+- CC BY-NC 4.0 DEED: Creative Common Attribution-NonCommercial 4.0 International
 
 The data retains the license of the original published data.
 
@@ -50,14 +50,25 @@ Also, here you can find [additional datasets and resources for methods developer
 If you use the datasets please cite the original sources and double-check their license.
 
 [^2]: From https://www.10xgenomics.com/datasets/visium-hd-cytassist-gene-expression-libraries-of-mouse-intestine
+
 [^3]: Janesick, A. et al. High resolution mapping of the breast cancer tumor microenvironment using integrated single cell, spatial and in situ analysis of FFPE tissue. bioRxiv 2022.10.06.510405 (2022) doi:10.1101/2022.10.06.510405.
+
 [^4]: Schapiro, D. et al. MCMICRO: A scalable, modular image-processing pipeline for multiplexed tissue imaging. Cold Spring Harbor Laboratory 2021.03.15.435473 (2021) doi:10.1101/2021.03.15.435473.
+
 [^5]: Moffitt, J. R. et al. Molecular, spatial, and functional single-cell profiling of the hypothalamic preoptic region. Science 362, (2018).
+
 [^6]: Hartmann, F. J. et al. Single-cell metabolic profiling of human cytotoxic T cells. Nat. Biotechnol. (2020) doi:10.1038/s41587-020-0651-8.
+
 [^7]: Windhager, J., Bodenmiller, B. & Eling, N. An end-to-end workflow for multiplexed image processing and analysis. bioRxiv 2021.11.12.468357 (2021) doi:10.1101/2021.11.12.468357.
+
 [^8]: Eling, N. & Windhager, J. Example imaging mass cytometry raw data. (2022). doi:10.5281/zenodo.5949116.
+
 [^9]: Eling, N. & Windhager, J. steinbock results of IMC example data. (2022). doi:10.5281/zenodo.7412972.
+
 [^10]: Guilliams, Martin, et al. "Spatial proteogenomics reveals distinct and evolutionarily conserved hepatic macrophage niches." Cell 185.2 (2022) doi:10.1016/j.cell2021.12.018
+
 [^11]: Pollaris, Lotte, et al. "SPArrOW: a flexible, interactive and scalable pipeline for spatial transcriptomics analysis." bioRxiv (2024) doi:10.1101/2024.07.04.601829
+
 [^12]: See https://github.com/giovp/spatialdata-sandbox/blob/main/spacem_scseahorse1/README.md
+
 [^13]: See https://github.com/giovp/spatialdata-sandbox/blob/main/spacem_helanih3t3/README.md
