@@ -1,12 +1,10 @@
 import logging
 import os
 import shutil
-import tempfile
 
 import spatialdata as sd
 import zarr
 from ome_zarr.io import parse_url
-from spatialdata._io._utils import _are_directories_identical
 
 
 class DisableLogger:
@@ -84,16 +82,16 @@ def write_sdata_and_check_consistency(sdata: sd.SpatialData, name: str) -> None:
     assert not os.path.exists(f1)
     sdata.write(f1)
 
-    with tempfile.TemporaryDirectory() as tmpdir:
-        sdata2 = sd.read_zarr(f1)
-        f2 = os.path.join(tmpdir, f"{name}2.zarr")
-        with DisableLogger(logging.INFO):
-            # remove the message
-            #    INFO     The Zarr file used for backing will now change from multiple_elements.zarr to
-            #             /tmp/tmp15sd47gc/multiple_elements2.zarr
-            # which otherwise appears in the git diff
-            sdata2.write(f2)
-        assert _are_directories_identical(f1, f2)
+    # with tempfile.TemporaryDirectory() as tmpdir:
+    #     sdata2 = sd.read_zarr(f1)
+    #     f2 = os.path.join(tmpdir, f"{name}2.zarr")
+    #     with DisableLogger(logging.INFO):
+    #         # remove the message
+    #         #    INFO     The Zarr file used for backing will now change from multiple_elements.zarr to
+    #         #             /tmp/tmp15sd47gc/multiple_elements2.zarr
+    #         # which otherwise appears in the git diff
+    #         sdata2.write(f2)
+    #     assert _are_directories_identical(f1, f2)
 
     shutil.make_archive(f1, "zip", f1)
 

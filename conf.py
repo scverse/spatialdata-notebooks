@@ -98,6 +98,7 @@ intersphinx_mapping = {
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
+# note: these patterns should also be added in spatialdata/docs/conf.py
 exclude_patterns = [
     "_build",
     "Thumbs.db",
@@ -105,18 +106,22 @@ exclude_patterns = [
     "data",
     "temp",
     "notebooks/paper_reproducibility",
-    "notebooks/examples/*.zarr" "references.md",
+    "notebooks/examples/*.zarr",
     "Readme.md",  # hack cause git his acting up
     "notebooks/developers_resources/storage_format/*.ipynb",
     "notebooks/developers_resources/storage_format/Readme.md",
+    "notebooks/examples/technology_stereoseq.ipynb",  # no public data available
+    "notebooks/examples/technology_curio.ipynb",  # no public data available
+    "notebooks/examples/stereoseq_data/*",
 ]
 # Ignore warnings.
 nitpicky = False  # TODO: solve upstream.
-# nitpick_ignore = [
-#     ("py:class", "spatial_image.SpatialImage"),
-#     ("py:class", "multiscale_spatial_image.multiscale_spatial_image.MultiscaleSpatialImage"),
-# ]
-
+nitpick_ignore = [
+    # these two files are not available when building the docs from
+    # spatialdata-notebook (but they are when building the docs from spatialdata)
+    ("myst", "../../../../api.md"),
+    ("myst", "../../../../glossary.md"),
+]
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -135,12 +140,6 @@ html_theme_options = {
 }
 
 pygments_style = "default"
-
-nitpick_ignore = [
-    # If building the documentation fails because of a missing link that is outside your control,
-    # you can add an exception to this list.
-    #     ("py:class", "igraph.Graph"),
-]
 
 
 def setup(app):

@@ -31,6 +31,7 @@ temp/
 # symlinks
 notebooks/paper_reproducibility/data
 notebooks/paper_reproducibility/spatialdata-sandbox
+notebooks/examples/stereoseq_data
 
 data/
 *.zarr
