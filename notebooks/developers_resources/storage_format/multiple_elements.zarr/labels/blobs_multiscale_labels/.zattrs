@@ -1,6 +1,6 @@
 {
     "image-label": {
-        "version": "0.4"
+        "version": "0.6-dev"
     },
     "multiscales": [
         {
@@ -88,7 +88,7 @@
                 }
             ],
             "name": "blobs_multiscale_labels",
-            "version": "0.4"
+            "version": "0.6-dev"
         }
     ],
     "spatialdata_attrs": {
