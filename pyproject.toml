@@ -8,7 +8,7 @@ name = "spatialdata_notebooks"
 version = "0.0.1"
 description = "Tutorials and examples for SpatialData"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = {file = "LICENSE"}
 authors = [
     {name = "scverse"},
@@ -37,31 +37,12 @@ doc = [
     "sphinx-copybutton",
 ]
 
-[tool.isort]
-include_trailing_comma = true
-multi_line_output = 3
-profile = "black"
-
-[tool.black]
+[tool.ruff]
 line-length = 120
-target-version = ['py39']
-include = '\.pyi?$'
-exclude = '''
-(
-  /(
-      \.eggs
-    | \.git
-    | \.hg
-    | \.mypy_cache
-    | \.tox
-    | \.venv
-    | _build
-    | buck-out
-    | build
-    | dist
-  )/
-)
-'''
+exclude = ["notebooks/developers_resources/storage_format/__template__.ipynb"]
+
+[tool.ruff.lint]
+ignore = ["E402", "F821"]
 
 [tool.jupytext]
 formats = "ipynb,md"
