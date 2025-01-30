@@ -4,6 +4,12 @@ Here you can find all datasets necessary to run the example notebooks already co
 
 If you want to convert additional datasets check out the scripts available in the [spatialdata sandbox](https://github.com/giovp/spatialdata-sandbox).
 
+:::{note}
+S3 URLs cannot be opened directly in a web browser. They should be treated as Zarr stores.
+For example, appending `.zgroup` to any of the URLs will allow you to see that file.
+:::
+
+
 | Technology                                | Sample                                                    | File Size | Filename (spatialdata-sandbox) | download data                                                                                   | work with data remotely (**see note below**)                                               | license           |
 | :---------------------------------------- | :-------------------------------------------------------- | --------: | :----------------------------- | :---------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------- | :---------------- |
 | Visium HD                                 | Mouse intestin [^2]                                       |      1 GB | visium_hd_3.0.0_id             | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_hd_3.0.0_io.zip)          | [S3](https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_hd_3.0.0_io.zarr/)          | CCA               |
@@ -24,8 +30,6 @@ For the first 3 datasets, we also provide a version of them in which they are al
 | Visium | Breast Cancer [^3] | 1.5 GB | visium_associated_xenium_io | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_associated_xenium_io_aligned.zip) | [S3](https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_associated_xenium_io_aligned.zarr/) | CCA |
 | Xenium | Breast Cancer [^3] | 2.8 GB | xenium_rep1_io | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep1_io_aligned.zip) | [S3](https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep1_io_aligned.zarr/) | CCA |
 | Xenium | Breast Cancer [^3] | 3.7 GB | xenium_rep2_io | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep2_io_aligned.zip) | [S3](https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep2_io_aligned.zarr/) | CCA |
-
-**Note on S3 storage:** opening the S3 URLs in a web browser will not work, you need to treat the URLs as Zarr stores. For example if you append `.zgroup` to any of the URLs above you will be able to see that file.
 
 ## Licenses abbreviations
 

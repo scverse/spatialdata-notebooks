@@ -8,8 +8,11 @@ import urllib.parse
 
 
 def _generate_toc(notebook_path, indent_char="&emsp;&emsp;"):
-    is_markdown = lambda it: "markdown" == it["cell_type"]
-    is_title = lambda it: it.strip().startswith("#") and it.strip().lstrip("#").lstrip()
+    def is_markdown(it):
+        return "markdown" == it["cell_type"]
+
+    def is_title(it):
+        return it.strip().startswith("#") and it.strip().lstrip("#").lstrip()
 
     with open(notebook_path) as in_f:
         nb_json = json.load(in_f)
