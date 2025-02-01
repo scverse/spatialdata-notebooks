@@ -23,7 +23,7 @@ dependencies = ["spatialdata", "squidpy"]
 
 [project.optional-dependencies]
 dev = [
-    "pre-commit"
+    "pre-commit",
 	"watermark"
 ]
 doc = [
