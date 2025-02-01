@@ -116,6 +116,18 @@ See the bottom of this page for links to analysis tutorials for external methods
 
         .. container:: custom-card
 
+            .. image:: _static/img/intro.png
+                :target: notebooks/examples/sdata_from_scratch.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/sdata_from_scratch.ipynb
+
+    .. grid-item::
+
+        .. container:: custom-card
+
             .. image:: _static/img/aggregation.jpg
                 :target: notebooks/examples/aggregation.html
 
