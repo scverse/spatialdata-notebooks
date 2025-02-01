@@ -19,11 +19,12 @@ maintainers = [
 urls.Documentation = "https://spatialdata-notebooks.readthedocs.io/"
 urls.Source = "https://github.com/scverse/spatialdata-notebooks"
 urls.Home-page = "https://github.com/scverse/spatialdata-notebooks"
-dependencies = ["anndata"]
+dependencies = ["spatialdata", "squidpy"]
 
 [project.optional-dependencies]
 dev = [
     "pre-commit"
+	"watermark"
 ]
 doc = [
     "sphinx>=4.5",
