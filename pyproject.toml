@@ -19,7 +19,7 @@ maintainers = [
 urls.Documentation = "https://spatialdata-notebooks.readthedocs.io/"
 urls.Source = "https://github.com/scverse/spatialdata-notebooks"
 urls.Home-page = "https://github.com/scverse/spatialdata-notebooks"
-dependencies = ["spatialdata", "squidpy"]
+dependencies = ["spatialdata", "squidpy>=1.6.2"]
 
 [project.optional-dependencies]
 dev = [
