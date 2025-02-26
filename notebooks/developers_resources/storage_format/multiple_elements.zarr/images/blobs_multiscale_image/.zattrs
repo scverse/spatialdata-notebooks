@@ -115,7 +115,7 @@
                 }
             },
             "name": "/images/blobs_multiscale_image",
-            "version": "0.4-dev-spatialdata"
+            "version": "0.4"
         }
     ],
     "omero": {
@@ -132,6 +132,6 @@
         ]
     },
     "spatialdata_attrs": {
-        "version": "0.2"
+        "version": "0.1"
     }
 }
