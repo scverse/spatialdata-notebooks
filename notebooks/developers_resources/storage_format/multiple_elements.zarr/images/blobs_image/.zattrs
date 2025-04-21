@@ -89,7 +89,7 @@
                 }
             },
             "name": "/images/blobs_image",
-            "version": "0.4"
+            "version": "0.4-dev-spatialdata"
         }
     ],
     "omero": {
@@ -106,6 +106,6 @@
         ]
     },
     "spatialdata_attrs": {
-        "version": "0.1"
+        "version": "0.2"
     }
 }

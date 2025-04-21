@@ -2,7 +2,7 @@
     "metadata": {
         ".zattrs": {
             "spatialdata_attrs": {
-                "spatialdata_software_version": "0.3.1.dev0+gae71ae1.d20250407",
+                "spatialdata_software_version": "0.3.1.dev31+g4021946.d20250421",
                 "version": "0.1"
             }
         },
@@ -103,7 +103,7 @@
                         }
                     },
                     "name": "/images/blobs_image",
-                    "version": "0.4"
+                    "version": "0.4-dev-spatialdata"
                 }
             ],
             "omero": {
@@ -120,7 +120,7 @@
                 ]
             },
             "spatialdata_attrs": {
-                "version": "0.1"
+                "version": "0.2"
             }
         },
         "images/blobs_image/.zgroup": {
@@ -268,7 +268,7 @@
                         }
                     },
                     "name": "/images/blobs_multiscale_image",
-                    "version": "0.4"
+                    "version": "0.4-dev-spatialdata"
                 }
             ],
             "omero": {
@@ -285,7 +285,7 @@
                 ]
             },
             "spatialdata_attrs": {
-                "version": "0.1"
+                "version": "0.2"
             }
         },
         "images/blobs_multiscale_image/.zgroup": {
@@ -377,7 +377,7 @@
         },
         "labels/blobs_labels/.zattrs": {
             "image-label": {
-                "version": "0.4"
+                "version": "0.4-dev-spatialdata"
             },
             "multiscales": [
                 {
@@ -669,11 +669,11 @@
                         }
                     ],
                     "name": "blobs_labels",
-                    "version": "0.4"
+                    "version": "0.4-dev-spatialdata"
                 }
             ],
             "spatialdata_attrs": {
-                "version": "0.1"
+                "version": "0.2"
             }
         },
         "labels/blobs_labels/.zgroup": {
@@ -704,7 +704,7 @@
         },
         "labels/blobs_multiscale_labels/.zattrs": {
             "image-label": {
-                "version": "0.4"
+                "version": "0.4-dev-spatialdata"
             },
             "multiscales": [
                 {
@@ -792,11 +792,11 @@
                         }
                     ],
                     "name": "blobs_multiscale_labels",
-                    "version": "0.4"
+                    "version": "0.4-dev-spatialdata"
                 }
             ],
             "spatialdata_attrs": {
-                "version": "0.1"
+                "version": "0.2"
             }
         },
         "labels/blobs_multiscale_labels/.zgroup": {
