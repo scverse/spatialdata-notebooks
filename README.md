@@ -4,7 +4,9 @@
 
 [![DOI](https://zenodo.org/badge/477021400.svg)](https://zenodo.org/badge/latestdoi/477021400)
 
-Tutorials and examples for SpatialData. See them as part of the [spatialdata documentation](https://spatialdata.scverse.org/en/latest/tutorials/notebooks/notebooks.html).
+Tutorials and examples for SpatialData. See them as part of the [spatialdata
+documentation](https://spatialdata.scverse.org/en/stable/tutorials/notebooks/notebooks.
+html).
 
 ## Contact
 
@@ -17,7 +19,6 @@ Marconato, L., Palla, G., Yamauchi, K.A. et al. SpatialData: an open and univers
 
 [scverse-discourse]: https://discourse.scverse.org/
 [issue-tracker]: https://github.com/scverse/spatialdata-notebooks/issues
-[changelog]: https://spatialdata-notebooks.readthedocs.io/latest/changelog.html
 
 [//]: # (numfocus-fiscal-sponsor-attribution)
 
