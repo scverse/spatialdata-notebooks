@@ -5,8 +5,7 @@
 [![DOI](https://zenodo.org/badge/477021400.svg)](https://zenodo.org/badge/latestdoi/477021400)
 
 Tutorials and examples for SpatialData. See them as part of the [spatialdata
-documentation](https://spatialdata.scverse.org/en/stable/tutorials/notebooks/notebooks.
-html).
+documentation](https://spatialdata.scverse.org/en/stable/tutorials/notebooks/notebooks.html).
 
 ## Contact
 
