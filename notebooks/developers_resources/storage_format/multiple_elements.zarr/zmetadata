@@ -2,7 +2,7 @@
     "metadata": {
         ".zattrs": {
             "spatialdata_attrs": {
-                "spatialdata_software_version": "0.4.1.dev6+g872f8c2.d20250616",
+                "spatialdata_software_version": "0.4.1.dev11+gb889b53",
                 "version": "0.1"
             }
         },
@@ -1090,7 +1090,7 @@
             "encoding-type": "csr_matrix",
             "encoding-version": "0.1.0",
             "shape": [
-                11,
+                10,
                 3
             ]
         },
@@ -1099,7 +1099,7 @@
         },
         "tables/table/X/data/.zarray": {
             "chunks": [
-                33
+                30
             ],
             "compressor": {
                 "blocksize": 0,
@@ -1114,13 +1114,13 @@
             "filters": null,
             "order": "C",
             "shape": [
-                33
+                30
             ],
             "zarr_format": 2
         },
         "tables/table/X/indices/.zarray": {
             "chunks": [
-                33
+                30
             ],
             "compressor": {
                 "blocksize": 0,
@@ -1135,13 +1135,13 @@
             "filters": null,
             "order": "C",
             "shape": [
-                33
+                30
             ],
             "zarr_format": 2
         },
         "tables/table/X/indptr/.zarray": {
             "chunks": [
-                12
+                11
             ],
             "compressor": {
                 "blocksize": 0,
@@ -1156,7 +1156,7 @@
             "filters": null,
             "order": "C",
             "shape": [
-                12
+                11
             ],
             "zarr_format": 2
         },
@@ -1181,7 +1181,7 @@
         },
         "tables/table/obs/_index/.zarray": {
             "chunks": [
-                11
+                10
             ],
             "compressor": {
                 "blocksize": 0,
@@ -1200,7 +1200,7 @@
             ],
             "order": "C",
             "shape": [
-                11
+                10
             ],
             "zarr_format": 2
         },
@@ -1210,7 +1210,7 @@
         },
         "tables/table/obs/instance_id/.zarray": {
             "chunks": [
-                11
+                10
             ],
             "compressor": {
                 "blocksize": 0,
@@ -1225,7 +1225,7 @@
             "filters": null,
             "order": "C",
             "shape": [
-                11
+                10
             ],
             "zarr_format": 2
         },
@@ -1272,7 +1272,7 @@
         },
         "tables/table/obs/region/codes/.zarray": {
             "chunks": [
-                11
+                10
             ],
             "compressor": {
                 "blocksize": 0,
@@ -1287,7 +1287,7 @@
             "filters": null,
             "order": "C",
             "shape": [
-                11
+                10
             ],
             "zarr_format": 2
         },
@@ -1308,6 +1308,21 @@
         },
         "tables/table/obsp/.zgroup": {
             "zarr_format": 2
+        },
+        "tables/table/raw/.zarray": {
+            "chunks": [],
+            "compressor": null,
+            "dimension_separator": "/",
+            "dtype": "<f8",
+            "fill_value": 0.0,
+            "filters": null,
+            "order": "C",
+            "shape": [],
+            "zarr_format": 2
+        },
+        "tables/table/raw/.zattrs": {
+            "encoding-type": "null",
+            "encoding-version": "0.1.0"
         },
         "tables/table/uns/.zattrs": {
             "encoding-type": "dict",
