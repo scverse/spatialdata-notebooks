@@ -22,7 +22,7 @@ particular:
 | MIBI-TOF                                  | Colorectal carcinoma [^6]                                 |    ~25 MB | mibitof                        | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/mibitof.zip)                     | CC BY 4.0 DEED    |
 | Imaging Mass Cytometry (Steinbock output) | 4 different cancers (SCCHN, BCC, NSCLC, CRC) [^7][^8][^9] |   ~800 MB | steinbock_io                   | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/steinbock_io.zip)                | CC BY 4.0 DEED    |
 | Molecular Cartography (SPArrOW output)    | Mouse Liver [^10][^11]                                    |    ~70 MB | MouseLiver                     | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/mouse_liver.zip)                 | CC BY 4.0 DEED    |
-| SpaceM                                    | Hepa and NIH3T3 cells [^13]                               |    ~60 MB | spacem_hepanih3t3              | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/spacem_helanih3t3.zip)           | CC BY 4.0 DEED    |
+| SpaceM                                    | Hepa and NIH3T3 cells [^12]                               |    ~60 MB | spacem_hepanih3t3              | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/spacem_helanih3t3.zip)           | CC BY 4.0 DEED    |
 
 ## Licenses abbreviations
 
@@ -80,7 +80,4 @@ evolutionarily conserved hepatic macrophage niches." Cell 185.2 (2022) doi:
 for spatial transcriptomics analysis." bioRxiv (2024) doi:10.1101/2024.07.04.601829
 
 [^12]:
-See https://github.com/giovp/spatialdata-sandbox/blob/main/spacem_scseahorse1/README.md
-
-[^13]:
 See https://github.com/giovp/spatialdata-sandbox/blob/main/spacem_helanih3t3/README.md
