@@ -46,3 +46,5 @@ notebooks/examples/logs/
 
 # others
 node_modules/
+notebooks/examples/_latest_run_notebook.ipynb
+notebooks/developers_resources/storage_format/_latest_run_notebook.ipynb
