@@ -244,6 +244,18 @@ Many different technologies can be visualised out-of-the-box. See below for a co
 
         .. container:: custom-card
 
+            .. image:: _static/img/visium_hd_4.0.1.jpg
+                :target: notebooks/examples/technology_visium_hd_mouse_4.0.1.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/technology_visium_hd_mouse_4.0.1.ipynb
+
+    .. grid-item::
+
+        .. container:: custom-card
+
             .. image:: _static/img/xenium.png
                 :target: notebooks/examples/technology_xenium.html
 
