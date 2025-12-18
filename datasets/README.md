@@ -7,8 +7,8 @@ Scripts to convert data from several other technologies into SpatialData Zarr ar
 available in the [spatialdata sandbox](https://github.com/giovp/spatialdata-sandbox); in
 particular:
 
-- CyCIF (MCMICRO output)
-- Imaging Mass Cytometry, IMC (Steinbock output)
+- CyCIF (MCMICRO output)[^4]
+- Imaging Mass Cytometry, IMC (Steinbock output)[^7][^8][^9]
 - seqFISH
 
 | Technology                                | Sample                                                    | File Size | Filename (spatialdata-sandbox) | download data (latest stable release)                                                           | license           |
@@ -17,11 +17,9 @@ particular:
 | Visium                                    | Breast cancer [^2]                                        |   ~1.5 GB | visium_associated_xenium_io    | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_associated_xenium_io.zip) | CCA               |
 | Xenium                                    | Breast cancer [^2]                                        |   ~2.8 GB | xenium_rep1_io                 | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep1_io.zip)              | CCA               |
 | Xenium                                    | Lung cancer [^3]                                          |   ~5.4 GB | xenium_2.0.0_io                | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_2.0.0_io.zip)             | CCA               |
-| CyCIF (MCMICRO output)                    | Small lung adenocarcinoma [^4]                            |   ~250 MB | mcmicro_io                     | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/mcmicro_io.zip)                  | CC BY-NC 4.0 DEED |
 | MERFISH                                   | Mouse brain [^5]                                          |    ~50 MB | merfish                        | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/merfish.zip)                     | CC0 1.0 DEED      |
 | MIBI-TOF                                  | Colorectal carcinoma [^6]                                 |    ~25 MB | mibitof                        | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/mibitof.zip)                     | CC BY 4.0 DEED    |
-| Imaging Mass Cytometry (Steinbock output) | 4 different cancers (SCCHN, BCC, NSCLC, CRC) [^7][^8][^9] |   ~800 MB | steinbock_io                   | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/steinbock_io.zip)                | CC BY 4.0 DEED    |
-| Molecular Cartography (SPArrOW output)    | Mouse Liver [^10][^11]                                    |    ~70 MB | MouseLiver                     | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/mouse_liver.zip)                 | CC BY 4.0 DEED    |
+| Molecular Cartography (SPArrOW output)    | Mouse Liver [^10][^11]                                    |    ~70 MB | mouse_liver                    | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/mouse_liver.zip)                 | CC BY 4.0 DEED    |
 | SpaceM                                    | Hepa and NIH3T3 cells [^12]                               |    ~60 MB | spacem_hepanih3t3              | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/spacem_helanih3t3.zip)           | CC BY 4.0 DEED    |
 
 ## Licenses abbreviations
@@ -42,15 +40,13 @@ find [additional datasets and resources for methods developers](https://github.c
 
 If you use the datasets please cite the original sources and double-check their license.
 
-[^1]:
-From https://www.10xgenomics.com/datasets/visium-hd-cytassist-gene-expression-libraries-of-mouse-intestine
+[^1]: From https://www.10xgenomics.com/datasets/visium-hd-cytassist-gene-expression-libraries-of-mouse-intestine
 
 [^2]: Janesick, A. et al. High resolution mapping of the breast cancer tumor
 microenvironment using integrated single cell, spatial and in situ analysis of FFPE
 tissue. bioRxiv 2022.10.06.510405 (2022) doi:10.1101/2022.10.06.510405.
 
-[^3]:
-From https://www.10xgenomics.com/datasets/preview-data-ffpe-human-lung-cancer-with-xenium-multimodal-cell-segmentation-1-standard
+[^3]: From https://www.10xgenomics.com/datasets/preview-data-ffpe-human-lung-cancer-with-xenium-multimodal-cell-segmentation-1-standard
 
 [^4]: Schapiro, D. et al. MCMICRO: A scalable, modular image-processing pipeline for
 multiplexed tissue imaging. Cold Spring Harbor Laboratory 2021.03.15.435473 (2021) doi:
@@ -79,5 +75,4 @@ evolutionarily conserved hepatic macrophage niches." Cell 185.2 (2022) doi:
 [^11]: Pollaris, Lotte, et al. "SPArrOW: a flexible, interactive and scalable pipeline
 for spatial transcriptomics analysis." bioRxiv (2024) doi:10.1101/2024.07.04.601829
 
-[^12]:
-See https://github.com/giovp/spatialdata-sandbox/blob/main/spacem_helanih3t3/README.md
+[^12]: See https://github.com/giovp/spatialdata-sandbox/blob/main/spacem_helanih3t3/README.md
