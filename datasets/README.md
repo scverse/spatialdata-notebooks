@@ -42,15 +42,13 @@ find [additional datasets and resources for methods developers](https://github.c
 
 If you use the datasets please cite the original sources and double-check their license.
 
-[^1]:
-From https://www.10xgenomics.com/datasets/visium-hd-cytassist-gene-expression-libraries-of-mouse-intestine
+[^1]: From https://www.10xgenomics.com/datasets/visium-hd-cytassist-gene-expression-libraries-of-mouse-intestine
 
 [^2]: Janesick, A. et al. High resolution mapping of the breast cancer tumor
 microenvironment using integrated single cell, spatial and in situ analysis of FFPE
 tissue. bioRxiv 2022.10.06.510405 (2022) doi:10.1101/2022.10.06.510405.
 
-[^3]:
-From https://www.10xgenomics.com/datasets/preview-data-ffpe-human-lung-cancer-with-xenium-multimodal-cell-segmentation-1-standard
+[^3]: From https://www.10xgenomics.com/datasets/preview-data-ffpe-human-lung-cancer-with-xenium-multimodal-cell-segmentation-1-standard
 
 [^4]: Schapiro, D. et al. MCMICRO: A scalable, modular image-processing pipeline for
 multiplexed tissue imaging. Cold Spring Harbor Laboratory 2021.03.15.435473 (2021) doi:
@@ -79,5 +77,4 @@ evolutionarily conserved hepatic macrophage niches." Cell 185.2 (2022) doi:
 [^11]: Pollaris, Lotte, et al. "SPArrOW: a flexible, interactive and scalable pipeline
 for spatial transcriptomics analysis." bioRxiv (2024) doi:10.1101/2024.07.04.601829
 
-[^12]:
-See https://github.com/giovp/spatialdata-sandbox/blob/main/spacem_helanih3t3/README.md
+[^12]: See https://github.com/giovp/spatialdata-sandbox/blob/main/spacem_helanih3t3/README.md
