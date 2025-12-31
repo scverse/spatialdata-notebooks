@@ -49,7 +49,14 @@ def delete_old_data(name: str) -> None:
         store = parse_url(f1, mode="w").store
         _ = zarr.group(store=store, overwrite=True)
         store.close()
-        os.remove(os.path.join(f1, ".zgroup"))
+        zgroup_path = os.path.join(f1, ".zgroup")
+        zarr_json_path = os.path.join(f1, "zarr.json")
+        if os.path.exists(zgroup_path):
+            os.remove(zgroup_path)
+        elif os.path.exists(zarr_json_path):
+            os.remove(zarr_json_path)
+        else:
+            raise FileNotFoundError(f"Neiter .zgroup nor zarr.json have been found in {f1}")
         os.rmdir(f1)
 
 
