@@ -220,18 +220,6 @@ Many different technologies can be visualised out-of-the-box. See below for a co
 
         .. container:: custom-card
 
-            .. image:: _static/img/cosmx.png
-                :target: notebooks/examples/technology_cosmx.html
-
-            .. toctree::
-                :maxdepth: 1
-
-                notebooks/examples/technology_cosmx.ipynb
-
-    .. grid-item::
-
-        .. container:: custom-card
-
             .. image:: _static/img/visium_hd.jpg
                 :target: notebooks/examples/technology_visium_hd.html
 
