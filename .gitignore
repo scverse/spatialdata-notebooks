@@ -36,6 +36,7 @@ notebooks/examples/stereoseq_data
 data/
 *.zarr
 *.zip
+zarr.json
 
 # notebooks
 *.ipynb_checkpoints
