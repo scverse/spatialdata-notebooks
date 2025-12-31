@@ -80,6 +80,30 @@ See the bottom of this page for links to analysis tutorials for external methods
 
         .. container:: custom-card
 
+            .. image:: _static/img/intro.png
+                :target: notebooks/examples/sdata_from_scratch.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/sdata_from_scratch.ipynb
+
+    .. grid-item::
+
+        .. container:: custom-card
+
+            .. image:: _static/img/table.png
+                :target: notebooks/examples/tables.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/tables.ipynb
+
+    .. grid-item::
+
+        .. container:: custom-card
+
             .. image:: _static/img/models1.png
                 :target: notebooks/examples/models1.html
 
@@ -99,30 +123,6 @@ See the bottom of this page for links to analysis tutorials for external methods
                 :maxdepth: 1
 
                 notebooks/examples/models2.ipynb
-
-    .. grid-item::
-
-        .. container:: custom-card
-
-            .. image:: _static/img/table.png
-                :target: notebooks/examples/tables.html
-
-            .. toctree::
-                :maxdepth: 1
-
-                notebooks/examples/tables.ipynb
-
-    .. grid-item::
-
-        .. container:: custom-card
-
-            .. image:: _static/img/intro.png
-                :target: notebooks/examples/sdata_from_scratch.html
-
-            .. toctree::
-                :maxdepth: 1
-
-                notebooks/examples/sdata_from_scratch.ipynb
 
     .. grid-item::
 
