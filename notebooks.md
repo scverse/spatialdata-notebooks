@@ -80,6 +80,30 @@ See the bottom of this page for links to analysis tutorials for external methods
 
         .. container:: custom-card
 
+            .. image:: _static/img/intro.png
+                :target: notebooks/examples/sdata_from_scratch.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/sdata_from_scratch.ipynb
+
+    .. grid-item::
+
+        .. container:: custom-card
+
+            .. image:: _static/img/table.png
+                :target: notebooks/examples/tables.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/tables.ipynb
+
+    .. grid-item::
+
+        .. container:: custom-card
+
             .. image:: _static/img/models1.png
                 :target: notebooks/examples/models1.html
 
@@ -99,30 +123,6 @@ See the bottom of this page for links to analysis tutorials for external methods
                 :maxdepth: 1
 
                 notebooks/examples/models2.ipynb
-
-    .. grid-item::
-
-        .. container:: custom-card
-
-            .. image:: _static/img/table.png
-                :target: notebooks/examples/tables.html
-
-            .. toctree::
-                :maxdepth: 1
-
-                notebooks/examples/tables.ipynb
-
-    .. grid-item::
-
-        .. container:: custom-card
-
-            .. image:: _static/img/intro.png
-                :target: notebooks/examples/sdata_from_scratch.html
-
-            .. toctree::
-                :maxdepth: 1
-
-                notebooks/examples/sdata_from_scratch.ipynb
 
     .. grid-item::
 
@@ -232,18 +232,6 @@ Many different technologies can be visualised out-of-the-box. See below for a co
 
         .. container:: custom-card
 
-            .. image:: _static/img/cosmx.png
-                :target: notebooks/examples/technology_cosmx.html
-
-            .. toctree::
-                :maxdepth: 1
-
-                notebooks/examples/technology_cosmx.ipynb
-
-    .. grid-item::
-
-        .. container:: custom-card
-
             .. image:: _static/img/visium_hd.jpg
                 :target: notebooks/examples/technology_visium_hd.html
 
@@ -251,6 +239,18 @@ Many different technologies can be visualised out-of-the-box. See below for a co
                 :maxdepth: 1
 
                 notebooks/examples/technology_visium_hd.ipynb
+
+    .. grid-item::
+
+        .. container:: custom-card
+
+            .. image:: _static/img/visium_hd_4.0.1.jpg
+                :target: notebooks/examples/technology_visium_hd_mouse_4.0.1.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/technology_visium_hd_mouse_4.0.1.ipynb
 
     .. grid-item::
 

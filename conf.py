@@ -112,6 +112,7 @@ exclude_patterns = [
     "notebooks/developers_resources/storage_format/Readme.md",
     "notebooks/examples/technology_stereoseq.ipynb",  # no public data available
     "notebooks/examples/technology_curio.ipynb",  # no public data available
+    "notebooks/examples/technology_cosmx.ipynb",  # temporarily removed until the new reader and datasets are available
     "notebooks/examples/stereoseq_data/*",
 ]
 # Ignore warnings.
