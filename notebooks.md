@@ -104,6 +104,18 @@ See the bottom of this page for links to analysis tutorials for external methods
 
         .. container:: custom-card
 
+            .. image:: _static/img/table_queries.png
+                :target: notebooks/examples/table_queries.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/table-queries.ipynb
+
+    .. grid-item::
+
+        .. container:: custom-card
+
             .. image:: _static/img/models1.png
                 :target: notebooks/examples/models1.html
 
@@ -172,17 +184,6 @@ See the bottom of this page for links to analysis tutorials for external methods
 
                 notebooks/examples/densenet.ipynb
 
-    .. grid-item::
-
-        .. container:: custom-card
-
-            .. image:: _static/img/table-queries.jpg
-                :target: notebooks/examples/table-queries.html
-
-            .. toctree::
-                :maxdepth: 1
-
-                notebooks/examples/table-queries.ipynb
 ```
 
 ## Technology-specific
