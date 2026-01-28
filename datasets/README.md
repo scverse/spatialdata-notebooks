@@ -11,7 +11,7 @@ particular:
 - Imaging Mass Cytometry, IMC (Steinbock output)[^7][^8][^9]
 - seqFISH
 
-| Technology                             | Sample                      | File Size | Filename (spatialdata-sandbox) | download data (latest stable release)                                                           | license   |
+| Technology                             | Sample                      | File Size | Filename (spatialdata-sandbox) | download data (latest stable release)*                                                          | license   |
 |:---------------------------------------|:----------------------------|----------:|:-------------------------------|:------------------------------------------------------------------------------------------------|:----------|
 | Visium HD                              | Mouse intestin [^1]         |   ~2.4 GB | visium_hd_3.0.0_io             | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_hd_3.0.0_io.zip)          | CC BY 4.0 |
 | Visium HD                              | Mouse brain [^13]           |    <200MB | visium_hd_4.0.1_io             | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_hd_4.0.1_io.zip)          | CC BY 4.0 |
@@ -23,6 +23,48 @@ particular:
 | MIBI-TOF                               | Colorectal carcinoma [^6]   |    ~25 MB | mibitof                        | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/mibitof.zip)                     | CC BY 4.0 |
 | Molecular Cartography (SPArrOW output) | Mouse Liver [^10][^11]      |    ~70 MB | mouse_liver                    | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/mouse_liver.zip)                 | CC BY 4.0 |
 | SpaceM                                 | Hepa and NIH3T3 cells [^12] |    ~60 MB | spacem_hepanih3t3              | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/spacem_helanih3t3.zip)           | CC BY 4.0 |
+
+*If the download link above doesn't work, or to download data generated using an older version of `spatialdata` and `spatialdata-io`, please select the dataset and version below.
+
+```{raw} html
+<div style="margin: 1em 0 2em 0; padding: 1em; border: 1px solid #444; border-radius: 6px; max-width: 600px;">
+  <label for="dataset-select"><strong>Dataset:</strong></label>
+  <select id="dataset-select" style="margin: 0.3em 0 0.8em 0.5em; padding: 0.3em;">
+    <option value="visium_hd_3.0.0_io">visium_hd_3.0.0_io</option>
+    <option value="visium_hd_4.0.1_io">visium_hd_4.0.1_io</option>
+    <option value="visium_associated_xenium_io">visium_associated_xenium_io</option>
+    <option value="visium">visium</option>
+    <option value="xenium_rep1_io">xenium_rep1_io</option>
+    <option value="xenium_2.0.0_io">xenium_2.0.0_io</option>
+    <option value="merfish">merfish</option>
+    <option value="mibitof">mibitof</option>
+    <option value="mouse_liver">mouse_liver</option>
+    <option value="spacem_hepanih3t3">spacem_hepanih3t3</option>
+  </select>
+  <br>
+  <label for="version-select"><strong>Version:</strong></label>
+  <select id="version-select" style="margin: 0.3em 0 0.8em 0.5em; padding: 0.3em;">
+    <option value="_spatialdata_0.7.0_spatialdata_io_0.6.0">spatialdata 0.7.0 / spatialdata-io 0.6.0</option>
+  </select>
+  <br>
+  <strong>Download link: </strong>
+  <a id="download-link" href="https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_hd_3.0.0_io_spatialdata_0.7.0_spatialdata_io_0.6.0.zip">
+    https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_hd_3.0.0_io_spatialdata_0.7.0_spatialdata_io_0.6.0.zip
+  </a>
+  <script>
+    function updateDownloadLink() {
+      var dataset = document.getElementById('dataset-select').value;
+      var version = document.getElementById('version-select').value;
+      var url = 'https://s3.embl.de/spatialdata/spatialdata-sandbox/' + dataset + version + '.zip';
+      var link = document.getElementById('download-link');
+      link.href = url;
+      link.textContent = url;
+    }
+    document.getElementById('dataset-select').addEventListener('change', updateDownloadLink);
+    document.getElementById('version-select').addEventListener('change', updateDownloadLink);
+  </script>
+</div>
+```
 
 ## Licenses abbreviations
 
