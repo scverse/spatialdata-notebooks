@@ -11,20 +11,20 @@ particular:
 - Imaging Mass Cytometry, IMC (Steinbock output)[^7][^8][^9]
 - seqFISH
 
-| Technology                             | Sample                      | File Size | Filename (spatialdata-sandbox) | download data (latest stable release)*                                                          | license   |
-|:---------------------------------------|:----------------------------|----------:|:-------------------------------|:------------------------------------------------------------------------------------------------|:----------|
-| Visium HD                              | Mouse intestin [^1]         |   ~2.4 GB | visium_hd_3.0.0_io             | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_hd_3.0.0_io.zip)          | CC BY 4.0 |
-| Visium HD                              | Mouse brain [^13]           |    <200MB | visium_hd_4.0.1_io             | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_hd_4.0.1_io.zip)          | CC BY 4.0 |
-| Visium                                 | Breast cancer [^2]          |   ~1.5 GB | visium_associated_xenium_io    | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_associated_xenium_io.zip) | CC BY 4.0 |
-| Visium                                 | Mouse brain [^14]           |    <100MB | visium                         | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/visium.zip)                      | CC BY 4.0 |
-| Xenium                                 | Breast cancer [^2]          |   ~2.8 GB | xenium_rep1_io                 | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_rep1_io.zip)              | CC BY 4.0 |
-| Xenium                                 | Lung cancer [^3]            |   ~5.4 GB | xenium_2.0.0_io                | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/xenium_2.0.0_io.zip)             | CC BY 4.0 |
-| MERFISH                                | Mouse brain [^5]            |    ~50 MB | merfish                        | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/merfish.zip)                     | CC0 1.0   |
-| MIBI-TOF                               | Colorectal carcinoma [^6]   |    ~25 MB | mibitof                        | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/mibitof.zip)                     | CC BY 4.0 |
-| Molecular Cartography (SPArrOW output) | Mouse Liver [^10][^11]      |    ~70 MB | mouse_liver                    | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/mouse_liver.zip)                 | CC BY 4.0 |
-| SpaceM                                 | Hepa and NIH3T3 cells [^12] |    ~60 MB | spacem_hepanih3t3              | [.zarr.zip](https://s3.embl.de/spatialdata/spatialdata-sandbox/spacem_helanih3t3.zip)           | CC BY 4.0 |
+| Technology                             | Sample                      | File Size | Filename (spatialdata-sandbox) | license   |
+|:---------------------------------------|:----------------------------|----------:|:-------------------------------|:----------|
+| Visium HD                              | Mouse intestin [^1]         |   ~2.4 GB | visium_hd_3.0.0_io             | CC BY 4.0 |
+| Visium HD                              | Mouse brain [^13]           |    <200MB | visium_hd_4.0.1_io             | CC BY 4.0 |
+| Visium                                 | Breast cancer [^2]          |   ~1.5 GB | visium_associated_xenium_io    | CC BY 4.0 |
+| Visium                                 | Mouse brain [^14]           |    <100MB | visium                         | CC BY 4.0 |
+| Xenium                                 | Breast cancer [^2]          |   ~2.8 GB | xenium_rep1_io                 | CC BY 4.0 |
+| Xenium                                 | Lung cancer [^3]            |   ~5.4 GB | xenium_2.0.0_io                | CC BY 4.0 |
+| MERFISH                                | Mouse brain [^5]            |    ~50 MB | merfish                        | CC0 1.0   |
+| MIBI-TOF                               | Colorectal carcinoma [^6]   |    ~25 MB | mibitof                        | CC BY 4.0 |
+| Molecular Cartography (SPArrOW output) | Mouse Liver [^10][^11]      |    ~70 MB | mouse_liver                    | CC BY 4.0 |
+| SpaceM                                 | Hepa and NIH3T3 cells [^12] |    ~60 MB | spacem_hepanih3t3              | CC BY 4.0 |
 
-*If the download link above doesn't work, or to download data generated using an older version of `spatialdata` and `spatialdata-io`, please select the dataset and version below.
+*Please select the dataset and version below to download the data.
 
 ```{raw} html
 <div style="margin: 1em 0 2em 0; padding: 1em; border: 1px solid #444; border-radius: 6px; max-width: 600px;">
