@@ -22,14 +22,15 @@ particular:
 | MERFISH                                | Mouse brain [^5]            |    ~50 MB | merfish                        | CC0 1.0   |
 | MIBI-TOF                               | Colorectal carcinoma [^6]   |    ~25 MB | mibitof                        | CC BY 4.0 |
 | Molecular Cartography (SPArrOW output) | Mouse Liver [^10][^11]      |    ~70 MB | mouse_liver                    | CC BY 4.0 |
-| SpaceM                                 | Hepa and NIH3T3 cells [^12] |    ~60 MB | spacem_hepanih3t3              | CC BY 4.0 |
+| SpaceM                                 | Hepa and NIH3T3 cells [^12] |    ~60 MB | spacem_helanih3t3              | CC BY 4.0 |
 
-*Please select the dataset and version below to download the data.
+*Please select the dataset and version below to download the data. Available versions are fetched from the S3 bucket.
 
 ```{raw} html
 <div style="margin: 1em 0 2em 0; padding: 1em; border: 1px solid #444; border-radius: 6px; max-width: 600px;">
   <label for="dataset-select"><strong>Dataset:</strong></label>
-  <select id="dataset-select" style="margin: 0.3em 0 0.8em 0.5em; padding: 0.3em;">
+  <select id="dataset-select" style="margin: 0.3em 0 0.8em 0.5em; padding: 0.3em; min-width: 300px;">
+    <option value="">-- Select a dataset --</option>
     <option value="visium_hd_3.0.0_io">visium_hd_3.0.0_io</option>
     <option value="visium_hd_4.0.1_io">visium_hd_4.0.1_io</option>
     <option value="visium_associated_xenium_io">visium_associated_xenium_io</option>
@@ -39,29 +40,92 @@ particular:
     <option value="merfish">merfish</option>
     <option value="mibitof">mibitof</option>
     <option value="mouse_liver">mouse_liver</option>
-    <option value="spacem_hepanih3t3">spacem_hepanih3t3</option>
+    <option value="spacem_helanih3t3">spacem_helanih3t3</option>
   </select>
   <br>
   <label for="version-select"><strong>Version:</strong></label>
-  <select id="version-select" style="margin: 0.3em 0 0.8em 0.5em; padding: 0.3em;">
-    <option value="_spatialdata_0.7.0_spatialdata_io_0.6.0">spatialdata 0.7.0 / spatialdata-io 0.6.0</option>
+  <select id="version-select" style="margin: 0.3em 0 0.8em 0.5em; padding: 0.3em; min-width: 300px;" disabled>
+    <option value="">-- Select a dataset first --</option>
   </select>
   <br>
   <strong>Download link: </strong>
-  <a id="download-link" href="https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_hd_3.0.0_io_spatialdata_0.7.0_spatialdata_io_0.6.0.zip">
-    https://s3.embl.de/spatialdata/spatialdata-sandbox/visium_hd_3.0.0_io_spatialdata_0.7.0_spatialdata_io_0.6.0.zip
-  </a>
+  <span id="download-link-container">Select a dataset and version above</span>
   <script>
-    function updateDownloadLink() {
-      var dataset = document.getElementById('dataset-select').value;
-      var version = document.getElementById('version-select').value;
-      var url = 'https://s3.embl.de/spatialdata/spatialdata-sandbox/' + dataset + version + '.zip';
-      var link = document.getElementById('download-link');
-      link.href = url;
-      link.textContent = url;
-    }
-    document.getElementById('dataset-select').addEventListener('change', updateDownloadLink);
-    document.getElementById('version-select').addEventListener('change', updateDownloadLink);
+    (function() {
+      var datasetSelect = document.getElementById('dataset-select');
+      var versionSelect = document.getElementById('version-select');
+      var linkContainer = document.getElementById('download-link-container');
+      var BASE_URL = 'https://s3.embl.de/spatialdata/spatialdata-sandbox/';
+
+      // datasets.json is generated at docs build time by the
+      // fetch_s3_datasets Sphinx extension (no CORS issues).
+      var JSON_URL = '../_static/datasets.json';
+
+      var cache = null;
+
+      function fetchDatasets() {
+        if (cache) return Promise.resolve(cache);
+        console.log('[spatialdata] Fetching datasets.json from ' + JSON_URL);
+        return fetch(JSON_URL)
+          .then(function(response) { return response.json(); })
+          .then(function(data) {
+            cache = data;
+            console.log('[spatialdata] Loaded datasets.json.');
+            return data;
+          });
+      }
+
+      function populateVersions(datasetId) {
+        versionSelect.disabled = true;
+        versionSelect.innerHTML = '<option value="">Loading versions...</option>';
+        linkContainer.textContent = 'Select a dataset and version above';
+
+        fetchDatasets()
+          .then(function(data) {
+            var suffixes = data[datasetId] || [];
+            if (suffixes.length === 0) {
+              versionSelect.innerHTML = '<option value="">-- No versions found --</option>';
+              return;
+            }
+            versionSelect.innerHTML = '';
+            suffixes.forEach(function(s) {
+              var opt = document.createElement('option');
+              opt.value = s;
+              opt.textContent = s === '' ? '(base)' : s.replace(/^_/, '');
+              versionSelect.appendChild(opt);
+            });
+            versionSelect.disabled = false;
+            updateDownloadLink();
+          })
+          .catch(function(err) {
+            console.error('[spatialdata] Failed to load datasets.json:', err);
+            versionSelect.innerHTML = '<option value="">-- Failed to load versions --</option>';
+          });
+      }
+
+      function updateDownloadLink() {
+        var dataset = datasetSelect.value;
+        var suffix = versionSelect.value;
+        if (!dataset) {
+          linkContainer.textContent = 'Select a dataset and version above';
+          return;
+        }
+        var url = BASE_URL + dataset + suffix + '.zip';
+        linkContainer.innerHTML = '<a href="' + url + '">' + url + '</a>';
+      }
+
+      datasetSelect.addEventListener('change', function() {
+        if (!datasetSelect.value) {
+          versionSelect.disabled = true;
+          versionSelect.innerHTML = '<option value="">-- Select a dataset first --</option>';
+          linkContainer.textContent = 'Select a dataset and version above';
+          return;
+        }
+        populateVersions(datasetSelect.value);
+      });
+
+      versionSelect.addEventListener('change', updateDownloadLink);
+    })();
   </script>
 </div>
 ```
