@@ -1,14 +1,18 @@
-"""Sphinx extension: fetch the S3 bucket listing at build time and write ``_static/datasets.json``.
+"""Sphinx extension: fetch the S3 bucket listing at build time and write ``_static/datasets_data.js``.
 
-The JSON maps each known dataset ID to a sorted list of version suffixes
-found on S3, e.g.::
+The JS file sets ``window.SPATIALDATA_DATASETS`` – a mapping of each known
+dataset ID to a sorted list of version suffixes found on S3, e.g.::
 
     {
         "merfish": ["", "_spatialdata_0.7.0_spatialdata_io_0.6.0"],
         ...
     }
 
-This avoids any browser-side CORS issues because the fetch happens
+The file is registered via ``app.add_js_file()`` so that Sphinx resolves
+the ``<script>`` path correctly even when the notebooks are embedded inside
+a parent Sphinx project.
+
+This avoids any browser-side CORS issues because the S3 fetch happens
 server-side during the Sphinx build.
 """
 
@@ -27,6 +31,12 @@ logger = logging.getLogger(__name__)
 # or matches one of these patterns.  This avoids treating unrelated files
 # (e.g. ``visium_io.zip``, ``visium_test.zip``) as versions of ``visium``.
 _VALID_SUFFIX_RE = re.compile(r"^(_spatialdata_.+|_dev|v\d.*)$")
+
+# Every dataset ID and suffix written into the JS file must match this
+# pattern.  This is a safety check to prevent injection via unexpected S3
+# key contents – only alphanumerics, dots, underscores, hyphens and plus
+# signs are allowed.
+_SAFE_TOKEN_RE = re.compile(r"^[A-Za-z0-9._+\-]*$")
 
 S3_LIST_URL = "https://s3.embl.de/spatialdata/?list-type=2&prefix=spatialdata-sandbox/&delimiter=/"
 
@@ -52,17 +62,16 @@ DATASET_IDS = sorted(
 
 
 def _fetch_and_write(app):
-    """Fetch the S3 listing and write ``datasets.json`` into ``_static/``."""
+    """Fetch the S3 listing and write ``datasets_data.js`` into ``_static/``."""
     static_dir = Path(app.srcdir) / "_static"
     static_dir.mkdir(exist_ok=True)
-    out_path = static_dir / "datasets.json"
 
     logger.info("[fetch_s3_datasets] Fetching %s", S3_LIST_URL)
     try:
         with urlopen(S3_LIST_URL, timeout=30) as resp:
             xml_bytes = resp.read()
     except Exception:
-        logger.warning("[fetch_s3_datasets] Could not reach S3 – datasets.json will not be updated.")
+        logger.warning("[fetch_s3_datasets] Could not reach S3 – datasets_data.js will not be updated.")
         return
 
     root = ElementTree.fromstring(xml_bytes)
@@ -90,10 +99,21 @@ def _fetch_and_write(app):
     for did in result:
         result[did].sort()
 
-    out_path.write_text(json.dumps(result, indent=2) + "\n")
-    logger.info("[fetch_s3_datasets] Wrote %s (%d datasets)", out_path, len(result))
+    # Safety: validate every token before embedding in a JS literal.
+    for did, suffixes in result.items():
+        if not _SAFE_TOKEN_RE.match(did):
+            logger.warning("[fetch_s3_datasets] Skipping unsafe dataset id: %r", did)
+            result[did] = []
+            continue
+        result[did] = [s for s in suffixes if _SAFE_TOKEN_RE.match(s)]
+
+    js_path = static_dir / "datasets_data.js"
+    json_str = json.dumps(result, indent=2)
+    js_path.write_text(f"window.SPATIALDATA_DATASETS = {json_str};\n")
+    logger.info("[fetch_s3_datasets] Wrote %s (%d datasets)", js_path, len(result))
 
 
 def setup(app):
     app.connect("builder-inited", _fetch_and_write)
-    return {"version": "0.1", "parallel_read_safe": True, "parallel_write_safe": True}
+    app.add_js_file("datasets_data.js")
+    return {"version": "0.2", "parallel_read_safe": True, "parallel_write_safe": True}

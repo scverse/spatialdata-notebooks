@@ -43,97 +43,141 @@ particular:
     <option value="spacem_helanih3t3">spacem_helanih3t3</option>
   </select>
   <br>
-  <label for="version-select"><strong>Version:</strong></label>
-  <select id="version-select" style="margin: 0.3em 0 0.8em 0.5em; padding: 0.3em; min-width: 300px;" disabled>
-    <option value="">-- Select a dataset first --</option>
-  </select>
-  <br>
-  <strong>Download link: </strong>
-  <span id="download-link-container">Select a dataset and version above</span>
+  <span id="latest-download-container" style="display: none;">
+    <a id="latest-download-link" href="#">Download</a>
+  </span>
+  <div id="older-versions-section" style="display: none; margin-top: 0.5em;">
+    <a href="#" id="toggle-older-versions" style="font-size: 0.9em;">&#9654; Download a specific version</a>
+    <div id="older-versions-content" style="display: none; margin-top: 0.5em;">
+      <label for="version-select"><strong>Version:</strong></label>
+      <select id="version-select" style="margin: 0.3em 0 0.8em 0.5em; padding: 0.3em; min-width: 300px;">
+      </select>
+      <br>
+      <span id="download-link-container"></span>
+    </div>
+  </div>
   <script>
     (function() {
       var datasetSelect = document.getElementById('dataset-select');
       var versionSelect = document.getElementById('version-select');
       var linkContainer = document.getElementById('download-link-container');
+      var latestContainer = document.getElementById('latest-download-container');
+      var latestLink = document.getElementById('latest-download-link');
+      var olderSection = document.getElementById('older-versions-section');
+      var toggleOlder = document.getElementById('toggle-older-versions');
+      var olderContent = document.getElementById('older-versions-content');
       var BASE_URL = 'https://s3.embl.de/spatialdata/spatialdata-sandbox/';
 
-      // datasets.json is generated at docs build time by the
-      // fetch_s3_datasets Sphinx extension (no CORS issues).
-      // Derive the path to _static/ from DOCUMENTATION_OPTIONS.pagename so
-      // it works both standalone and when embedded in the parent docs.
-      var contentRoot = '../';
-      if (typeof DOCUMENTATION_OPTIONS !== 'undefined' && DOCUMENTATION_OPTIONS.pagename) {
-        var depth = DOCUMENTATION_OPTIONS.pagename.split('/').length - 1;
-        contentRoot = '';
-        for (var i = 0; i < depth; i++) contentRoot += '../';
-        if (!contentRoot) contentRoot = './';
+      // Suffix values are validated server-side by the Sphinx extension
+      // (alphanumerics, dots, underscores, hyphens, plus signs only) before
+      // being written into datasets_data.js.  Re-check here as defence in
+      // depth before using them in URLs.
+      var SAFE_RE = /^[A-Za-z0-9._+\-]*$/;
+
+      function buildUrl(datasetId, suffix) {
+        if (!SAFE_RE.test(datasetId) || !SAFE_RE.test(suffix)) return null;
+        return BASE_URL + encodeURIComponent(datasetId + suffix + '.zip');
       }
-      var JSON_URL = contentRoot + '_static/datasets.json';
 
-      var cache = null;
+      function makeDownloadLink(url) {
+        var a = document.createElement('a');
+        a.href = url;
+        a.textContent = 'Download';
+        return a;
+      }
 
-      function fetchDatasets() {
-        if (cache) return Promise.resolve(cache);
-        console.log('[spatialdata] Fetching datasets.json from ' + JSON_URL);
-        return fetch(JSON_URL)
-          .then(function(response) { return response.json(); })
-          .then(function(data) {
-            cache = data;
-            console.log('[spatialdata] Loaded datasets.json.');
-            return data;
-          });
+      // dataset version data is set by datasets_data.js, which is generated
+      // at docs build time by the fetch_s3_datasets Sphinx extension and
+      // included via app.add_js_file() (no browser-side fetch needed).
+      function getDatasets() {
+        if (typeof window.SPATIALDATA_DATASETS !== 'undefined') {
+          return window.SPATIALDATA_DATASETS;
+        }
+        return null;
+      }
+
+      function showError() {
+        latestContainer.textContent = '';
+        var em = document.createElement('em');
+        em.style.color = '#c44';
+        em.textContent = 'Could not load version data. Download datasets directly from ';
+        var a = document.createElement('a');
+        a.href = BASE_URL;
+        a.textContent = 'the S3 bucket';
+        em.appendChild(a);
+        em.appendChild(document.createTextNode('.'));
+        latestContainer.appendChild(em);
+        latestContainer.style.display = '';
       }
 
       function populateVersions(datasetId) {
-        versionSelect.disabled = true;
-        versionSelect.innerHTML = '<option value="">Loading versions...</option>';
-        linkContainer.textContent = 'Select a dataset and version above';
+        latestContainer.style.display = 'none';
+        olderSection.style.display = 'none';
+        olderContent.style.display = 'none';
 
-        fetchDatasets()
-          .then(function(data) {
-            var suffixes = data[datasetId] || [];
-            if (suffixes.length === 0) {
-              versionSelect.innerHTML = '<option value="">-- No versions found --</option>';
-              return;
-            }
-            versionSelect.innerHTML = '';
-            suffixes.forEach(function(s) {
-              var opt = document.createElement('option');
-              opt.value = s;
-              opt.textContent = s === '' ? '(base)' : s.replace(/^_/, '');
-              versionSelect.appendChild(opt);
-            });
-            versionSelect.disabled = false;
-            updateDownloadLink();
-          })
-          .catch(function(err) {
-            console.error('[spatialdata] Failed to load datasets.json:', err);
-            versionSelect.innerHTML = '<option value="">-- Failed to load versions --</option>';
-          });
+        var data = getDatasets();
+        if (!data) { showError(); return; }
+
+        var suffixes = (data[datasetId] || []).slice();
+        if (suffixes.length === 0) return;
+
+        // Sort version strings to determine the latest
+        suffixes.sort();
+        var latestSuffix = suffixes[suffixes.length - 1];
+        var latestUrl = buildUrl(datasetId, latestSuffix);
+        if (!latestUrl) { showError(); return; }
+
+        // Show the latest download link
+        latestLink.href = latestUrl;
+        latestContainer.textContent = '';
+        latestContainer.appendChild(makeDownloadLink(latestUrl));
+        latestContainer.style.display = '';
+
+        // Show the version picker when there are multiple versions
+        if (suffixes.length > 1) {
+          olderSection.style.display = '';
+          versionSelect.textContent = '';
+          // List all versions, newest-first; mark the latest
+          for (var i = suffixes.length - 1; i >= 0; i--) {
+            var s = suffixes[i];
+            var label = s === '' ? '(base)' : s.replace(/^_/, '');
+            if (i === suffixes.length - 1) label += ' (latest)';
+            var opt = document.createElement('option');
+            opt.value = s;
+            opt.textContent = label;
+            versionSelect.appendChild(opt);
+          }
+          updateOlderDownloadLink();
+        }
       }
 
-      function updateDownloadLink() {
+      function updateOlderDownloadLink() {
         var dataset = datasetSelect.value;
         var suffix = versionSelect.value;
-        if (!dataset) {
-          linkContainer.textContent = 'Select a dataset and version above';
-          return;
-        }
-        var url = BASE_URL + dataset + suffix + '.zip';
-        linkContainer.innerHTML = '<a href="' + url + '">' + url + '</a>';
+        if (!dataset) return;
+        var url = buildUrl(dataset, suffix);
+        linkContainer.textContent = '';
+        if (url) linkContainer.appendChild(makeDownloadLink(url));
       }
 
       datasetSelect.addEventListener('change', function() {
         if (!datasetSelect.value) {
-          versionSelect.disabled = true;
-          versionSelect.innerHTML = '<option value="">-- Select a dataset first --</option>';
-          linkContainer.textContent = 'Select a dataset and version above';
+          latestContainer.style.display = 'none';
+          olderSection.style.display = 'none';
+          olderContent.style.display = 'none';
           return;
         }
         populateVersions(datasetSelect.value);
       });
 
-      versionSelect.addEventListener('change', updateDownloadLink);
+      toggleOlder.addEventListener('click', function(e) {
+        e.preventDefault();
+        var visible = olderContent.style.display !== 'none';
+        olderContent.style.display = visible ? 'none' : '';
+        toggleOlder.textContent = (visible ? '\u25B6' : '\u25BC') + ' Download a specific version';
+      });
+
+      versionSelect.addEventListener('change', updateOlderDownloadLink);
     })();
   </script>
 </div>

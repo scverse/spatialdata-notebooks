@@ -18,7 +18,7 @@ __pycache__/
 # docs
 generated/
 _build/
-_static/datasets.json
+_static/datasets_data.js
 
 # IDEs
 /.idea/
