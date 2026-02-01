@@ -59,7 +59,16 @@ particular:
 
       // datasets.json is generated at docs build time by the
       // fetch_s3_datasets Sphinx extension (no CORS issues).
-      var JSON_URL = '../_static/datasets.json';
+      // Derive the path to _static/ from DOCUMENTATION_OPTIONS.pagename so
+      // it works both standalone and when embedded in the parent docs.
+      var contentRoot = '../';
+      if (typeof DOCUMENTATION_OPTIONS !== 'undefined' && DOCUMENTATION_OPTIONS.pagename) {
+        var depth = DOCUMENTATION_OPTIONS.pagename.split('/').length - 1;
+        contentRoot = '';
+        for (var i = 0; i < depth; i++) contentRoot += '../';
+        if (!contentRoot) contentRoot = './';
+      }
+      var JSON_URL = contentRoot + '_static/datasets.json';
 
       var cache = null;
 
