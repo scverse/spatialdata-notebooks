@@ -1,0 +1,23 @@
+[workspace]
+authors = ["Tim Treis <tim.treis@helmholtz-munich.de>"]
+channels = ["conda-forge"]
+name = "examples"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+register-kernel = "python -m ipykernel install --user --name examples --display-name 'Python (examples)'"
+
+[dependencies]
+python = ">=3.11"
+ipykernel = "*"
+watermark = "*"
+"pandas" = "<3"
+matplotlib = ">=3.10.9,<4"
+numpy = ">=2.4.5,<3"
+
+[pypi-dependencies]
+spatialdata = "==0.7.3"
+spatialdata-plot = "==0.3.4"
+spatialdata-io = "==0.7.0"
+squidpy = "==1.8.1"
