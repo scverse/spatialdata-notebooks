@@ -92,6 +92,18 @@ See the bottom of this page for links to analysis tutorials for external methods
 
         .. container:: custom-card
 
+            .. image:: _static/img/create_cells_dataset.png
+                :target: notebooks/examples/create_cells_dataset.html
+
+            .. toctree::
+                :maxdepth: 1
+
+                notebooks/examples/create_cells_dataset.ipynb
+
+    .. grid-item::
+
+        .. container:: custom-card
+
             .. image:: _static/img/table.png
                 :target: notebooks/examples/tables.html
 
